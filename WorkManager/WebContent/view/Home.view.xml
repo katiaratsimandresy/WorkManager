@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc:View controllerName="com.kalydia.edfen.workmanager.controller.Home"
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<TileContainer id="tileContainer" tiles="{mainTiles>/TileCollection}">
+		<StandardTile removable="false" icon="sap-icon://{mainTiles>icon}"
+			info="{ path : 'mainTiles>info', formatter : '.getI18nValue' }"
+			infoState="{mainTiles>infoState}" number="{mainTiles>number}"
+			numberUnit="{mainTiles>numberUnit}"
+			title="{ path : 'mainTiles>title', formatter : '.getI18nValue' }"
+			type="{mainTiles>type}" press=".navTo" />
+	</TileContainer>
+</mvc:View>

@@ -1,0 +1,415 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:tnt="sap.tnt"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+
+	<IconTabFilter icon="sap-icon://clinical-tast-tracker"
+		text="{i18n>workOrderDetails.tab.checklist}" key="Checklist"
+		enabled="{
+			parts: [
+				{path: 'ViewModel>/ActivitySelected'},
+				{path: 'ViewModel>/ChecklistAssigned'}
+			],
+			formatter: '.checklistTabState'
+		}">
+		<content>
+			<f:SimpleForm id="ChecklistForm" minWidth="1024"
+				maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+				class="editableForm">
+				<f:content>
+
+					<IconTabBar id="checkListMainIconTabBar" select="handleCheckListMainIconTabBarSelect"
+						applyContentPadding="false" backgroundDesign="Transparent">
+
+						<items>
+
+							<!-- DOCUMENTS -->
+
+							<IconTabFilter key="orderActivityChecklistDocuments"
+								text="{i18n>workOrderDetails.checklist.document}" textDirection="RTL"
+								design="Vertical" icon="sap-icon://documents">
+
+								<content>
+
+									<List id="orderActivityChecklistDocumentsList"
+										backgroundDesign="Translucent" items="{}">
+
+										<CustomListItem press="handleChecklistDocumentLinePress">
+											<FlexBox alignItems="Center" justifyContent="Left">
+												<items>
+													<core:Icon
+														src="{
+															path: 'work>Mimetype',
+															formatter: '.formatIconMimeType'
+														}"
+														class="sapUiSmallMarginBegin sapUiMediumMarginEnd" />
+													<Link text="{work>Title}" target="{work>UrlLink}"
+														press="handleChecklistDocumentPress" />
+												</items>
+											</FlexBox>
+										</CustomListItem>
+
+									</List>
+								</content>
+
+							</IconTabFilter>
+
+							<!-- TOOLS -->
+
+							<IconTabFilter key="orderActivityChecklistTools"
+								text="{i18n>workOrderDetails.checklist.tools}" textDirection="RTL"
+								design="Vertical" icon="sap-icon://wrench">
+
+								<content>
+
+									<Table id="orderActivityChecklistToolTable"
+										backgroundDesign="Translucent" items="{}">
+
+										<columns>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="{i18n>oData.CheckListTool.ToolId}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.CheckListTool.ToolDescription}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="{i18n>oData.CheckListTool.ToolQuantity}" />
+												</header>
+											</Column>
+										</columns>
+
+										<items>
+											<ColumnListItem>
+												<Text text="{work>ToolId}" />
+												<Text text="{work>ToolDescription}" />
+												<Text text="{work>ToolQuantity}" />
+											</ColumnListItem>
+										</items>
+
+									</Table>
+
+								</content>
+
+							</IconTabFilter>
+
+							<!-- PARTS AND CONS -->
+
+							<IconTabFilter key="orderActivityChecklistParts"
+								text="{i18n>workOrderDetails.checklist.parts}" textDirection="RTL"
+								design="Vertical" icon="sap-icon://technical-object">
+
+								<content>
+
+									<Table id="orderActivityChecklistPartTable"
+										backgroundDesign="Translucent" items="{}">
+
+										<columns>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="{i18n>oData.CheckListPart.PartId}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.CheckListPart.PartDescription}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.CheckListPart.PartQuantExcel}" />
+												</header>
+											</Column>
+										</columns>
+
+										<items>
+											<ColumnListItem>
+												<Text text="{work>PartId}" />
+												<Text text="{work>PartDescription}" />
+												<Text text="{work>PartQuantExcel}" />
+											</ColumnListItem>
+										</items>
+
+									</Table>
+
+								</content>
+
+							</IconTabFilter>
+
+							<!-- TOOLS WITH CALIBRATION -->
+
+							<IconTabFilter key="orderActivityChecklistCaliTool"
+								text="{i18n>workOrderDetails.checklist.toolsCalibration}"
+								textDirection="RTL" design="Vertical" icon="sap-icon://wrench">
+
+								<content>
+
+									<Table id="orderActivityChecklistCaliToolTable"
+										backgroundDesign="Translucent" items="{}">
+										<headerToolbar>
+											<OverflowToolbar>
+												<ToolbarSpacer />
+												<Button id="buttonScanCaliTool" type="Emphasized"
+													icon="sap-icon://bar-code" text="{i18n>workOrderDetails.checklist.calitool.scan}"
+													press="handleScanCaliTool" />
+												<Button id="buttonAddCaliTool" type="Emphasized"
+													icon="sap-icon://add" text="{i18n>workOrderDetails.checklist.calitool.add}"
+													press="handleAddCaliTool" />
+											</OverflowToolbar>
+										</headerToolbar>
+										<columns>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationCheckListCaliTool.ToolcalId}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationCheckListCaliTool.Comment}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationCheckListCaliTool.ToolcalSn}" />
+												</header>
+											</Column>
+<!-- 											<Column hAlign="Center" vAlign="Middle"> -->
+<!-- 												<header> -->
+<!-- 													<ObjectIdentifier -->
+<!-- 														title="{i18n>oData.OrderOperationCheckListCaliTool.ToolcalDate}" /> -->
+<!-- 												</header> -->
+<!-- 											</Column> -->
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.CheckListCaliTool.ToolcalIntRef}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="" />
+												</header>
+											</Column>
+										</columns>
+
+										<items>
+											<ColumnListItem>
+												<Text text="{work>ToolcalDesc}" />
+												<Text text="{work>Comment}" />
+												<Text text="{work>ToolcalSn}" />
+<!-- 												<Text -->
+<!-- 													text="{path: 'work>ToolcalDate', formatter: '.formatDateTimeToDateString'}" /> -->
+												<Text text="{work>ToolcalIntRef}" />
+												<Button icon="sap-icon://delete" press="handleDeleteCaliTool"
+													type="Transparent"
+													enabled="{path: 'ViewModel>/Manager', formatter: '.formatFlag'}" />
+											</ColumnListItem>
+										</items>
+
+									</Table>
+
+								</content>
+
+							</IconTabFilter>
+
+							<IconTabSeparator />
+
+							<!-- CHECKLIST -->
+
+							<IconTabFilter key="orderActivityChecklistChecklist"
+								text="{i18n>workOrderDetails.checklist.checklist}" design="Vertical"
+								count="{ViewModel>/CheckListTotal}" icon="sap-icon://clinical-tast-tracker">
+
+								<content>
+
+									<!-- PROGRESS BARS -->
+
+									<!-- <l:VerticalLayout width="100%"> -->
+									<!-- <l:content> -->
+									<!-- <ProgressIndicator -->
+									<!-- percentValue="{ -->
+									<!-- path: 'ViewModel>/CheckListPercent', -->
+									<!-- formatter: '.initProgressBarValue' -->
+									<!-- }" -->
+									<!-- displayValue="{ViewModel>/CheckListQuickInfo}" showValue="true" -->
+									<!-- state="None" /> -->
+									<!-- <ProgressIndicator -->
+									<!-- percentValue="{ -->
+									<!-- path: 'ViewModel>/CheckListOKPercent', -->
+									<!-- formatter: '.initProgressBarValue' -->
+									<!-- }" -->
+									<!-- displayValue="{ViewModel>/CheckListOKQuickInfo}" showValue="true" -->
+									<!-- state="Success" /> -->
+									<!-- <ProgressIndicator -->
+									<!-- percentValue="{ -->
+									<!-- path: 'ViewModel>/CheckListKOPercent', -->
+									<!-- formatter: '.initProgressBarValue' -->
+									<!-- }" -->
+									<!-- displayValue="{ViewModel>/CheckListKOQuickInfo}" showValue="true" -->
+									<!-- state="Error" /> -->
+									<!-- </l:content> -->
+									<!-- </l:VerticalLayout> -->
+
+								</content>
+
+							</IconTabFilter>
+
+							<!-- INCOMPLETE TASKS -->
+
+							<IconTabFilter enabled="true"
+								icon="sap-icon://status-in-process" iconColor="Positive" design="Vertical"
+								count="{ViewModel>/CheckListIncomplete}" text="{i18n>workOrderDetails.checklist.check}"
+								key="Incomplete" />
+
+							<!-- OK TASKS -->
+
+							<IconTabFilter enabled="true" icon="sap-icon://status-positive"
+								iconColor="Positive" design="Vertical" count="{ViewModel>/CheckListOK}"
+								text="{i18n>workOrderDetails.checklist.ok}" key="OK" visible="false" />
+
+							<!-- KO TASKS -->
+
+							<IconTabFilter enabled="true" icon="sap-icon://status-error"
+								iconColor="Negative" design="Vertical" count="{ViewModel>/CheckListKO}"
+								text="{i18n>workOrderDetails.checklist.ko}" key="KO" />
+
+							<IconTabSeparator visible="{ViewModel>/DisplayFindings}" />
+
+							<!-- FINDINGS -->
+
+							<IconTabFilter key="orderActivityChecklistFindings"
+								text="{i18n>workOrderDetails.checklist.findings}" textDirection="RTL"
+								design="Vertical" icon="sap-icon://search"
+								visible="{ViewModel>/DisplayFindings}">
+
+								<content>
+									<f:SimpleForm minWidth="1024" id="CheckListFindingForm"
+										maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+										class="editableForm">
+
+										<f:content>
+											<!-- Picture -->
+											<Button icon="sap-icon://camera" press="handleFindingCapture"
+												type="Transparent" id="findingCameraButton" />
+											<Button icon="sap-icon://open-folder" press="handleFindingLibrary"
+												type="Transparent" id="findingLibraryButton" />
+											<Button icon="sap-icon://sys-cancel" press="handleFindingRemovePict"
+												type="Transparent" />
+											<Label text="{i18n>workOrderDetails.checklist.checklist.picture}" />
+											<l:HorizontalLayout class="sapUiSmallMargin">
+												<Image id="findingPicture" class="sapUiSmallMarginEnd"
+													press="_enlargeImage"
+													src="{
+														path: 'work>__metadata',
+														formatter: '.imageUrlForCheckListAttachment'
+													}"
+													densityAware="true" width="100px" height="75px" />
+
+											</l:HorizontalLayout>
+
+											<Label text="{i18n>oData.OrderOperationCheckList.Comment}" />
+											<TextArea rows="5" value="{InputModel>/FindingComment}"
+												change="submitCheckListFinding" />
+
+										</f:content>
+
+									</f:SimpleForm>
+
+								</content>
+
+							</IconTabFilter>
+
+
+						</items>
+
+						<content>
+							<!-- CHECKLIST FILTERS -->
+
+							<Breadcrumbs currentLocationText="{ViewModel>/ChecklistTaskFilter}"
+								links="{ViewModel>/ChecklistTaskFilterPath}">
+								<Link emphasized="true" press="handleCheckListSelect"
+									text="{ViewModel>sPath}" />
+							</Breadcrumbs>
+
+							<IconTabBar id="CheckListLevel" applyContentPadding="false"
+								select="handleCheckListLevelSelect" backgroundDesign="Transparent"
+								headerMode="Inline" expanded="{ViewModel>/bChklstLoc}"
+								items="{
+													path: 'ChecklistTask>/aChklstLoc2',
+													sorter : {
+														path : 'sPath',
+														descending : false
+													}
+												}">
+
+								<items>
+									<IconTabFilter text="{ChecklistTask>sPath}" key="{ChecklistTask>sKey}"
+										count="{ChecklistTask>iCount}" />
+								</items>
+							</IconTabBar>
+
+
+							<!-- CHECKLIST TASKS -->
+
+							<List id="orderActivityChecklistTaskList" items="{}"
+								growingThreshold="250" backgroundDesign="Transparent">
+
+								<CustomListItem>
+
+									<Toolbar design="Transparent">
+										<Bar>
+											<contentLeft>
+												<Button text="{work>TaskDescription}" press="handleOpenTask">
+													<layoutData>
+														<FlexItemData growFactor="1" />
+													</layoutData>
+												</Button>
+											</contentLeft>
+											<contentRight>
+												<Button icon="sap-icon://measure" press="handleOpenTask"
+													class="sapUiSmallMarginBegin"
+													visible="{path: 'work>MeasStatus', formatter: '.formatTaskMeasureVisible'}"
+													type="{path: 'work>MeasStatus', formatter: '.formatMeasStatusColor'}" />
+												<ToggleButton text="{i18n>workOrderDetails.summary.checklist.ko}"
+													key="KO" press="handleCheckListTaskKo" type="Reject"
+													pressed="{path: 'work>Statut', formatter: '.formatKOButton'}"
+													enabled="{parts:[{path: 'work>Comment'},
+													                 {path: 'work>MeasStatus'}], 
+													          formatter: '.formatKOButtonEnabled'}"
+													app:currentStatus="{work>Statut}" />
+												<ToggleButton text="{i18n>workOrderDetails.summary.checklist.ok}"
+													key="OK" press="handleCheckListTaskOk" type="Accept"
+													pressed="{path: 'work>Statut', formatter: '.formatOKButton'}"
+													enabled="{path: 'work>MeasStatus', formatter: '.formatOKButtonEnabled'}"
+													app:currentStatus="{work>Statut}" />
+												<ToggleButton text="{i18n>workOrderDetails.summary.checklist.na}"
+													key="NA" press="handleCheckListTaskNa" type="Default"
+													pressed="{path: 'work>Statut', formatter: '.formatNAButton'}"
+													app:currentStatus="{work>Statut}" />
+											</contentRight>
+										</Bar>
+									</Toolbar>
+
+								</CustomListItem>
+
+							</List>
+						</content>
+
+					</IconTabBar>
+
+				</f:content>
+			</f:SimpleForm>
+		</content>
+	</IconTabFilter>
+
+</core:FragmentDefinition>

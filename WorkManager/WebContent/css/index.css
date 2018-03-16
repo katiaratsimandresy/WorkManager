@@ -1,0 +1,13 @@
+#splash-screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	background-image: url('../images/logo_big.jpg');
+	background-color: #ffffff !important;
+	background-size: 50% !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+}

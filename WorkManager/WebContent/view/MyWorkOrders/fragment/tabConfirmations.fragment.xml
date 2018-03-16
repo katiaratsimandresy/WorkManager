@@ -1,0 +1,279 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<IconTabFilter icon="sap-icon://timesheet"
+		text="{i18n>workOrderDetails.tab.timeMaterialEntry}" key="Confirmations"
+		enabled="{
+			path: 'ViewModel>/ActivitySelected',
+			formatter: '.formatFlag'
+		}">
+		<content>
+			<f:SimpleForm id="ConfirmationOrderForm" minWidth="1024"
+				maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+				class="editableForm">
+				<f:content>
+					<IconTabBar id="confirmationIconTabBar" select="handleIconTabBarSelect"
+						applyContentPadding="false" backgroundDesign="Transparent">
+						<items>
+
+							<!-- TIME CONFIRMATION TAB -->
+
+							<IconTabFilter key="orderActivityConfirmation"
+								text="{i18n>timeAndMaterialEntry.filter.orderActivityConfirmation}"
+								icon="sap-icon://timesheet" textDirection="RTL" design="Horizontal">
+								<content>
+
+									<Table id="orderActivityConfirmations" fixedLayout="false"
+										backgroundDesign="Translucent" items="{}">
+										<!-- Used to display Time entries -->
+										<headerToolbar>
+											<OverflowToolbar>
+												<ToolbarSpacer />
+												<Button type="Emphasized" icon="sap-icon://create-entry-time"
+													text="{i18n>timeAndMaterialEntry.detail.orderConfirmation.create}"
+													press="handleCreateConfirmation" />
+											</OverflowToolbar>
+										</headerToolbar>
+										<columns>
+											<Column hAlign="Center" vAlign="Middle" width="5%">
+												<header />
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationConfirmation.Acttype}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationConfirmation.OtCompType}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationConfirmation.Workdate}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationConfirmation.Starttime}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationConfirmation.Endtime}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderOperationConfirmation.FinConf}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle" width="10%">
+												<header />
+											</Column>
+											<Column hAlign="Center" vAlign="Middle" width="10%">
+												<header />
+											</Column>
+											<Column hAlign="Center" vAlign="Middle" width="10%">
+												<header />
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header />
+											</Column>
+										</columns>
+										<items id="orderActivityConfirmationsList" selected="true" growingThreshold="1000">
+											<ColumnListItem press="handleConfirmationPress"
+												type="Navigation">
+												<CheckBox id="SelectConf" select="handleConfirmationSelect"
+													selected="false"
+													visible="{
+														parts: [
+															{path:'work>Status'},
+															{path:'work>UserFullname'}
+														],
+														formatter:'.confirmationIsCopyable'
+													}" />
+												<Text text="{work>Acttype}" wrapping="false" />
+												<Text text="{work>OtCompTypeText}" wrapping="false" />
+												<Text
+													text="{path:'work>Workdate', formatter:'.formatDateTimeToDateString'}"
+													wrapping="false" />
+												<Text
+													text="{path:'work>Starttime', formatter:'.formatToTimeString'}"
+													wrapping="false" />
+												<Text
+													text="{
+														parts: [
+															{path:'work>Endtime'},
+															{path:'work>Status'}
+														], 
+														formatter:'.formatConfirmationEndtime'
+													}"
+													wrapping="false" />
+												<CheckBox id="FinConf" editable="false"
+													selected="{path:'work>FinConf', formatter:'.formatFlag'}" />
+												<Button icon="sap-icon://edit" press="handleEditConfirmations"
+													type="Transparent"
+													visible="{
+														parts:[
+															{path:'work>Status'},
+															{path:'work>UserFullname'}	
+														], 
+														formatter:'.confirmationIsEditable'
+													}" />
+												<Button icon="sap-icon://delete" press="submitConfirmationDelete"
+													type="Transparent"
+													visible="{path:'work>Status', formatter:'.confirmationIsChangeable'}" />
+												<FlexBox direction="Column">
+													<Button icon="sap-icon://duplicate" press="handleCopyConfirmations"
+														type="Transparent"
+														visible="{
+															parts: [
+																{path:'work>Status'},
+																{path:'work>UserFullname'}
+															],
+															formatter:'.confirmationIsCopyable'
+														}" />
+													<Button icon="sap-icon://media-play" press="handleEndConfirmations"
+														type="Transparent"
+														visible="{path:'work>Status', formatter:'.confirmationIsDraft'}" />
+												</FlexBox>
+												<core:Icon
+													src="{ path : 'work>@com.sap.vocabularies.Offline.v1.inErrorState',
+														formatter: '.iconSaveStatus' }" />
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</IconTabFilter>
+
+							<!-- MATERIAL CONFIRMATION TAB -->
+
+							<IconTabFilter key="orderActivityComponent"
+								text="{i18n>timeAndMaterialEntry.filter.orderActivityComponent}"
+								icon="sap-icon://technical-object" textDirection="RTL" design="Horizontal">
+								<content>
+									<Table id="orderActivityComponents" backgroundDesign="Translucent"
+										items="{}">
+										<!-- Used to display Material entries -->
+										<columns>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="{i18n>oData.OrderComponent.Material}" />
+												</header>
+											</Column>
+											<Column width="20%" hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="{i18n>oData.OrderComponent.MatlDesc}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>oData.OrderComponent.RequirementQuantity}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="{i18n>oData.OrderComponent.WithdQuan}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier title="{i18n>oData.OrderComponent.WithdQuan}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle">
+												<header>
+													<ObjectIdentifier
+														title="{i18n>timeAndMaterialEntry.detail.orderComponent.remQuantity}" />
+												</header>
+											</Column>
+											<Column hAlign="Center" vAlign="Middle" width="3%">
+												<header />
+											</Column>
+										</columns>
+										<items id="orderActivityComponentsList">
+											<ColumnListItem>
+												<Text
+													text="{path:'work>Material', formatter:'.formatRemoveLeadingZeros'}" />
+												<Text text="{work>MatlDesc}" />
+												<Text text="{work>RequirementQuantity}" />
+												<FlexBox>
+													<Button icon="sap-icon://sys-minus" press="handleDecrementWithdQuanDelta"
+														visible="{	parts:[
+																				{path: 'work>ItemCat'},
+																				{path: 'work>StgeLoc'}
+																				],
+																			formatter: '.confirmationComponentIsNotInError'
+																		}"
+														enabled="{ parts:[
+															{path: 'work>Withdrawn'},
+															{path: 'work>ItemCat'},
+															{path: 'work>StgeLoc'}
+															], formatter:'.confirmationComponentIsPossible'}" />
+													<core:Icon src="sap-icon://alert" color="red"
+														visible="{	parts:[
+																				{path: 'work>ItemCat'},
+																				{path: 'work>StgeLoc'}
+																				],
+																			formatter: '.confirmationComponentIsInError'
+																		}">
+													</core:Icon>
+													<Input type="Number" value="{work>WithdQuanDelta}"
+														width="95%" change="handleChangeWithdQuanDelta"
+														visible="{	parts:[
+																				{path: 'work>ItemCat'},
+																				{path: 'work>StgeLoc'}
+																				],
+																			formatter: '.confirmationComponentIsNotInError'
+																		}"
+														enabled="{	parts:[
+																			{path: 'work>Withdrawn'},
+																			{path: 'work>ItemCat'},
+																			{path: 'work>StgeLoc'}
+																		], formatter:'.confirmationComponentIsPossible'}" />
+													<Button icon="sap-icon://sys-add" press="handleIncrementWithdQuanDelta"
+														visible="{	parts:[
+																				{path: 'work>ItemCat'},
+																				{path: 'work>StgeLoc'}
+																				],
+																			formatter: '.confirmationComponentIsNotInError'
+																		}"
+														enabled="{parts:[
+																				{path: 'work>Withdrawn'},
+																				{path: 'work>ItemCat'},
+																				{path: 'work>StgeLoc'}
+																			], formatter:'.confirmationComponentIsPossible'}" />
+												</FlexBox>
+												<Text text="{work>WithdQuan}" />
+												<Text
+													text="{
+														parts:[
+															{path: 'work>RequirementQuantity'},
+															{path: 'work>WithdQuan'}
+															], 
+														formatter: '.calcRemQuantity'
+													}" />
+												<core:Icon
+													src="{ path : 'work>@com.sap.vocabularies.Offline.v1.inErrorState',
+														formatter: '.iconSaveStatus' }" />
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+	</IconTabFilter>
+
+</core:FragmentDefinition>

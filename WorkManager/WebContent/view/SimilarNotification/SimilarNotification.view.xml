@@ -1,0 +1,107 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:ca_ui="sap.ca.ui"
+	controllerName="com.kalydia.edfen.workmanager.controller.SimilarNotification.SimilarNotification"
+	xmlns="sap.m">
+	<Page showHeader="false" showNavButton="false">
+		<content>
+			<f:SimpleForm id="detailForm" title="{i18n>similarNotification.title}"
+				class="editableForm">
+				<f:content>
+				
+					<Label text="{i18n>oData.FuncLoc.Funcloc}" />
+					<Text text="{work>Funcloc} - {work>Descript}" />
+					
+				</f:content>
+			</f:SimpleForm>
+			<Table id="NotificationTable" 
+				items="{
+			      path: 'work>/NotifHeaderSet',			    
+			      filters:[{
+			      	path: 'Complete', 
+			      	operator: 'EQ',
+			      	value1: '' 
+			      },{
+			      	path: 'WorkCntr', 
+			      	operator: 'EQ',
+			      	value1: 'Z' 
+			      }]
+			    }"
+			    growingThreshold="1000">	
+				<headerToolbar>
+					<Toolbar>
+						<ObjectIdentifier title="{i18n>similarNotification.list.title}"></ObjectIdentifier>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column id="NotifNo" hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.NotifHeader.NotifNo}" />
+						</header>
+					</Column>
+					<Column id="ShortText" hAlign="Left" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.NotifHeader.ShortText}" />
+						</header>
+					</Column>
+					<Column id="FunctLoc" hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.NotifHeader.FunctLoc}" />
+						</header>
+					</Column>
+					<Column id="Priority" hAlign="Center" vAlign="Middle" visible="false">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.NotifHeader.Priority}" />
+						</header>
+					</Column>
+					<Column id="PriorityText" hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.NotifHeader.Priority}" />
+						</header>
+					</Column>
+					<Column id="CreatedBy" hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.NotifHeader.CreatedBy}" />
+						</header>
+					</Column>
+					<Column id="CreatedDate" hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.NotifHeader.CreatedDate}" />
+						</header>
+					</Column>
+				</columns>
+				<items id="NotificationList">
+					<ColumnListItem type="Navigation" press="openNotification">
+						<ObjectIdentifier 
+							text="{path:'work>NotifNo', formatter:'.formatRemoveLeadingZeros'}" />
+						<ObjectIdentifier text="{work>ShortText}" />
+						<ObjectIdentifier text="{work>FunctLoc}" />
+						<ObjectIdentifier text="{work>Priority}" />
+						<ObjectStatus text="{work>PriorityText}"
+							state="{path:'work>Priority', formatter:'.formatState'}" />
+						<ObjectIdentifier text="{work>CreatedBy}" />
+						<ObjectIdentifier 
+							text="{path:'work>CreatedDate', formatter:'.formatDateTimeToDateString'}" />
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Bar>
+				<contentLeft>
+					<Select icon="sap-icon://sort" type="IconOnly" id="sorter"
+						selectedKey="null" autoAdjustWidth="true" change="handleSorting">
+						<core:Item key="NotifNo" text="{i18n>oData.NotifHeader.NotifNo}"></core:Item>
+						<core:Item key="Priority" text="{i18n>oData.NotifHeader.Priority}"></core:Item>
+						<core:Item key="FunctLoc" text="{i18n>oData.NotifHeader.FunctLoc}"></core:Item>
+						<core:Item key="CreatedDate" text="{i18n>oData.NotifHeader.CreatedDate}"></core:Item>
+						<core:Item key="NotifDate" text="{i18n>oData.NotifHeader.NotifDate}"></core:Item>	
+					</Select>
+					
+					<Button icon="sap-icon://nav-back" press="handleNavBack" />
+				</contentLeft>
+			</Bar>
+		</footer>
+	</Page>
+
+</mvc:View>

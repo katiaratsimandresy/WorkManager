@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>oData.OrderOperationAssignment.Employeenumber}"
+		contentWidth="70%" showHeader="true" horizontalScrolling="false"
+		draggable="true" class="sapUiPopupWithPadding">
+
+		<content>
+			<Select width="100%"
+				items="{path: '/WorkCenterSet', sorters: [{path: 'WorkCntr'}]}"
+				selectedKey="{ViewModel>/WorkCntr}" change="handleWorkCntrSelectChange">
+				<items>
+					<core:Item text="{WorkCntr} - {WorkCtrTxt}" key="{WorkCntr}" />
+				</items>
+			</Select>
+			<SearchField search="handleSearchEmployeenumber"
+				liveChange="handleSearchEmployeenumber" value="{ViewModel>/SearchEmployeeNumber}" />
+			<Table id="employeeNumberTable"
+				items="{
+			      path: '/EmployeeWorkCenterSet',
+			      sorter : {
+			        path : 'UserFullname',
+			        descending : true
+	 			  },				    
+			      filters:[{
+			      	path: 'WorkCntr', 
+			      	operator: 'EQ',
+			      	value1: 'ZZZZZZZZ' 
+			      }]
+			    }">
+
+				<columns>
+					<Column hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.EmployeeWorkCenter.PersonNo}" />
+						</header>
+					</Column>
+					<Column hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.EmployeeWorkCenter.UserFullname}" />
+						</header>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Active" press="validEmployeenumber">
+						<Text text="{PersonNo}" />
+						<Text text="{UserFullname}" />
+					</ColumnListItem>
+				</items>
+
+			</Table>
+		</content>
+
+		<endButton>
+			<Button text="{i18n>common.frag.button.cancel}" press="closeDialog"
+				/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

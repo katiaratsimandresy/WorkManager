@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:common="sap.ui.commons" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns:commons="sap.suite.ui.commons" xmlns:f="sap.ui.layout.form">
+	<Dialog title="" showHeader="false" class="sapUiPopupWithPadding"
+		placement="Right">
+		<Image src="" height="100%" width="100%" />
+		<endButton>
+			<Button text="{i18n>createNotification.frag.button.close}" press="_closeImageOverlay" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<Dialog title="{i18n>workOrderDetails.checklist.calitool.add}"
+		id="dialogAddCaliTool" contentWidth="70%" showHeader="true"
+		horizontalScrolling="false" draggable="true" class="sapUiPopupWithPadding">
+
+		<content>
+			<f:SimpleForm id="formAddCaliTool" class="editableForm">
+				<f:content>
+
+					<!-- CaliTool select -->
+					<!-- <Label labelFor="CaliTool" -->
+					<!-- required="true" -->
+					<!-- text="{i18n>oData.OrderOperationCheckListCaliTool.ToolcalId}" /> -->
+					<!-- <Select width="50%" id="CaliTool" -->
+					<!-- items="{ -->
+					<!-- path: '/CheckListCaliToolSet', -->
+					<!-- sorters: { -->
+					<!-- path: 'ToolcalDesc', -->
+					<!-- descending: false -->
+					<!-- } -->
+					<!-- }" -->
+					<!-- selectedKey="{InputModel>/ToolcalId}"> -->
+					<!-- <items> -->
+					<!-- <core:Item text="{ToolcalDesc}" key="{ToolcalId}" /> -->
+					<!-- </items> -->
+					<!-- </Select> -->
+					<Label labelFor="CaliTool" required="true"
+						text="{i18n>oData.OrderOperationCheckListCaliTool.ToolcalId}" />
+					<Input id="CaliTool" value="{InputModel>/ToolcalDesc}" />
+
+					<!-- Serial number -->
+					<Label labelFor="SerialNumber" required="true"
+						text="{i18n>oData.OrderOperationCheckListCaliTool.ToolcalSn}" />
+					<Input id="SerialNumber" value="{InputModel>/ToolcalSn}" />
+
+					<!-- Calibration Date -->
+<!-- 					<Label labelFor="CalibrationDate" required="true" -->
+<!-- 						text="{i18n>oData.OrderOperationCheckListCaliTool.ToolcalDate}" /> -->
+<!-- 					<DatePicker id="CalibrationDate" dateValue="{InputModel>/ToolcalDate}" /> -->
+
+					<!-- Internal ref code -->
+					<Label labelFor="IntRefCode" required="true"
+						text="{i18n>oData.CheckListCaliTool.ToolcalIntRef}" />
+					<Input id="IntRefCode" value="{InputModel>/ToolcalIntRef}" />
+
+					<!-- Comment -->
+					<Label labelFor="Comment"
+						text="{i18n>oData.OrderOperationCheckListCaliTool.Comment}" />
+					<TextArea id="Comment" value="{InputModel>/Comment}" />
+
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="{i18n>workOrderDetails.checklist.calitool.add}"
+				press="submitCaliTool" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>common.frag.button.cancel}" press="closeAddCaliToolDialog" />
+		</endButton>
+	</Dialog>
+
+</core:FragmentDefinition>

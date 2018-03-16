@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="css/sapui5.css">
+<Title>Work Manager</Title>
+
+<!-- <script type="text/javascript" src="scripts/platformOverridesLibrary.js"></script> -->
+<!-- <script type="text/javascript" src="cordova.js"></script> -->
+<!-- <script type="text/javascript" src="scripts/platformOverrides.js"></script> -->
+
+<!-- only load the mobile lib "sap.m", "sap.ui" and the "sap_bluecrystal" theme -->
+<script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+	id="sap-ui-bootstrap"
+	data-sap-ui-libs="sap.m,sap.ui.core,sap.ui.layout,sap.ui.unified"
+	data-sap-ui-theme="sap_belize" data-sap-ui-bindingsyntax="complex"
+	data-sap-ui-compatversion="edge" data-sap-ui-preload="async"
+	data-sap-ui-resourceroots='{"com.kalydia.edfen.workmanager": "./"}'
+	type="text/javascript">
+	
+</script>
+
+<!-- Sharepoint -->
+<!-- <script type="text/ecmascript" -->
+<!-- 	src="controller/SharePoint/dev/SharePoint.js"></script> -->
+<!-- <script type="text/javascript" src="controller/SharePoint/script.js"></script> -->
+<!-- <script type="text/javascript" -->
+<!-- 	src="controller/SharePoint/dev/MicrosoftAjax.js"></script> -->
+<!-- <script type="text/javascript" -->
+<!-- 	src="controller/SharePoint/dev/SP.Runtime.js"></script> -->
+<!-- <script type="text/javascript" src="controller/SharePoint/dev/SP.js"></script> -->
+
+<script>
+	jQuery.sap.require("sap.ui.thirdparty.datajs");
+
+	window.onload = function() {
+		if (window.cordova) {
+			sap.ui.require([ "com/kalydia/edfen/workmanager/scripts/app" ],
+					function(application) {
+						application.initialize();
+					});
+		} else {
+			// For testing
+			sap.ui
+					.require(
+							[ "com/kalydia/edfen/workmanager/scripts/app" ],
+							function(application) {
+								application.showScreen("content");
+								application.startApp();
+								com.kalydia.edfen.workmanager.scripts.logon.ApplicationContext = {
+									applicationEndpointURL : "/WorkManager/proxy/sap/opu/odata/sap/ZPM_OM_WORKMANAGER_SRV",
+									registrationContext : {
+										user : "KRATSIMANDRE",
+										password : "pagora"
+									}
+								};
+							});
+		}
+	};
+</script>
+
+
+</head>
+<body>
+	<div id="splash-screen"></div>
+	<div class="sapUiBody" id="content" style="display: none"></div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View controllerName="com.kalydia.edfen.workmanager.controller.Loading"
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Page showHeader="false" enableScrolling="false" title="{i18n>loading.title}">
+		<content>
+			<VBox justifyContent="Center" alignItems="Center">
+				<Label id="loading" class="sapUiSmallMarginBottom" design="Bold" />
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

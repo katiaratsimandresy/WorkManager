@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<IconTabFilter icon="sap-icon://history" text="{i18n>workOrderDetails.tab.history}"
+		key="History">
+		<content>
+
+			<Table id="historyOrderTable" items="{}" growingThreshold="1000">
+				<columns>
+					<Column hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.OrderHeader.Orderid}" />
+						</header>
+					</Column>
+					<Column hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.OrderHeader.ShortText}" />
+						</header>
+					</Column>
+					<Column hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.OrderHeader.Priority}" />
+						</header>
+					</Column>
+					<Column hAlign="Center" vAlign="Middle">
+						<header>
+							<ObjectIdentifier title="{i18n>oData.OrderHeader.EnterDate}" />
+						</header>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="handleHistoryOrderPress">
+						<Text
+							text="{path:'work>Orderid', formatter:'.formatRemoveLeadingZeros'}" />
+						<Text text="{work>ShortText}" />
+						<ObjectStatus text="{work>PriorityText}"
+							state="{path: 'work>Priority', formatter: '.formatState'}" />
+						<Text
+							text="{path: 'work>EnterDate', formatter: '.formatDateTimeToDateString'}" />
+					</ColumnListItem>
+				</items>
+			</Table>
+
+		</content>
+	</IconTabFilter>
+
+</core:FragmentDefinition>

@@ -1,0 +1,91 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<Dialog title="{i18n>timeAndMaterialEntry.detail.orderConfirmation.create}"
+		id="dialogOrderOperationConfirmationCreateMyWorkOrders" contentWidth="70%"
+		showHeader="true" horizontalScrolling="false" draggable="true"
+		class="sapUiPopupWithPadding">
+
+		<content>
+			<f:SimpleForm id="formOrderOperationConfirmationCreateMyWorkOrders"
+				class="editableForm">
+				<f:content>
+					<!-- Activity type -->
+					<Label labelFor="ActtypeMyWorkOrders" required="true"
+						text="{i18n>oData.OrderOperationConfirmation.Acttype}" />
+					<Input id="ActtypeMyWorkOrders" valueHelpOnly="true"
+						showValueHelp="true" valueHelpRequest="openActivityTypeSelect"
+						value="{InputModel>/Acttype}" />
+					<Text text="{InputModel>/ActtypeName}" />
+
+					<!-- Technician/engineer, only for internal -->
+					<Label labelFor="EmployeenumberMyWorkOrders"
+						required="{path:'ViewModel>/Interne', formatter:'.formatFlag'}"
+						text="{i18n>oData.OrderOperationConfirmation.Employeenumber}" />
+					<Input id="EmployeenumberMyWorkOrders" valueHelpOnly="true"
+						showValueHelp="true" valueHelpRequest="openEmployeenumberSelect"
+						value="{InputModel>/Employeenumber}" />
+					<Text text="{InputModel>/UserFullname}" />
+
+					<!-- Quantity -->
+					<Label labelFor="QuantityMyWorkOrders"
+						required="{path:'ViewModel>/Externe', formatter:'.formatFlag'}"
+						text="{i18n>timeAndMaterialEntry.create.orderConfirmation.quantity}" />
+					<Input id="QuantityMyWorkOrders" type="Number" value="{ViewModel>/Quantity}" />
+
+					<!-- Day the work was accomplished -->
+					<Label labelFor="WorkdateMyWorkOrders" required="true"
+						text="{i18n>oData.OrderOperationConfirmation.Workdate}" />
+					<DatePicker id="WorkdateMyWorkOrders" change="handleTimeDateChange"
+						dateValue="{ViewModel>/Workdate}" />
+
+					<!-- Start Time -->
+					<Label labelFor="StarttimeMyWorkOrders" required="true"
+						text="{i18n>oData.OrderOperationConfirmation.Starttime}" />
+					<TimePicker id="StarttimeMyWorkOrders" change="handleTimeDateChange"
+						dateValue="{ViewModel>/Starttime}" displayFormat="HH:mm" />
+
+					<!-- End Time -->
+					<Label labelFor="EndtimeMyWorkOrders"
+						text="{i18n>oData.OrderOperationConfirmation.Endtime}" required="{path:'ViewModel>/Externe', formatter:'.formatFlag'}" />
+					<TimePicker id="EndtimeMyWorkOrders" change="handleTimeDateChange"
+						dateValue="{ViewModel>/Endtime}" displayFormat="HH:mm" />
+
+					<!-- Final confirmation ? -->
+					<Label labelFor="FinConfMyWorkOrders"
+						text="{i18n>oData.OrderOperationConfirmation.FinConf}" />
+					<CheckBox id="FinConfMyWorkOrders" select="handleFinConfSelect"
+						selected="{path:'InputModel>/FinConf', formatter:'.formatFlag'}" />
+
+					<!-- Compensation, only for internal activities -->
+					<Label labelFor="OtCompTypeMyWorkOrders"
+						required="{path:'ViewModel>/Interne', formatter:'.formatFlag'}"
+						text="{i18n>oData.OrderOperationConfirmation.OtCompType}" />
+					<Select id="OtCompTypeMyWorkOrders" width="100%"
+						items="{path: '/CompTypeSet', sorters: [{path: 'Text'}]}"
+						selectedKey="{InputModel>/OtCompType}">
+						<items>
+							<core:Item text="{Text}" key="{OtCompType}" />
+						</items>
+					</Select>
+
+					<!-- Comment -->
+					<Label labelFor="TextMyWorkOrders"
+						text="{i18n>oData.OrderOperationConfirmation.Text}" />
+					<TextArea id="TextMyWorkOrders" value="{InputModel>/Text}"
+						rows="50" />
+
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="{i18n>timeAndMaterialEntry.create.orderConfirmation.submit}"
+				press="submitConfirmation" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>timeAndMaterialEntry.create.orderConfirmation.cancel}"
+				press="closeCreateConfirmationDialog" />
+		</endButton>
+	</Dialog>
+
+</core:FragmentDefinition>

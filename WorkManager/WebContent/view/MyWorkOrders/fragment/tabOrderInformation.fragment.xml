@@ -1,0 +1,301 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<IconTabFilter icon="sap-icon://message-information"
+		text="{i18n>workOrderDetails.tab.info}" key="Info">
+		<content>
+
+			<!-- ORDER INFORMATION FORM -->
+			<f:SimpleForm id="InfoOrderForm" minWidth="1024"
+				maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.generalInfo.title.orderInformation}"
+				class="editableForm">
+				<f:content>
+
+					<!-- OrderId -->
+					<Label labelFor="Orderid" text="{i18n>oData.OrderHeader.Orderid}" />
+					<Text id="Orderid"
+						text="{path: 'InfoOrderForm>/Orderid', formatter: '.formatRemoveLeadingZeros'}" />
+
+					<!-- Order description -->
+					<Label labelFor="ShortText" text="{i18n>oData.OrderHeader.ShortText}"
+						required="true" />
+					<Input id="ShortText" value="{InfoOrderForm>/ShortText}"
+						change="validShortTextheader" />
+
+					<!-- Functional location -->
+					<Label labelFor="FunctLoc" text="{i18n>oData.OrderHeader.FunctLoc}"
+						required="true" />
+					<Input id="FunctLoc" valueHelpOnly="true" showValueHelp="true"
+						valueHelpRequest="openFunctionalLocationSelect" value="{InfoOrderForm>/FunctLoc}" />
+					<Text id="FunctLocDesc" text="{InfoOrderForm>/Funcldescr}" />
+
+					<!-- Equipment -->
+					<Label labelFor="Equipment" text="{i18n>oData.OrderHeader.Equipment}" />
+					<Input id="Equipment" showValueHelp="true" valueHelpOnly="true"
+						maxLength="18" valueHelpRequest="openEquipmentSelect"
+						value="{path:'InfoOrderForm>/Equipment', formatter:'.formatRemoveLeadingZeros'}" />
+					<Text id="EquipmentDesc" text="{InfoOrderForm>/Equidescr}" />
+
+					<!-- Priority -->
+					<Label labelFor="Priority" text="{i18n>oData.OrderHeader.Priority}" />
+					<Select width="50%" id="Priority" items="{/PrioritySet}"
+						selectedKey="{InfoOrderForm>/Priority}" change="validPriority">
+						<items>
+							<core:Item text="{PMPriorityText}" key="{PMPriority}" />
+						</items>
+					</Select>
+
+					<!-- Add or take pictures -->
+					<Label text="{i18n>createNotification.addPicture}" />
+					<Button icon="sap-icon://camera" press="capture" id="camera"
+						type="Transparent" visible="false" />
+					<Button icon="sap-icon://open-folder" press="library" id="library"
+						type="Transparent" visible="false" />
+					<!-- <u:FileUploader id="library" change="library" -->
+					<!-- fileType="jpg" mimeType="image/jpeg" maximumFileSize="0.250" -->
+					<!-- buttonOnly="true" icon="sap-icon://open-folder" -->
+					<!-- type="Transparent" /> -->
+					<Button icon="sap-icon://sys-cancel" press="handleremoveAllPics"
+						id="removePics" type="Transparent" visible="false" />
+					<Label text="" />
+					<HBox id="uploadCollectionMyWorkOrder" />
+
+					<!-- Description -->
+					<Label labelFor="TextheaderNew" text="{i18n>oData.OrderHeader.Textheader}" />
+					<TextArea id="TextheaderNew" value="{InputModel>/Textheader}"
+						rows="5" change="validTextheader" />
+
+					<!-- Replacement Parts -->
+					<Label text="{i18n>oData.OrderComponent.Material}" />
+					<Table id="sparePartOrderTable" items="{InfoOrderForm>/OrderComponent}">
+						<headerToolbar>
+							<OverflowToolbar>
+								<Button id="addSparePartOrder" icon="sap-icon://add"
+									text="{i18n>createNotification.button.addPart}" press="openSparePart"
+									visible="false" />
+								<Button id="barcodeOrder" icon="sap-icon://bar-code"
+									text="{i18n>createNotification.button.scanBarCode}" press="scanBarcode"
+									visible="false" />
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.Material}" />
+								</header>
+							</Column>
+							<Column hAlign="Left" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.MatlDesc}" />
+								</header>
+							</Column>
+							<Column hAlign="Left" vAlign="Middle" id="ActivityDisplay">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.Activity}" />
+								</header>
+							</Column>
+							<Column hAlign="Left" vAlign="Middle" id="ActivityInput">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.Activity}" />
+								</header>
+							</Column>
+							<Column hAlign="Left" vAlign="Middle" id="StgeLocDisplay">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.StgeLoc}" />
+								</header>
+							</Column>
+							<Column hAlign="Left" vAlign="Middle" id="StgeLocInput">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.StgeLoc}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="15%"
+								id="RequirementQuantityOrderDisplay">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderComponent.RequirementQuantity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="15%"
+								id="RequirementQuantityOrderInput" visible="false">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderComponent.RequirementQuantity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%"
+								id="decrementSparePartColumnOrder" visible="false">
+								<header />
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%"
+								id="incrementSparePartColumnOrder" visible="false">
+								<header />
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%"
+								id="deleteSparePartColumnOrder" visible="false">
+								<header />
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%"
+								id="sparePartQuantityValidation" visible="false">
+								<header />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<ObjectIdentifier
+									text="{ path:'InfoOrderForm>Material' , formatter: '.formatRemoveLeadingZeros'}" />
+								<ObjectIdentifier text="{InfoOrderForm>MatlDesc}" />
+								<ObjectIdentifier text="{InfoOrderForm>Activity}" />
+								<Select id="ActivityMyWorkOrders" width="100%" change="validActivity"
+									items="{}"
+									selectedKey="{InfoOrderForm>Activity}">
+									<items>
+										<core:Item text="{work>Activity}" key="{work>Activity}" />
+									</items>
+								</Select>
+								<ObjectIdentifier text="{InfoOrderForm>StgeLoc}" />
+								<Input type="Text" value="{InfoOrderForm>StgeLoc}"
+									valueHelpRequest="openLocation" showValueHelp="true"
+									valueHelpOnly="true"
+									enabled="{path: 'InfoOrderForm>ItemCat', formatter: '.confirmationComponentNeedStorageLocation'}" />
+								<ObjectIdentifier text="{InfoOrderForm>RequirementQuantity}" />
+								<Input type="Number" value="{InfoOrderForm>RequirementQuantity}"
+									liveChange="handleSparePartValueChange" showValueStateMessage="false"
+									valueState="{
+										parts:[
+											{path: 'InfoOrderForm>RequirementQuantity'},
+											{path: 'InfoOrderForm>Labst'}
+										],
+										formatter: '.requirementQuantityValueState'
+									}" />
+								<Button icon="sap-icon://sys-minus" width="100%"
+									press="decrementSparePart" />
+								<Button icon="sap-icon://sys-add" width="100%"
+									press="incrementSparePart" />
+								<Button icon="sap-icon://delete" width="100%" press="deleteSparePart" />
+								<HBox class="sapUiSmallMargin">
+									<core:Icon
+										src="{
+											parts:[
+												{path: 'InfoOrderForm>RequirementQuantity'},
+												{path: 'InfoOrderForm>Labst'}
+											],
+											formatter: '.requirementQuantityIcon'
+										}"
+										color="{
+											parts:[
+												{path: 'InfoOrderForm>RequirementQuantity'},
+												{path: 'InfoOrderForm>Labst'}
+											],
+											formatter: '.requirementQuantityIconColor'
+										}">
+									</core:Icon>
+								</HBox>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</f:content>
+			</f:SimpleForm>
+
+			<!-- NOTIFICATION INFORMATION FORM -->
+
+			<f:SimpleForm id="InfoNotificationForm" minWidth="1024"
+				maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.generalInfo.title.notificationInformation}"
+				class="editableForm">
+				<f:content>
+
+					<!-- NotifNo -->
+					<Label labelFor="NotifNo" text="{i18n>oData.NotifHeader.NotifNo}" />
+					<Text id="NotifNo"
+						text="{path: 'InfoNotificationForm>/NotifNo', formatter: '.formatRemoveLeadingZeros'}" />
+
+					<!-- Breakdown -->
+					<Label labelFor="Breakdown" text="{i18n>oData.NotifHeader.Breakdown}" />
+					<CheckBox id="Breakdown"
+						selected="{path: 'InfoNotificationForm>/Breakdown', formatter: '.formatFlag'}"
+						enabled="false" />
+
+					<!-- Damage group/code -->
+					<Label
+						text="{i18n>oData.NotifItem.DCodegrp} / {i18n>oData.NotifItem.DCode}" />
+					<Input id="DCodegrp" valueHelpOnly="true" maxLength="8"
+						showValueHelp="true" valueHelpRequest="openDamageGroupSelect"
+						value="{InfoNotificationForm>/NotifItem/0/DCodegrp}" />
+					<Input id="DCode" showValueHelp="true" maxLength="4"
+						valueHelpOnly="true" valueHelpRequest="openDamageCodeSelect"
+						value="{InfoNotificationForm>/NotifItem/0/DCode}" />
+					<Text id="TxtGrpcd" text="{InfoNotificationForm>/NotifItem/0/StxtGrpcd}" />
+					<Text id="TxtProbcd" text="{InfoNotificationForm>/NotifItem/0/TxtProbcd}" />
+
+					<!-- Malfunction date / time -->
+					<Label text="{i18n>oData.NotifHeader.StrmlfnDate}" />
+					<Text id="StrmlfnDate"
+						text="{path: 'InfoNotificationForm>/StrmlfnDate', formatter: '.formatDateTimeToString'}" />
+
+					<!-- Notification pictures -->
+					<Label text="{i18n>NotificationList.picture}" />
+					<HBox id="notificationPictureCollection" />
+
+				</f:content>
+			</f:SimpleForm>
+
+			<!-- ORDER OPERATION INFORMATION -->
+
+			<f:SimpleForm minWidth="1024" maxContainerCols="2"
+				editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.generalInfo.title.operationInfo}"
+				class="editableForm">
+				<f:content>
+					<Table id="InfoOperationTable"
+						items="{}"
+						growingThreshold="10">
+						<columns>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Activity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Description}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<!-- <ObjectIdentifier title="{i18n>workOrderDetails.generalInfo.columnHeader.noOfPeople}" 
+										/> -->
+									<ObjectIdentifier
+										title="{i18n>oData.OrderOperation.NumberOfCapacities}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.WorkActivity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Acttype}" />
+								</header>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<Text text="{work>Activity}" />
+								<Text text="{work>Description}" />
+								<Text text="{work>NumberOfCapacities}" />
+								<!-- <Text text="{path: 'work>OrderOperationAssignment', formatter:'.formatArrayCount'}" 
+									/> -->
+								<Text text="{work>WorkActivity} {work>UnWork}" />
+								<Text text="{work>Acttype}" />
+							</ColumnListItem>
+						</items>
+					</Table>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+	</IconTabFilter>
+
+</core:FragmentDefinition>

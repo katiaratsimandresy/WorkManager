@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ActionSheet placement="Bottom">
+		<buttons>
+			<Button text="{app>/SelectedWorkCenter}: {app>/lastSynchronization}"
+					icon="sap-icon://work-history"
+					press="handleRefreshPressed" />
+		</buttons>
+	</ActionSheet>
+</core:FragmentDefinition>

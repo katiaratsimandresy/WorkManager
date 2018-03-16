@@ -1,0 +1,40 @@
+.sapUiTheme-sap_bluecrystal {
+	font-size: 20px !important;
+}
+
+.smallFont {
+	font-size: .8rem ! important;
+}
+
+.smallerFont {
+	font-size: .4rem ! important;
+}
+
+.sapMITBArrowScrollRightTextOnly {
+	right: 0rem;
+}
+
+.sapMITBArrowScrollLeftTextOnly {
+	left: 0rem;
+}
+
+.sapMITBHead {
+	margin-top: 0.25rem;
+}
+
+.sap-tablet .sapMITBArrowScrollLeftTextOnly, html[data-sap-ui-os=win8] .sapMITBArrowScrollLeftTextOnly,
+	html[data-sap-ui-os=win10] .sapMITBArrowScrollLeftTextOnly, .sap-tablet .sapMITBArrowScrollRightTextOnly,
+	html[data-sap-ui-os=win8] .sapMITBArrowScrollRightTextOnly, html[data-sap-ui-os=win10] .sapMITBArrowScrollRightTextOnly
+	{
+	padding: 1.3rem 1.3rem;
+}
+
+.sap-phone .sapMITBArrowScroll, .sap-tablet .sapMITBArrowScroll, html[data-sap-ui-os=win8] .sapMITBArrowScroll,
+	html[data-sap-ui-os=win10] .sapMITBArrowScroll {
+	top: 0rem;
+}
+
+.sap-tablet .sapMITBScrollContainer, html[data-sap-ui-os=win8] .sapMITBScrollContainer,
+	html[data-sap-ui-os=win10] .sapMITBScrollContainer {
+	margin: 0 3rem;
+}

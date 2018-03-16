@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc:View
+	controllerName="com.kalydia.edfen.workmanager.controller.CreateNotification.CreateNotification"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic"
+	xmlns:u="sap.ui.unified">
+	<semantic:FullscreenPage showSubHeader="false"
+		title="{i18n>tile.CreateNotification}">
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+			<l:content>
+				<f:SimpleForm id="generalForm" minWidth="1024"
+					maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+					title="{i18n>createNotification.title.generalInformation}" class="editableForm">
+					<f:content>
+						<Label labelFor="ShortText" text="{i18n>oData.NotifHeader.ShortText}"
+							required="true" />
+						<Input id="ShortText" maxLength="35"
+							value="{CreateNotification>/ShortText}" />
+
+						<Label labelFor="Notiftype" text="{i18n>oData.NotifHeader.Notiftype}"
+							required="true" />
+						<Select id="Notiftype" width="50%"
+							items="{path: '/NotifTypeSet', sorters: [{path: 'Description'}]}"
+							selectedKey="{CreateNotification>/Notiftype}" change="handleNotifType">
+							<items>
+								<core:Item text="{Description}" key="{Notiftype}" />
+							</items>
+						</Select>
+
+						<Label labelFor="FunctLoc" text="{i18n>oData.NotifHeader.FunctLoc}"
+							required="true" />
+						<Input id="FunctLoc" valueHelpOnly="true" showValueHelp="true"
+							valueHelpRequest="openFunctionalLocationSelect" value="{CreateNotification>/FunctLoc}" />
+						<Text id="FunctLocDesc" text="{CreateNotification>/Funcldescr}" />
+
+						<Label labelFor="Equipment" text="{i18n>oData.NotifHeader.Equipment}" />
+						<Input id="Equipment" showValueHelp="true" valueHelpOnly="true"
+							maxLength="18" valueHelpRequest="openEquipmentSelect"
+							value="{path:'CreateNotification>/Equipment', formatter:'.formatRemoveLeadingZeros'}" />
+						<Text id="EquipmentDesc" text="{CreateNotification>/Equidescr}" />
+
+						<Label labelFor="Breakdown" text="{i18n>oData.NotifHeader.Breakdown}" />
+						<CheckBox id="Breakdown" select="handleBreakdownSelect"
+							selected="{path: 'CreateNotification>/Breakdown', formatter: '.formatFlag'}" />
+
+					</f:content>
+				</f:SimpleForm>
+			</l:content>
+		</l:Grid>
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+			<l:content>
+
+				<f:SimpleForm id="notificationForm" minWidth="1024"
+					maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+					title="{i18n>createNotification.title.notification}" class="editableForm">
+					<f:content>
+						<!-- Priority -->
+						<Label labelFor="Priority" text="{i18n>oData.NotifHeader.Priority}"
+							required="true" />
+						<Select width="50%" id="Priority" items="{/PrioritySet}"
+							selectedKey="{CreateNotification>/Priority}">
+							<items>
+								<core:Item text="{PMPriorityText}" key="{PMPriority}" />
+							</items>
+						</Select>
+
+						<!-- Damage Group Code -->
+						<Label text="{i18n>oData.NotifItem.DCode}" />
+						<Input id="DCodegrp" valueHelpOnly="true" maxLength="8"
+							showValueHelp="true" valueHelpRequest="openDamageGroupSelect"
+							value="{CreateNotification>/NotifItem/0/DCodegrp}" />
+						<Input id="DCode" showValueHelp="true" maxLength="4"
+							valueHelpOnly="true" valueHelpRequest="openDamageCodeSelect"
+							value="{CreateNotification>/NotifItem/0/DCode}" />
+						<Text id="TxtGrpcd" text="{CreateNotification>/NotifItem/0/StxtGrpcd}" />
+						<Text id="TxtProbcd" text="{CreateNotification>/NotifItem/0/TxtProbcd}" />
+
+						<!-- Malfunction Date/Time -->
+						<Label required="true" text="{i18n>oData.NotifHeader.StrmlfnDate}" />
+						<DateTimePicker id="StrmlfnDate" width="50%"
+							change="handleTimeDateChange" displayFormat="short" valueFormat="yyyy-MM-ddTHH:mm:ss"
+							value="{CreateNotification>/StrmlfnDate}" />
+
+						<!-- Picture -->
+						<Label text="{i18n>createNotification.addPicture}" />
+						<Button icon="sap-icon://camera" press="capture" id="camera"
+							type="Transparent" />
+						<Button icon="sap-icon://open-folder" press="library" id="library"
+							type="Transparent" />
+						<!-- <u:FileUploader id="library" change="library" -->
+						<!-- fileType="jpg" mimeType="image/jpeg" maximumFileSize="0.250" -->
+						<!-- buttonOnly="true" icon="sap-icon://open-folder" -->
+						<!-- type="Transparent" /> -->
+						<Button icon="sap-icon://sys-cancel" press="removeAllPics"
+							type="Transparent" />
+						<Label text="" />
+						<HBox id="uploadCollection" />
+
+						<!-- Description -->
+						<Label labelFor="Notifdesctext" text="{i18n>oData.NotifHeader.Notifdesctext}" />
+						<TextArea id="Notifdesctext" value="{CreateNotification>/Notifdesctext}"
+							rows="5" />
+
+						<!-- Replacement Parts -->
+						<Label text="{i18n>oData.NotifComponent.Material}" />
+						<Table id="sparePartTable" items="{CreateNotification>/NotifComponent}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<Button icon="sap-icon://add" text="{i18n>createNotification.button.addPart}"
+										press="openSparePart" />
+									<Button icon="sap-icon://bar-code"
+										text="{i18n>createNotification.button.scanBarCode}" press="scanBarcode" />
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column hAlign="Center" vAlign="Middle">
+									<header>
+										<ObjectIdentifier title="{i18n>oData.Material.MaterialId}" />
+									</header>
+								</Column>
+								<Column hAlign="Left" vAlign="Middle">
+									<header>
+										<ObjectIdentifier title="{i18n>oData.Material.MatlDesc}" />
+									</header>
+								</Column>
+								<Column hAlign="Center" vAlign="Middle" width="15%">
+									<header>
+										<ObjectIdentifier
+											title="{i18n>oData.NotifComponent.RequirementQuantity}" />
+									</header>
+								</Column>
+								<Column hAlign="Center" vAlign="Middle" width="10%">
+									<header />
+
+								</Column>
+								<Column hAlign="Center" vAlign="Middle" width="10%">
+									<header />
+
+								</Column>
+								<Column hAlign="Center" vAlign="Middle" width="10%">
+									<header />
+
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<ObjectIdentifier
+										text="{path:'CreateNotification>Material', formatter:'.formatRemoveLeadingZeros'}" />
+									<ObjectIdentifier text="{CreateNotification>MatlDesc}" />
+									<Input type="Number" value="{CreateNotification>RequirementQuantity}"
+										liveChange="handleSparePartValueChange" />
+									<Button icon="sap-icon://sys-minus" width="100%"
+										press="decrementSparePart" />
+									<Button icon="sap-icon://sys-add" width="100%"
+										press="incrementSparePart" />
+									<Button icon="sap-icon://delete" width="100%" press="deleteSparePart" />
+								</ColumnListItem>
+							</items>
+						</Table>
+					</f:content>
+				</f:SimpleForm>
+			</l:content>
+		</l:Grid>
+
+		<semantic:negativeAction>
+			<semantic:NegativeAction text="{i18n>commun.screen.clear}"
+				press="handlePressCancel" visible="true" />
+		</semantic:negativeAction>
+
+		<semantic:messagesIndicator>
+			<semantic:MessagesIndicator press="handleMessagePress"
+				visible="true" />
+		</semantic:messagesIndicator>
+
+		<semantic:positiveAction>
+			<semantic:PositiveAction text="{i18n>createNotification.button.submit}"
+				press="submitNotification" visible="true" />
+		</semantic:positiveAction>
+
+		<semantic:customFooterContent>
+			<Button text="{i18n>createNotification.button.similarNotification}"
+				type="Emphasized" press="navToSimilarNotification" />
+		</semantic:customFooterContent>
+
+	</semantic:FullscreenPage>
+
+</mvc:View>

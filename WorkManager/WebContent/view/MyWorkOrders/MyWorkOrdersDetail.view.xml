@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc:View
+	controllerName="com.kalydia.edfen.workmanager.controller.MyWorkOrders.MyWorkOrdersDetail"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic"
+	xmlns:u="sap.ui.unified">
+	<semantic:FullscreenPage showSubHeader="false"
+		title="{i18n>oData.OrderHeader.Orderid} {path: 'ViewModel>/Orderid', formatter: '.formatRemoveLeadingZeros'}"
+		showNavButton="true" navButtonPress="handleNavBack">
+
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+			<l:content>
+				<IconTabBar id="mainIconTabBar" select="handleMainIconTabBarSelect"
+					applyContentPadding="false" backgroundDesign="Transparent">
+					<items>
+
+						<!-- INFORMATIONS TAB -->
+
+						<core:Fragment type="XML"
+							fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabOrderInformation" />
+
+						<!-- HISTORY TAB -->
+
+						<core:Fragment type="XML"
+							fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabHistory" />
+
+						<!-- DOCUMENTS TAB <core:Fragment type="XML" fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabDocuments" 
+							/> -->
+						<!-- ACTIVITIES TAB -->
+
+						<core:Fragment type="XML"
+							fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabActivities" />
+
+						<!-- PEOPLE TAB -->
+
+						<core:Fragment type="XML"
+							fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabPeople" />
+
+						<!-- CHECKLIST TAB -->
+
+						<core:Fragment type="XML"
+							fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabChecklist" />
+
+						<!-- CONFIRMATIONS TAB -->
+
+						<core:Fragment type="XML"
+							fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabConfirmations" />
+
+						<!-- SUMMARY REPORT TAB -->
+
+						<core:Fragment type="XML"
+							fragmentName="com.kalydia.edfen.workmanager.view.MyWorkOrders.fragment.tabSummary" />
+
+					</items>
+				</IconTabBar>
+
+			</l:content>
+		</l:Grid>
+
+		<!-- Footer toolbar -->
+
+		<semantic:negativeAction>
+			<semantic:NegativeAction id="buttonRelease"
+				text="{i18n>workOrderDetails.generalInfo.button.releaseWO}" visible="false"
+				press="handleReleaseButton" />
+		</semantic:negativeAction>
+
+		<semantic:messagesIndicator>
+			<semantic:MessagesIndicator press="handleMessagePress"
+				visible="true" />
+		</semantic:messagesIndicator>
+
+		<semantic:positiveAction>
+			<semantic:PositiveAction id="buttonSubmit"
+				text="{i18n>workOrderDetails.generalInfo.button.updateWO}" visible="false"
+				press="handleSubmitButton" />
+		</semantic:positiveAction>
+
+		<semantic:customFooterContent>
+			<Button text="{i18n>workOrderDetails.button.notification.create}"
+				id="buttonCreateNotification" type="Emphasized"
+				press="handleCreateNotificationFromFinding" />
+			<Button text="{i18n>workOrderDetails.generalInfo.button.updateWO}"
+				type="Emphasized" press="handleReviewButton" visible="true" id="reviewOrder" />
+			<Button text="{i18n>workOrderDetails.generalInfo.button.sendMail}"
+				type="Emphasized" press="handleMailButton" visible="true" id="sendMail" />
+			<Button
+				text="{i18n>workOrderDetails.generalInfo.button.confirmationMassCopy}"
+				type="Emphasized" press="handleConfirmationMassCopy" visible="{ViewModel>/ConfirmationMassCopy}"
+				id="confirmationMassCopy" />
+		</semantic:customFooterContent>
+
+	</semantic:FullscreenPage>
+
+</mvc:View>

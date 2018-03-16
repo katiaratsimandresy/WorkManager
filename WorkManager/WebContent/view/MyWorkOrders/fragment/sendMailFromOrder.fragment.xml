@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<Dialog title="{i18n>workOrderDetails.dialog.sendMail.title}"
+		contentWidth="40%" showHeader="true" horizontalScrolling="false"
+		draggable="true" class="sapUiPopupWithPadding">
+
+		<content>
+			<!-- Aim Date/Time -->
+			<Label width="40%" required="true" labelFor="Startdate"
+				text="{i18n>workOrderDetails.dialog.sendMail.StartDate}" />
+			<DatePicker id="Startdate" width="60%" valueHelpOnly="true"
+				dateValue="{SendMailModel>/Startdate}" />
+
+			<!-- Distribution -->
+			<Label width="40%" labelFor="Recipient"
+				text="{i18n>oData.DistributionList.Recipient}" />
+			<Select width="60%" id="Recipient" items="{/DistributionListSet}"
+				selectedKey="{SendMailModel>/Recipient}" change="validDistributionList">
+				<items>
+					<core:Item text="{RecipientName}" key="{Recipient}" />
+				</items>
+			</Select>
+
+			<!-- Text -->
+			<Label width="40%" text="{i18n>oData.DistributionList.Comment}" />
+			<TextArea width="60%" rows="5" value="{SendMailModel>/Comment}" />
+		</content>
+		<beginButton>
+			<Button text="{i18n>workOrderDetails.generalInfo.button.sendMail}"
+				press="handleSendMailFromOrder" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>common.frag.button.cancel}" press="closeDialog" />
+		</endButton>
+	</Dialog>
+
+</core:FragmentDefinition>

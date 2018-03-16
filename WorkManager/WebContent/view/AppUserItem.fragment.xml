@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ActionSheet placement="Bottom">
+		<buttons>
+			<Button text="{i18n>shell.SelectedWorkCenter}: {app>/SelectedWorkCenter}"
+				icon="sap-icon://work-history" press="handleWorkCenterPress"
+				enabled="{
+					parts: [
+						{path: 'app>/busy'},
+						{path: 'app>/showUserMenu'}
+					],
+					formatter: '.formatter.workcenterChangeButtonEnabled'
+				}" />
+			<!-- <Button text="{i18n>shell.ManagePasscode}" icon="sap-icon://action-settings" -->
+			<!-- press="handleManagePasscodePress" /> -->
+			<Button text="{i18n>shell.Logon}" icon="sap-icon://person-placeholder"
+				press="handleChangePasswordPress" />
+			<Button text="{i18n>shell.Messages}" icon="sap-icon://message-information"
+				press="handleMessagePress" />
+			<Button text="{i18n>shell.OdataError}" icon="sap-icon://message-error"
+				press="handleOdataErrorPress" />
+			<Button text="{i18n>shell.Logout}" icon="sap-icon://log"
+				visible="{app>/connected}" press="handleLogoutPress" />
+		</buttons>
+	</ActionSheet>
+</core:FragmentDefinition>

@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<Dialog title="{i18n>workOrderDetails.generalInfo.button.assignExperts}"
+		id="dialogOrderOperationAssignmentCreateMyWorkOrders" contentWidth="70%"
+		showHeader="true" horizontalScrolling="false" draggable="true"
+		class="sapUiPopupWithPadding">
+
+		<content>
+			<f:SimpleForm id="formOrderOperationAssignmentCreateMyWorkOrders"
+				class="editableForm">
+				<f:content>
+
+					<!-- Technician/engineer, only for internal -->
+					<Label labelFor="EmployeenumberAssignmentMyWorkOrders"
+						required="true" text="{i18n>oData.OrderOperationAssignment.Employeenumber}" />
+					<Input id="EmployeenumberAssignmentMyWorkOrders"
+						valueHelpOnly="true" showValueHelp="true"
+						valueHelpRequest="openEmployeenumberAssignmentSelect" value="{InputModel>/Employeenumber}" />
+					<Text text="{InputModel>/Fullname}" />
+
+					<!-- Start Date -->
+					<Label labelFor="StartDateAssignmentMyWorkOrders" required="true"
+						text="{i18n>oData.OrderOperationAssignment.StartDate}" />
+					<DatePicker id="StartDateAssignmentMyWorkOrders" change="handleTimeDateChange"
+						displayFormat="short" valueFormat="yyyy-MM-dd" value="{InputModel>/StartDate}" />
+					<TimePicker id="StartTimeAssignmentMyWorkOrders" change="handleTimeDateChange"
+						displayFormat="HH:mm" valueFormat="THH:mm:ss" value="{InputModel>/StartTime}" />
+
+					<!-- End Date -->
+					<Label labelFor="EndDateAssignmentMyWorkOrders" required="true"
+						text="{i18n>oData.OrderOperationAssignment.EndDate}" />
+					<DatePicker id="EndDateAssignmentMyWorkOrders" change="handleTimeDateChange"
+						displayFormat="short" valueFormat="yyyy-MM-dd" value="{InputModel>/EndDate}" />
+					<TimePicker id="EndTimeAssignmentMyWorkOrders" change="handleTimeDateChange"
+						displayFormat="HH:mm" valueFormat="THH:mm:ss" value="{InputModel>/EndTime}" />
+
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="{i18n>workOrderDetails.generalInfo.button.assignExperts}"
+				press="submitAssignment" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>workOrderDetails.generalInfo.button.cancel}"
+				press="closeCreateAssignmentDialog" />
+		</endButton>
+	</Dialog>
+
+</core:FragmentDefinition>

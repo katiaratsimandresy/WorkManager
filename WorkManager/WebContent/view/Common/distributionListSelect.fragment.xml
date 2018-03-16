@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<TableSelectDialog
+		title="{i18n>oData.DistributionList.Recipient}"
+		search="handleSearchDistributionList"
+		liveChange="handleSearchDistributionList"
+		confirm="validDistributionList"
+		close="validDistributionList"
+		growingThreshold="100"
+		items="{
+			path : '/DistributionListSet',
+			filters:[{
+		      	path: 'Recipient', 
+		      	operator: 'EQ',
+		      	value1: 'ZZZZ' 
+		      }],
+			sorter : {
+				path : 'Recipient',
+				descending : false
+			}
+		}">
+		<columns>
+			<Column>
+				<header>
+					<Text text="{i18n>oData.DistributionList.Recipient}" />
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="{i18n>oData.DistributionList.RecipientName}" />
+				</header>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<Text text="{RecipientName}" />
+				<ObjectIdentifier
+					title="{Recipient}" />
+			</ColumnListItem>
+		</items>	
+	</TableSelectDialog>
+	
+</core:FragmentDefinition>

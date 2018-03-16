@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	controllerName="com.kalydia.edfen.workmanager.controller.NotFound">
+	<MessagePage title="{i18n>notFoundTitle}" text="{i18n>notFoundText}"
+		id="page" icon="{sap-icon://document}" description="">
+		<customDescription>
+			<Link text="{i18n>backToHome}" id="link" press="onLinkPressed" />
+		</customDescription>
+	</MessagePage>
+</mvc:View>

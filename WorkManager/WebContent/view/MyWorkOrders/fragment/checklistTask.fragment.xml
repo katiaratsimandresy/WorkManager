@@ -1,0 +1,174 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+
+	<Dialog title="{i18n>timeAndMaterialEntry.detail.orderConfirmation.create}"
+		contentWidth="90%" showHeader="true" horizontalScrolling="false"
+		draggable="true">
+
+		<content>
+
+			<!-- INSTRUCTIONS -->
+
+			<Panel expandable="true" expanded="true"
+				headerText="{i18n>workOrderDetails.checklist.checklist.instruction}"
+				class="sapUiTinyMargin sapUiNoContentPadding">
+				<FlexBox height="auto" alignItems="Center" justifyContent="Left">
+					<items>
+						<core:Icon src="sap-icon://pdf-attachment" class="sapUiSmallMargin" />
+						<Link
+							text="{path: 'TaskModel>/WorkInstrc', formatter: '.formatGetFileName'}"
+							target="{TaskModel>/WorkInstrc}" press="handleCheckListTaskInstructionPress" />
+					</items>
+				</FlexBox>
+			</Panel>
+
+			<!-- MEASURES -->
+
+			<Panel expandable="true" expanded="true"
+				headerText="{i18n>workOrderDetails.checklist.checklist.measure}"
+				class="sapUiTinyMargin sapUiNoContentPadding" width="100%"
+				visible="{path: 'TaskModel>/MeasStatus', formatter: '.formatTaskMeasureVisible'}">
+				<Table id="TaskMeasureTable" items="{}" class="sapUiTinyMargin"
+					width="auto">
+					<columns>
+						<Column hAlign="Center" vAlign="Middle">
+							<header>
+								<ObjectIdentifier
+									title="{i18n>oData.OrderOperationCheckListMesure.MeasureDesc}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle">
+							<header>
+								<ObjectIdentifier
+									title="{i18n>oData.OrderOperationCheckListMesure.MeasureValue}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle">
+							<header>
+								<ObjectIdentifier
+									title="{i18n>oData.OrderOperationCheckListMesure.MeasThesMin}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle">
+							<header>
+								<ObjectIdentifier
+									title="{i18n>oData.OrderOperationCheckListMesure.MeasThesMax}" />
+							</header>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<Text text="{work>MeasureDesc}" class="sapUiNoContentPadding" />
+							<Input type="Number"
+								value="{path: 'work>MeasureValue', formatter: '.formatNumberRemoveAllZeros'}"
+								class="sapUiNoContentPadding" placeholder="{work>MeasureDesc}"
+								change="handleMeasureChange" showValueStateMessage="false"
+								valueState="{
+									parts:[
+										{path: 'work>MeasureValue'},
+										{path: 'work>MeasThesMin'},
+										{path: 'work>MeasThesMax'}
+									],
+									formatter: '.measureValueState'
+								}"
+								enabled="{path: 'TaskModel>/Statut', formatter: '.formatFieldEnabled'}" />
+							<Text
+								text="{path: 'work>MeasThesMin', formatter: '.formatIntRemoveLeadingZeros'}"
+								class="sapUiNoContentPadding" />
+							<Text
+								text="{path: 'work>MeasThesMax', formatter: '.formatIntRemoveLeadingZeros'}"
+								class="sapUiNoContentPadding" />
+						</ColumnListItem>
+					</items>
+
+				</Table>
+			</Panel>
+
+			<!-- COMMENTS -->
+
+			<Panel expandable="true" expanded="true"
+				headerText="{i18n>workOrderDetails.checklist.checklist.comment}"
+				class="sapUiTinyMargin sapUiNoContentPadding">
+				<TextArea rows="5" change="handleTaskCommentChange" value="{TaskModel>/Comment}"
+					width="100%"
+					enabled="{path: 'TaskModel>/Statut', formatter: '.formatFieldEnabled'}" />
+			</Panel>
+
+			<!-- PICTURE -->
+
+			<Panel expandable="true" expanded="true"
+				headerText="{i18n>workOrderDetails.checklist.checklist.picture}"
+				class="sapUiTinyMargin sapUiNoContentPadding">
+
+				<FlexBox height="auto" alignItems="Center" justifyContent="SpaceAround">
+					<items>
+						<Button icon="sap-icon://camera" press="handleTaskCapture"
+							type="Transparent" id="taskCameraButton" />
+						<Button icon="sap-icon://open-folder" press="handleTaskLibrary"
+							type="Transparent" id="taskLibraryButton" />
+						<Button icon="sap-icon://sys-cancel" press="handleTaskRemovePict"
+							type="Transparent" />
+					</items>
+				</FlexBox>
+
+				<FlexBox height="auto" alignItems="Center" justifyContent="SpaceAround">
+					<items>
+						<l:HorizontalLayout class="sapUiSmallMargin">
+							<Image class="sapUiSmallMarginEnd" press="_enlargeImage"
+								src="{
+									path: 'TaskModel>/__metadata',
+									formatter: '.imageUrlForCheckListAttachment'
+								}"
+								densityAware="true" height="360px" />
+						</l:HorizontalLayout>
+					</items>
+				</FlexBox>
+
+			</Panel>
+
+		</content>
+		<buttons>
+			<ToggleButton text="{i18n>workOrderDetails.summary.checklist.ko}"
+				key="KO" press="handleCheckListTaskKoDialog"
+				type="{
+					parts:[
+						{'path': 'TaskModel>/Statut'},
+						{'path': 'ViewModel>/StatusKo'}
+					],
+					formatter: '.formatTaskDialogButtonType'
+				}"
+				pressed="{path: 'TaskModel>/Statut', formatter: '.formatKOButton'}"
+				enabled="{parts:[{path: 'TaskModel>/Comment'},
+							     {path: 'TaskModel>/MeasStatus'}], 
+				          formatter: '.formatKOButtonEnabled'}"
+				app:currentStatus="{TaskModel>/Statut}" />
+			<ToggleButton text="{i18n>workOrderDetails.summary.checklist.ok}"
+				key="OK" press="handleCheckListTaskOkDialog"
+				type="{
+					parts:[
+						{'path': 'TaskModel>/Statut'},
+						{'path': 'ViewModel>/StatusOk'}
+					],
+					formatter: '.formatTaskDialogButtonType'
+				}"
+				pressed="{path: 'TaskModel>/Statut', formatter: '.formatOKButton'}"
+				enabled="{path: 'TaskModel>/MeasStatus', formatter: '.formatOKButtonEnabled'}"
+				app:currentStatus="{TaskModel>/Statut}" />
+			<ToggleButton text="{i18n>workOrderDetails.summary.checklist.na}"
+				key="NA" press="handleCheckListTaskNaDialog"
+				type="{
+					parts:[
+						{'path': 'TaskModel>/Statut'},
+						{'path': 'ViewModel>/StatusNa'}
+					],
+					formatter: '.formatTaskDialogButtonType'
+				}"
+				pressed="{path: 'TaskModel>/Statut', formatter: '.formatNAButton'}"
+				app:currentStatus="{TaskModel>/Statut}" />
+			<Button text="{i18n>common.frag.button.close}" press="closeDialog" />
+		</buttons>
+
+	</Dialog>
+
+</core:FragmentDefinition>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc:View
+	controllerName="com.kalydia.edfen.workmanager.controller.ChecklistAssignment.ChecklistAssignment"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic"
+	xmlns:u="sap.ui.unified">
+
+	<Page showHeader="false" showFooter="false">
+
+		<IconTabBar id="iconTabBar" select="handleFilterChange"
+			applyContentPadding="false">
+
+			<items>
+				<IconTabFilter text="{i18n>checklistAssignment.icon.text.ens1WorkOrders}"
+					key="1" />
+				<IconTabFilter text="{i18n>checklistAssignment.icon.text.ens2WorkOrders}"
+					key="2" />
+				<IconTabFilter text="{i18n>checklistAssignment.icon.text.ens3WorkOrders}"
+					key="3" />
+				<IconTabFilter text="{i18n>checklistAssignment.icon.text.ens4WorkOrders}"
+					key="4" />
+				<IconTabFilter text="{i18n>checklistAssignment.icon.text.ens5WorkOrders}"
+					key="5" />
+				<IconTabFilter text="{i18n>checklistAssignment.icon.text.ens6WorkOrders}"
+					key="6" />
+			</items>
+			<content>
+				<Bar translucent="true">
+					<contentLeft>
+						<SearchField liveChange="onSearch" />
+					</contentLeft>
+					<contentRight>
+						<Switch state="{ViewModel>/ShowAll}" customTextOn="All" customTextOff="Ø">
+							<layoutData>
+								<FlexItemData growFactor="4" />
+							</layoutData>
+						</Switch>
+
+						<Select icon="sap-icon://sort" type="IconOnly" id="sorter"
+							autoAdjustWidth="true" change="handleSorting">
+							<core:Item key="InProcess" text="{i18n>oData.OrderHeader.InProcess}"></core:Item>
+							<core:Item key="FunctLoc" text="{i18n>oData.OrderHeader.FunctLoc}"></core:Item>
+							<core:Item key="ProductionStartdate"
+								text="{i18n>oData.OrderHeader.ProductionStartdate}"></core:Item>
+							<core:Item key="EnterDate" text="{i18n>oData.OrderHeader.EnterDate}"></core:Item>
+						</Select>
+					</contentRight>
+				</Bar>
+				<PullToRefresh id="refreshBar" refresh="handleRefresh" />
+
+				<Table id="orderOperationTable" items="{ActivityModel>/Activities}" growingThreshold="500"
+					busy="{ViewModel>/Busy}">
+					<columns>
+						<Column hAlign="Center" vAlign="Middle" width="9%">
+							<header>
+								<ObjectIdentifier title="{i18n>oData.OrderOperation.Orderid}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle" width="8%">
+							<header>
+								<ObjectIdentifier title="{i18n>checklistAssignment.status.title}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle" width="10%">
+							<header>
+								<ObjectIdentifier title="{i18n>oData.OrderHeader.FunctLoc}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle" width="8%">
+							<header>
+								<ObjectIdentifier title="{i18n>oData.OrderOperation.Activity}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle" width="25%">
+							<header>
+								<ObjectIdentifier title="{i18n>oData.OrderOperation.Description}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle" width="25%">
+							<header>
+								<ObjectIdentifier
+									title="{i18n>oData.OrderOperationCheckList.ChklstId}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle" width="10%">
+							<header>
+								<ObjectIdentifier title="{i18n>oData.OrderHeader.ProductionStartdate}" />
+							</header>
+						</Column>
+						<Column hAlign="Center" vAlign="Middle" width="5%">
+							<header>
+								<ObjectIdentifier title="" />
+							</header>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem visible="{
+							parts:[
+								{path: 'ActivityModel>OrderOperation/OrderOperationCheckList/Titre'},
+								{path: 'ViewModel>/ShowAll'}
+							],
+							formatter: '.formatItemVisible'
+						}">
+							<Text
+								text="{path:'ActivityModel>Orderid', formatter:'.Formatter.removeLeadingZeros'}" />
+							<Text
+								text="{
+								path: 'ActivityModel>InProcess',
+								formatter: '.formatStatus'
+							}" />
+							<Text text="{ActivityModel>FunctLoc}" />
+							<Text text="{ActivityModel>OrderOperation/Activity}" />
+							<Text text="{ActivityModel>OrderOperation/Description}" />
+							<Text text="{ActivityModel>OrderOperation/OrderOperationCheckList/Titre}" />
+							<Text
+								text="{
+								path: 'ActivityModel>ProductionStartdate',
+								formatter: '.formatDateTimeToDateString'
+							}" />
+							<FlexBox direction="Column">
+								<Button icon="sap-icon://add-activity-2" press="openChecklistSelect"
+									type="Default" width="100%"
+									visible="{
+									path: 'ActivityModel>OrderOperation/OrderOperationCheckList/Titre', 
+									formatter: '.Formatter.formatNotFlag'
+								}"
+									enabled="{ViewModel>/Manager}" />
+								<Button icon="sap-icon://delete" press="handleUnassignChecklist"
+									type="Default" width="100%"
+									visible="{
+									path: 'ActivityModel>OrderOperation/OrderOperationCheckList/Titre', 
+									formatter: '.Formatter.formatFlag'
+								}"
+									enabled="{ViewModel>/Manager}" />
+							</FlexBox>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</content>
+		</IconTabBar>
+	</Page>
+</mvc:View>

@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<IconTabFilter icon="sap-icon://documents"
+		text="{i18n>workOrderDetails.tab.documents}" key="Documents">
+		<content>
+
+			<f:SimpleForm id="OrderDocumentForm" minWidth="1024"
+				maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+				class="editableForm">
+				<f:content>
+					<Table id="OrderDocumentTable" backgroundDesign="Translucent"
+						items="{DocumentModel>/aOrderDocument}">
+
+						<headerToolbar>
+							<OverflowToolbar>
+								<ToolbarSpacer />
+								<Button id="buttonAddDocument" type="Emphasized" icon="sap-icon://add"
+									text="{i18n>workOrderDetails.document.button.addDocument}"
+									press="handleAddOrderDocument" />
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center" vAlign="Middle" width="10%">
+								<header>
+									<ObjectIdentifier title="{i18n>workOrderDetails.document.type}" />
+								</header>
+							</Column>
+							<Column hAlign="Left" vAlign="Middle" width="70%">
+								<header>
+									<ObjectIdentifier title="{i18n>workOrderDetails.document.filename}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="20%">
+								<header>
+									<ObjectIdentifier title="" />
+								</header>
+							</Column>
+						</columns>
+						<items id="peopleAssignmentList">
+							<ColumnListItem type="Navigation" press="handleOrderDocumentPress">
+								<core:Icon
+									src="{
+										path: 'DocumentModel>Mimetype',
+										formatter: '.formatIconMimeType'
+									}" />
+								<Link text="{DocumentModel>Title}" target="{DocumentModel>UrlLink}"
+									press="handleOrderDocumentLinkPress" />
+								<Button icon="sap-icon://delete" press="handleRemoveOrderDocument"
+									type="Default" width="100%"
+									enabled="{path: 'ViewModel>/Manager', formatter: '.formatFlag'}" />
+							</ColumnListItem>
+						</items>
+					</Table>
+				</f:content>
+			</f:SimpleForm>
+
+		</content>
+	</IconTabFilter>
+
+</core:FragmentDefinition>

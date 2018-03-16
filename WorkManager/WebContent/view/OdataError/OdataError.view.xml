@@ -1,0 +1,118 @@
+<mvc:View
+	controllerName="com.kalydia.edfen.workmanager.controller.OdataError.OdataError"
+	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:semantic="sap.m.semantic" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form">
+
+	<SplitContainer>
+		<masterPages>
+			<semantic:MasterPage title="{i18n>odataError.master.title}">
+				<List id="OdataError"
+					items="{
+						path: 'work>/ErrorArchive',
+						sorter : {
+							path : 'RequestID',
+							descending : false
+						}
+					}">
+					<items>
+						<ObjectListItem title="{work>RequestID} - {work>RequestMethod}"
+							type="Active" press="handleErrorPress">
+							<attributes>
+								<ObjectAttribute
+									text="{
+									path: 'work>Message',
+									formatter: '.formatMessageSummary'
+								}" />
+							</attributes>
+						</ObjectListItem>
+					</items>
+				</List>
+			</semantic:MasterPage>
+		</masterPages>
+		<detailPages>
+			<semantic:DetailPage title="{XMLModel>/message/text()}">
+
+				<form:SimpleForm minWidth="1024" maxContainerCols="2"
+					editable="true" layout="ResponsiveGridLayout" class="editableForm"
+					title="{i18n>odataError.detail.title.input}">
+
+					<!-- Request URL -->
+					<Label text="{i18n>odataError.detail.url}" />
+					<Input value="{ViewModel>/RequestURL}" enabled="false" />
+
+					<!-- Request method -->
+					<Label text="{i18n>odataError.detail.method}" />
+					<Input value="{ViewModel>/RequestMethod}" editable="false" />
+
+					<!-- Request body -->
+					<Label text="{i18n>odataError.detail.query}" />
+					<List headerText=""
+						items="{
+							path: 'ViewModel>/RequestBody'
+						}">
+						<DisplayListItem label="{ViewModel>Key}" value="{ViewModel>Value}" />
+					</List>
+
+				</form:SimpleForm>
+
+				<form:SimpleForm minWidth="1024" maxContainerCols="2"
+					editable="true" layout="ResponsiveGridLayout" class="editableForm"
+					title="{i18n>odataError.detail.title.output}">
+
+					<!-- Request errors -->
+					<Label text="{i18n>odataError.detail.response}" />
+					<Table items="{XMLModel>/innererror/errordetails/errordetail}">
+						<columns>
+							<Column hAlign="Center" vAlign="Middle" width="10%">
+								<header />
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>odataError.detail.message.code}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>odataError.detail.message.text}" />
+								</header>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<HBox class="sapUiSmallMargin">
+									<core:Icon
+										src="{
+											path: 'XMLModel>severity/text()',
+											formatter: '.severityIcon'
+										}"
+										color="{
+											path: 'XMLModel>severity/text()',
+											formatter: '.severityColor'
+										}">
+									</core:Icon>
+								</HBox>
+								<ObjectIdentifier text="{XMLModel>code/text()}" />
+								<ObjectIdentifier text="{XMLModel>message/text()}" />
+							</ColumnListItem>
+						</items>
+					</Table>
+
+				</form:SimpleForm>
+
+				<semantic:negativeAction>
+					<semantic:NegativeAction text="{i18n>odataError.button.delete}"
+						press="deleteError"
+						visible="{
+						path: 'ViewModel>/DisplayButton',
+						formatter: '.formatFlag'
+						}"
+						enabled="{
+							path: 'app>/syncIcon',
+							formatter: '.isDeleteButtonEnabled'
+						}" />
+				</semantic:negativeAction>
+
+			</semantic:DetailPage>
+		</detailPages>
+	</SplitContainer>
+</mvc:View>

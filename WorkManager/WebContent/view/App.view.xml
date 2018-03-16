@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc:View controllerName="com.kalydia.edfen.workmanager.controller.App"
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified">
+	<u:Shell icon="{app>/appImage}">
+		<u:headItems>
+			<u:ShellHeadItem tooltip="Home" icon="sap-icon://home"
+				press=".handlePressHome" visible="{app>/loaded}" />
+		</u:headItems>
+		<u:headEndItems>
+			<u:ShellHeadItem icon="sap-icon://{app>/syncIcon}"
+				press="handleConnectIconPressed" />
+			<u:ShellHeadItem icon="sap-icon://{app>/errorIcon}"
+				press="handleOdataErrorPress" />
+			<u:ShellHeadItem icon="sap-icon://{app>/connectIcon}"
+				press="handleConnectIconPressed" />
+		</u:headEndItems>
+		<u:user>
+			<u:ShellHeadUserItem image="sap-icon://person-placeholder"
+				username="{app>/EmployeeData/username}" press=".handleUserItemPressed" />
+		</u:user>
+		<u:content>
+			<App id="app" busy="{app>/busy}" backgroundImage="{app>/backGroundImage}" />
+		</u:content>
+	</u:Shell>
+</mvc:View>

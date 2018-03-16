@@ -1,0 +1,262 @@
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	controllerName="com.kalydia.edfen.workmanager.controller.NotificationList.NotificationList"
+	xmlns:semantic="sap.m.semantic" xmlns:ui="sap.ca.ui" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified" xmlns:form="sap.ui.layout.form" displayBlock="true">
+	<SplitContainer id="containerNotification">
+		<masterPages>
+			<semantic:MasterPage title="{i18n>NotificationList.masterTitle}"
+				id="masterNotification">
+				<semantic:sort>
+					<semantic:SortSelect change="handleSorting">
+						<core:Item key="NotifNo" text="{i18n>oData.NotifHeader.NotifNo}"></core:Item>
+						<core:Item key="Priority" text="{i18n>oData.NotifHeader.Priority}"></core:Item>
+						<core:Item key="FunctLoc" text="{i18n>oData.NotifHeader.FunctLoc}"></core:Item>
+						<core:Item key="CreatedDate" text="{i18n>oData.NotifHeader.CreatedDate}"></core:Item>
+					</semantic:SortSelect>
+				</semantic:sort>
+				<SearchField liveChange="handleSearch" />
+				<PullToRefresh refresh="handleRefresh" id="pullToRefresh" />
+				<List id="list"
+					items="{
+			      path: 'work>/NotifHeaderSet',	
+			      sorter : {
+						path : 'NotifNo',
+						descending : true
+				  },		    
+			      filters:[{
+			      	path: 'Complete', 
+			      	operator: 'EQ',
+			      	value1: '' 
+			      },{
+			      	path: 'NotifNo', 
+			      	operator: 'EQ',
+			      	value1: '99999999' 
+			      }]
+			    }"
+					growingThreshold="35" growing="true" mode="SingleSelectMaster"
+					select="onSelect">
+					<items id="listItems">
+						<ObjectListItem type="Active" icon="{ path : 'work>@com.sap.vocabularies.Offline.v1.inErrorState', formatter: '.iconSaveStatus' }"
+							title="{ path : 'work>NotifNo', formatter: '.formatRemoveLeadingZeros' }">
+							<firstStatus>
+								<ObjectStatus text="{work>PriorityText}"
+									state="{path:'work>Priority', formatter:'.formatState'}"></ObjectStatus>
+							</firstStatus>
+							<secondStatus>
+								<ObjectStatus
+									text="{path:'work>CreatedDate',formatter:'.formatDate'}">
+								</ObjectStatus>
+							</secondStatus>
+							<attributes>
+								<ObjectAttribute text="{work>ShortText}"></ObjectAttribute>
+								<ObjectAttribute text="{work>FunctLoc}"></ObjectAttribute>
+							</attributes>
+						</ObjectListItem>
+					</items>
+				</List>
+			</semantic:MasterPage>
+		</masterPages>
+		<detailPages>
+			<semantic:DetailPage id="detailNotification"
+				title="{i18n>NotificationList.detailTitle} {path: 'Notification>/NotifNo', formatter: '.formatRemoveLeadingZeros'}">
+				<semantic:messagesIndicator>
+					<semantic:MessagesIndicator press="handleMessagePress"
+						visible="true" />
+				</semantic:messagesIndicator>
+				<semantic:positiveAction>
+					<semantic:PositiveAction text="{i18n>NotificationList.button.Approve}"
+						press="Approve" id="approveNotification" visible="false" />
+				</semantic:positiveAction>
+				<semantic:negativeAction>
+					<semantic:NegativeAction text="{i18n>NotificationList.button.Reject}"
+						press="Reject" id="rejectNotification" visible="false" />
+				</semantic:negativeAction>
+
+				<semantic:customFooterContent>
+					<Button text="{i18n>createNotification.button.similarNotification}"
+						type="Emphasized" press="navToSimilarNotification" />
+				</semantic:customFooterContent>
+
+				<!-- General Information -->
+				<Bar>
+					<contentLeft>
+						<ObjectIdentifier
+							title="{i18n>createNotification.title.generalInformation}"></ObjectIdentifier>
+					</contentLeft>
+					<contentRight>
+						<Button icon="sap-icon://edit" type="Transparent" press="Review"
+							visible="true" id="reviewNotification"></Button>
+						<Button icon="sap-icon://save" type="Transparent" press="Save"
+							visible="false" id="saveNotification"></Button>
+					</contentRight>
+				</Bar>
+
+				<form:SimpleForm minWidth="1024" maxContainerCols="2"
+					editable="true" layout="ResponsiveGridLayout" class="editableForm">
+					<!-- Notification Number -->
+					<Label text="{i18n>oData.NotifHeader.NotifNo}" />
+					<Input id="NotifNo"
+						value="{path : 'Notification>/NotifNo', formatter: '.formatRemoveLeadingZeros' }"
+						editable="false" />
+					<!-- Notification Description -->
+					<Label required="true" text="{i18n>oData.NotifHeader.ShortText}" />
+					<Input editable="false" id="ShortTextNotification" maxLength="35"
+						value="{Notification>/ShortText}" liveChange="handleShortTextModification" />
+					<!-- Notification Type -->
+					<Label text="{i18n>oData.NotifHeader.Notiftype}" />
+					<Input id="NotifTypeNotification" width="100%" editable="false"
+						value="{Notification>/NotiftypeText}" />
+					<!-- Functional Location -->
+					<Label required="true" text="{i18n>oData.NotifHeader.FunctLoc}" />
+					<Input id="functLocationNotification" value="{Notification>/FunctLoc}"
+						valueHelpOnly="true" showValueHelp="true" valueHelpRequest="openFunctionalLocationSelect"
+						editable="false" />
+					<Text id="FunctLocDescNotification" text="{Notification>/Funcldescr}" />
+					<!-- Equipement -->
+					<Label labelFor="equipmentNotification" text="{i18n>oData.NotifHeader.Equipment}" />
+					<Input id="equipmentNotification" showValueHelp="true"
+						valueHelpOnly="true" maxLength="18" valueHelpRequest="openEquipmentSelect"
+						value="{path:'Notification>/Equipment', formatter:'.formatRemoveLeadingZeros'}" />
+					<Text id="EquipmentDesc" text="{Notification>/Equidescr}" />
+					<!-- BreakDown -->
+					<Label text="{i18n>oData.NotifHeader.Breakdown}" />
+					<CheckBox id="breakdownNotification"
+						selected="{path :'Notification>/Breakdown', formatter:'.formatFlag'}"
+						editable="false" select="handleBreakdownSelect" />
+				</form:SimpleForm>
+
+				<!-- Notification Information -->
+				<Bar>
+					<contentLeft>
+						<ObjectIdentifier title="{i18n>createNotification.title.notification}"></ObjectIdentifier>
+					</contentLeft>
+					<contentRight></contentRight>
+				</Bar>
+				<form:SimpleForm minWidth="1024" maxContainerCols="2"
+					editable="true" layout="ResponsiveGridLayout" class="editableForm">
+
+					<!-- Priority -->
+					<Label required="true" text="{i18n>oData.NotifHeader.PriorityText}"></Label>
+					<Select enabled="false" width="100%" id="priorityNotification"
+						items="{/PrioritySet}" selectedKey="{Notification>/Priority}"
+						change="handlePriorityChange">
+						<items>
+							<core:Item text="{PMPriorityText}" key="{PMPriority}" />
+						</items>
+					</Select>
+					<!-- Damage Group Code -->
+					<Label text="{i18n>oData.NotifItem.DCode}" />
+					<Input id="DCodegrpNotification" editable="false"
+						valueHelpOnly="true" maxLength="8" showValueHelp="true"
+						valueHelpRequest="openDamageGroupSelect" value="{Notification>/NotifItem/0/DCodegrp}" />
+					<Input id="DCodeNotification" editable="false" showValueHelp="true"
+						maxLength="4" valueHelpOnly="true" valueHelpRequest="openDamageCodeSelect"
+						value="{Notification>/NotifItem/0/DCode}" />
+					<Text id="DCodegrpDescNotification" text="{Notification>/NotifItem/0/StxtGrpcd}" />
+					<Text id="DCodeDescNotification" text="{Notification>/NotifItem/0/TxtProbcd}" />
+
+					<!-- Malfunction Date/Time -->
+					<Label required="true" text="{i18n>oData.NotifHeader.StrmlfnDate}" />
+					<DateTimePicker id="malFunctionDateNotification"
+						editable="false" width="50%"
+						value="{path: 'Notification>/StrmlfnDate', formatter: '.formatDateTime' }" />
+
+					<!-- Picture -->
+					<Label text="{i18n>createNotification.label.addTakePicture}"
+						id="takePictureNotification" visible="false" />
+					<Button icon="sap-icon://camera" press="capture" id="cameraNotification"
+						type="Transparent" visible="false" />
+					<Button icon="sap-icon://open-folder" press="library"
+						id="libraryNotification" type="Transparent" visible="false" />
+					<!-- <u:FileUploader id="libraryNotification" change="library" -->
+					<!-- fileType="jpg" mimeType="image/jpeg" maximumFileSize="0.250" -->
+					<!-- buttonOnly="true" icon="sap-icon://open-folder" type="Transparent" -->
+					<!-- visible="false" /> -->
+					<Button icon="sap-icon://sys-cancel" press="removeAllPics"
+						id="removePicsNotification" type="Transparent" visible="false" />
+					<Label text="{i18n>NotificationList.picture}" />
+					<HBox id="uploadCollectionNotification" />
+
+					<!-- Description -->
+					<Label labelFor="Notifdesctext" text="{i18n>oData.NotifHeader.Notifdesctext}" />
+					<TextArea id="NotifdesctextNotification" value="{Notification>/Notifdesctext}"
+						editable="false" rows="5" />
+					<Label id="LabelNotifdesctextNotificationNew" labelFor="NotifdesctextNotificationNew"
+						text="{i18n>oData.NotifHeader.Notifdesctext}" visible="false" />
+					<TextArea id="NotifdesctextNotificationNew" value="{Notification>/NotifdesctextNew}"
+						visible="false" liveChange="handleNotifdesctextModification" rows="5" />
+
+					<!-- Replacement Parts -->
+					<Label text="{i18n>oData.NotifComponent.Material}" />
+					<Table id="sparePartTable" items="{Notification>/NotifComponent}">
+						<headerToolbar>
+							<OverflowToolbar>
+								<Button id="addSparePartNotification" icon="sap-icon://add"
+									text="{i18n>createNotification.button.addPart}" press="openSparePart"
+									visible="false" />
+								<Button id="barcodeNotification" icon="sap-icon://bar-code"
+									text="{i18n>createNotification.button.scanBarCode}" press="scanBarcode"
+									visible="false" />
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.Material.MaterialId}" />
+								</header>
+							</Column>
+							<Column hAlign="Left" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.Material.MatlDesc}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="15%"
+								id="RequirementQuantityNotificationDisplay">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.NotifComponent.RequirementQuantity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="15%"
+								id="RequirementQuantityNotificationInput" visible="false">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.NotifComponent.RequirementQuantity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%"
+								id="decrementSparePartColumnNotification" visible="false">
+								<header />
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%"
+								id="incrementSparePartColumnNotification" visible="false">
+								<header />
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%"
+								id="deleteSparePartColumnNotification" visible="false">
+								<header />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<ObjectIdentifier
+									text="{ path:'Notification>Material' , formatter: '.formatRemoveLeadingZeros'}" />
+								<ObjectIdentifier text="{Notification>MatlDesc}" />
+								<ObjectIdentifier text="{Notification>RequirementQuantity}" />
+								<Input type="Number" value="{Notification>RequirementQuantity}"
+									liveChange="handleSparePartValueChange" />
+								<Button icon="sap-icon://sys-minus" width="100%"
+									press="decrementSparePart" />
+								<Button icon="sap-icon://sys-add" width="100%"
+									press="incrementSparePart" />
+								<Button icon="sap-icon://delete" width="100%" press="deleteSparePart" />
+							</ColumnListItem>
+						</items>
+					</Table>
+				</form:SimpleForm>
+			</semantic:DetailPage>
+		</detailPages>
+	</SplitContainer>
+
+</mvc:View>

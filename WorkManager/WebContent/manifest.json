@@ -1,0 +1,188 @@
+{
+	"_version": "1.4.0" ,
+
+	"start_url": "index.html",
+
+    "sap.app": {
+        "id": "com.kalydia.edfen.workmanager",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "title": "Work Manager",
+        "description": "Work Manager",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "offline": true
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_bluecrystal"
+        ],
+        "fullWidth": true
+    },
+    "sap.ui5": {
+        "rootView": "com.kalydia.edfen.workmanager.view.App",
+        "dependencies": {
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.unified": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "config": {
+            "mainTilesJSON": "model/mainTiles.json",
+            "appIconImage": "images/logo.png",
+            "backGroundImage": "images/background.jpg"
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.kalydia.edfen.workmanager.i18n.i18n"
+                }
+            }
+        },
+        "resources": {
+            "css": [{
+                "uri": "css/sapui5.css"
+            }]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "com.kalydia.edfen.workmanager.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": "notFound"
+                }
+            },
+            "routes": [{
+                "pattern": "",
+                "name": "loading",
+                "target": "loading"
+            }, {
+                "pattern": "home",
+                "name": "appHome",
+                "target": "home"
+            }, {
+                "pattern": "OdataError",
+                "name": "OdataError",
+                "target": "OdataError"
+            }, {
+                "pattern": "CreateNotification",
+                "name": "CreateNotification",
+                "target": "CreateNotification"
+            }, {
+                "pattern": "NotificationList",
+                "name": "NotificationList",
+                "target": "NotificationList"
+            }, {
+                "pattern": "MyWorkOrders",
+                "name": "MyWorkOrders",
+                "target": "MyWorkOrders"
+            }, {
+                "pattern": "MyWorkOrdersDetail/{Orderid}",
+                "name": "MyWorkOrdersDetail",
+                "target": "MyWorkOrdersDetail"
+            }, {
+                "pattern": "Documents",
+                "name": "Documents",
+                "target": "Documents"
+            }, {
+                "pattern": "TimeAndMaterialEntry",
+                "name": "TimeAndMaterialEntry",
+                "target": "TimeAndMaterialEntry"
+            }, {
+                "pattern": "PrepareWorkOrder",
+                "name": "PrepareWorkOrder",
+                "target": "PrepareWorkOrder"
+            }, {
+                "pattern": "SimilarNotification/{FunctLoc}",
+                "name": "SimilarNotification",
+                "target": "SimilarNotification"
+            }, {
+                "pattern": "NotificationDetail/{NotifNo}",
+                "name": "NotificationDetail",
+                "target": "NotificationDetail"
+            }, {
+                "pattern": "AssignExperts",
+                "name": "AssignExperts",
+                "target": "AssignExperts"
+            }, {
+                "pattern": "ChecklistAssignment",
+                "name": "ChecklistAssignment",
+                "target": "ChecklistAssignment"
+            }],
+            "targets": {
+                "notFound": {
+                    "viewName": "NotFound"
+                },
+                "loading": {
+                    "viewName": "Loading",
+                    "viewLevel": 1
+                },
+                "home": {
+                    "viewName": "Home",
+                    "viewLevel": 1
+                },
+                "OdataError": {
+                    "viewName": "OdataError/OdataError",
+                    "viewLevel": 1
+                },
+                "CreateNotification": {
+                    "viewName": "CreateNotification/CreateNotification",
+                    "viewLevel": 2
+                },
+                "NotificationList": {
+                    "viewName": "NotificationList/NotificationList",
+                    "viewLevel": 2
+                },
+                "PrepareWorkOrder": {
+                    "viewName": "MyWorkOrders/MyWorkOrdersMaster",
+                    "viewLevel": 2
+                },
+                "MyWorkOrders": {
+                    "viewName": "MyWorkOrders/MyWorkOrdersMaster",
+                    "viewLevel": 2
+                },
+                "MyWorkOrdersDetail": {
+                    "viewName": "MyWorkOrders/MyWorkOrdersDetail",
+                    "viewLevel": 3
+                },
+                "Documents": {
+                    "viewName": "SharePoint/Detail",
+                    "viewLevel": 2
+                },
+                "TimeAndMaterialEntry": {
+                    "viewName": "TimeAndMaterialEntry/TimeAndMaterialEntry",
+                    "viewLevel": 2
+                },
+                "SimilarNotification": {
+                    "viewName": "SimilarNotification/SimilarNotification",
+                    "viewLevel": 3
+                },
+                "NotificationDetail": {
+                    "viewName": "SimilarNotification/NotificationDetail",
+                    "viewLevel": 4
+                },
+                "AssignExperts": {
+                    "viewName": "PrepareWorkOrder/AssignExperts",
+                    "viewLevel": 3
+                },
+                "ChecklistAssignment": {
+                    "viewName": "ChecklistAssignment/ChecklistAssignment",
+                    "viewLevel": 2
+                }
+            }
+        }
+    }
+}

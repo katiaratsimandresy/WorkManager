@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc:View
+	controllerName="com.kalydia.edfen.workmanager.controller.MyWorkOrders.MyWorkOrdersMaster"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic"
+	xmlns:u="sap.ui.unified">
+
+	<!-- <semantic:FullscreenPage showSubHeader="false" title="{i18n>tile.MyWorkOrders}"> -->
+	<Page showHeader="false" showSubHeader="false" showFooter="false">
+		<content>
+			<l:Grid defaultSpan="L12 M12 S12" width="auto">
+				<l:content>
+					<IconTabBar id="iconTabBar" select="handleIconTabBarSelect"
+						applyContentPadding="false" backgroundDesign="Transparent">
+						<items>
+							<IconTabFilter id="OpenOrderFilter" icon="sap-icon://open-command-field"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.OpenOrders}"
+								iconColor="Default" key="9" />
+
+							<IconTabFilter id="AllOrdersFilter" icon="sap-icon://document-text"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.allOrders}"
+								iconColor="Default" key="allOrders" />
+
+							<IconTabFilter id="Priority1Filter" icon="sap-icon://documents"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.prioritySafety}"
+								iconColor="Critical" key="prioritySafety" />
+
+							<IconTabFilter id="Priority2Filter" icon="sap-icon://activity-items"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.stopDefault}"
+								iconColor="Negative" key="stopDefault" />
+
+							<IconTabFilter id="Priority3Filter" icon="sap-icon://document-text"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.minorIssue}"
+								iconColor="Neutral" key="minorIssue" />
+
+							<IconTabFilter id="Priority4Filter" icon="sap-icon://attachment-e-pub"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.nextIntervention}"
+								iconColor="Positive" key="nextIntervention" expanded="false"
+								expandable="false" />
+
+							<IconTabFilter id="ENS1Filter" icon="sap-icon://attachment-e-pub"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.ens1WorkOrders}"
+								iconColor="Positive" key="ens1WorkOrders" expanded="false"
+								expandable="false" />
+
+							<IconTabFilter id="MyWorkOrdersFilter" icon="sap-icon://document-text"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.myWorkOrders}"
+								iconColor="Default" key="myWorkOrders" />
+
+						</items>
+						<content>
+							<Bar translucent="true">
+								<contentLeft>
+									<SearchField search="handleSearch" liveChange="handleSearch"
+										visible="{
+											path: 'ViewModel>/MyOrders',
+											formatter: '.formatNotFlag'
+										}"
+										value="{ViewModel>/SearchOrder}" />
+								</contentLeft>
+								<contentRight>
+									<Select icon="sap-icon://sort" type="IconOnly" id="sorter"
+										autoAdjustWidth="true" change="handleSorting">
+										<core:Item key="Orderid" text="{i18n>oData.OrderHeader.Orderid}"></core:Item>
+										<core:Item key="Priority" text="{i18n>oData.OrderHeader.Priority}"></core:Item>
+										<core:Item key="FunctLoc" text="{i18n>oData.OrderHeader.FunctLoc}"></core:Item>
+										<core:Item key="EnterDate" text="{i18n>oData.OrderHeader.EnterDate}"></core:Item>
+									</Select>
+								</contentRight>
+							</Bar>
+							<PullToRefresh refresh="handleRefresh" />
+
+							<Table id="orderTable"
+								visible="{
+									path: 'ViewModel>/MyOrders',
+									formatter: '.formatNotFlag'
+								}"
+								items="{}" growingThreshold="500">
+								<columns>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.Orderid}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.ShortText}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.FunctLoc}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.Priority}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.EnterDate}" />
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Navigation" press="handleOrderPress">
+										<Text
+											text="{path:'work>Orderid', formatter:'.formatRemoveLeadingZeros'}" />
+										<Text text="{work>ShortText}" />
+										<Text text="{work>FunctLoc}" />
+										<ObjectStatus text="{work>PriorityText}"
+											state="{path: 'work>Priority', formatter: '.formatState'}" />
+										<Text
+											text="{path: 'work>EnterDate', formatter: '.formatDateTimeToDateString'}" />
+									</ColumnListItem>
+								</items>
+							</Table>
+
+							<Table id="myOrderTable"
+								visible="{
+									path: 'ViewModel>/MyOrders',
+									formatter: '.formatFlag'
+								}"
+								items="{
+							    	path: 'ViewModel>/MyWorkOrders',
+							    	sorter : {
+			    						path : 'EnterDate',
+			    						descending : true
+	 								}
+						    	}"
+								growingThreshold="1000">
+								<columns>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.Orderid}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.ShortText}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.FunctLoc}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.Priority}" />
+										</header>
+									</Column>
+									<Column hAlign="Center" vAlign="Middle">
+										<header>
+											<ObjectIdentifier title="{i18n>oData.OrderHeader.EnterDate}" />
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Navigation" press="handleOrderPress">
+										<Text
+											text="{path:'ViewModel>Orderid', formatter:'.formatRemoveLeadingZeros'}" />
+										<Text text="{ViewModel>ShortText}" />
+										<Text text="{ViewModel>FunctLoc}" />
+										<ObjectStatus text="{ViewModel>PriorityText}"
+											state="{path: 'ViewModel>Priority', formatter: '.formatState'}" />
+										<Text
+											text="{path: 'ViewModel>EnterDate', formatter: '.formatDateTimeToDateString'}" />
+									</ColumnListItem>
+								</items>
+							</Table>
+
+						</content>
+					</IconTabBar>
+				</l:content>
+			</l:Grid>
+		</content>
+	</Page>
+	<!-- Footer toolbar -->
+
+	<!-- <semantic:messagesIndicator> -->
+	<!-- <semantic:MessagesIndicator press="handleMessagePress" -->
+	<!-- visible="true" /> -->
+	<!-- </semantic:messagesIndicator> -->
+
+	<!-- </semantic:FullscreenPage> -->
+</mvc:View>

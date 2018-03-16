@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<TableSelectDialog title="{i18n>checklistAssignment.modal.title}"
+		search="handleSearchChecklist" liveChange="handleSearchChecklist"
+		confirm="validChecklist" close="validChecklist" growingThreshold="100"
+		items="{
+		path : '/CheckListSet',
+		filters:[{
+		path: 'ChklstSiteId',
+		operator: 'EQ',
+		value1: 'ZZZZ'
+		}],
+		sorter : {
+		path : 'ChklstId',
+		descending : true
+		}
+		}">
+		<columns>
+			<Column>
+				<header>
+					<Text text="{i18n>oData.CheckList.ChklstId}" />
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="{i18n>oData.CheckList.Titre}" />
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="{i18n>oData.CheckList.CreatedOn}" />
+				</header>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<Text text="{ChklstId}" />
+				<ObjectIdentifier title="{Titre}" />
+				<Text
+					text="{path: 'CreatedOn', formatter: '.formatDateTimeToDateString'}" />
+			</ColumnListItem>
+		</items>
+	</TableSelectDialog>
+
+</core:FragmentDefinition>

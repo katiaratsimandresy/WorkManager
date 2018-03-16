@@ -1,0 +1,299 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
+	<IconTabFilter icon="sap-icon://order-status"
+		text="{i18n>workOrderDetails.tab.reportSummary}" key="Report">
+		<content>
+
+			<!-- ORDER INFORMATION FORM -->
+
+			<f:SimpleForm id="SummaryOrderForm" minWidth="1024"
+				maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.summary.order.title}" class="editableForm">
+				<f:content>
+
+					<!-- OrderId -->
+					<Label labelFor="SummaryOrderid" text="{i18n>oData.OrderHeader.Orderid}" />
+					<Text id="SummaryOrderid"
+						text="{path: 'work>Orderid', formatter: '.formatRemoveLeadingZeros'}" />
+
+					<!-- NotifNo -->
+					<Label labelFor="SummaryNotifNo" text="{i18n>oData.NotifHeader.NotifNo}" />
+					<Text id="SummaryNotifNo"
+						text="{path: 'work>NotifNo', formatter: '.formatRemoveLeadingZeros'}" />
+
+					<!-- Order description -->
+					<Label labelFor="SummaryShortText" text="{i18n>oData.OrderHeader.ShortText}" />
+					<Text id="SummaryShortText" text="{work>ShortText}" />
+
+					<!-- Functional location -->
+					<Label labelFor="SummaryFunctLoc" text="{i18n>oData.OrderHeader.FunctLoc}" />
+					<Text id="SummaryFunctLoc" text="{work>FunctLoc}" />
+					<Text id="SummaryFunctLocDesc" text="{work>Funcldescr}" />
+
+					<!-- Equipment -->
+					<Label labelFor="SummaryEquipment" text="{i18n>oData.OrderHeader.Equipment}" />
+					<Text id="SummaryEquipment"
+						text="{path:'work>Equipment', formatter:'.formatRemoveLeadingZeros'}" />
+					<Text id="SummaryEquipmentDesc" text="{work>Equidescr}" />
+
+					<!-- Description -->
+					<Label labelFor="SummaryTextheader" text="{i18n>oData.OrderHeader.Textheader}" />
+					<Text id="SummaryTextheader" text="{work>Textheader}" />
+
+				</f:content>
+			</f:SimpleForm>
+
+			<!-- TIME CONSUMPTION FORM -->
+
+			<f:SimpleForm id="SummaryTimeForm" minWidth="1024"
+				maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.summary.time.title}" class="editableForm">
+				<f:content>
+
+					<Table id="SummaryTimeTable" items="{}" growingThreshold="1000">
+						<columns>
+							<Column hAlign="Center" vAlign="Middle" width="10%">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Activity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Description}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>workOrderDetails.generalInfo.columnHeader.noOfPeople}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.WorkForecast}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Acttype}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Complete}" />
+								</header>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<Text text="{work>Activity}" />
+								<Text text="{work>Description}" />
+								<Text
+									text="{path: 'work>OrderOperationAssignment', formatter:'.formatArrayCountNoOfPeople'}" />
+								<Text text="{work>WorkForecast} {work>UnWork}" />
+								<Text text="{work>Acttype}" />
+								<CheckBox selected="{path:'work>Complete', formatter:'.formatFlag'}"
+									enabled="false" />
+							</ColumnListItem>
+						</items>
+					</Table>
+
+				</f:content>
+			</f:SimpleForm>
+
+			<!-- CONFIRMATION FORM -->
+
+			<f:SimpleForm id="SummaryConfirmationForm" minWidth="1024"
+				maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.summary.confirmation.title}" class="editableForm">
+				<f:content>
+
+					<Table id="SummaryConfirmationTable" items="{}"
+						growingThreshold="1000">
+						<columns>
+							<Column hAlign="Center" vAlign="Middle" width="10%">
+								<header>
+									<ObjectIdentifier title="{i18n>i18n>oData.OrderOperation.Activity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="10%">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderOperationConfirmation.Workdate}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="15%">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderOperationConfirmation.Starttime}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="15%">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderOperationConfirmation.Endtime}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderOperationConfirmation.Text}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="15%">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderOperationConfirmation.FinConf}" />
+								</header>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<Text text="{work>Activity}" />
+								<Text text="{path: 'work>Workdate', formatter:'.formatToDateString'}"
+									wrapping="false" />
+								<Text
+									text="{path: 'work>Starttime', formatter:'.formatToTimeString'}"
+									wrapping="false" />
+								<Text
+									text="{
+											parts: [
+												{path:'work>Endtime'},
+												{path:'work>Status'}
+											], 
+											formatter:'.formatConfirmationEndtime'
+										}"
+									wrapping="false" />
+								<Text text="{work>Text}" />
+								<CheckBox selected="{path:'work>FinConf', formatter:'.formatFlag'}"
+									enabled="false" />
+							</ColumnListItem>
+						</items>
+					</Table>
+
+				</f:content>
+			</f:SimpleForm>
+
+			<!-- COMPONENTS FORM -->
+
+			<f:SimpleForm id="SummaryComponentsForm" minWidth="1024"
+				maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.summary.components.title}" class="editableForm">
+				<f:content>
+
+					<Table id="SummaryComponentsTable" items="{}"
+						growingThreshold="100">
+						<columns>
+							<Column hAlign="Center" vAlign="Middle" width="10%">
+								<header>
+									<ObjectIdentifier title="{i18n>i18n>oData.OrderOperation.Activity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.Material}" />
+								</header>
+							</Column>
+							<Column width="20%" hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.MatlDesc}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderComponent.RequirementQuantity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="20%">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderComponent.WithdQuan}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>timeAndMaterialEntry.detail.orderComponent.remQuantity}" />
+								</header>
+							</Column>
+
+						</columns>
+						<items>
+							<ColumnListItem>
+								<Text text="{work>Activity}" />
+								<Text
+									text="{path:'work>Material', formatter:'.formatRemoveLeadingZeros'}" />
+								<Text text="{work>MatlDesc}" />
+								<Text text="{work>RequirementQuantity}" />
+								<Text text="{work>WithdQuan}" />
+								<Text
+									text="{	parts:[
+												{path: 'work>RequirementQuantity'},
+												{path: 'work>WithdQuan'}
+											], 
+											formatter: '.calcRemQuantity'}" />
+
+							</ColumnListItem>
+						</items>
+					</Table>
+
+				</f:content>
+			</f:SimpleForm>
+
+			<!-- CHECKLIST FORM -->
+
+			<f:SimpleForm id="SummaryChecklistForm" minWidth="1024"
+				maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+				title="{i18n>workOrderDetails.summary.checklist.title}" class="editableForm">
+				<f:content>
+
+					<Table id="SummaryChecklistTable" backgroundDesign="Translucent"
+						items="{SummaryModel>/aCheckList}">
+
+						<columns>
+							<Column hAlign="Center" vAlign="Middle" width="10%">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperation.Activity}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="40%">
+								<header>
+									<ObjectIdentifier title="{i18n>oData.OrderOperationCheckList.Titre}" />
+								</header>
+							</Column>
+							<Column hAlign="Center" vAlign="Middle" width="50%">
+								<header>
+									<ObjectIdentifier
+										title="{i18n>oData.OrderOperationCheckListTask.Statut}" />
+								</header>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<Text text="{SummaryModel>Activity}" />
+								<Text text="{SummaryModel>Titre}" />
+								<l:VerticalLayout width="100%">
+									<l:content>
+										<ProgressIndicator percentValue="{SummaryModel>Percent}"
+											displayValue="{SummaryModel>QuickInfo}" showValue="true"
+											state="None" />
+										<ProgressIndicator percentValue="{SummaryModel>OKPercent}"
+											displayValue="{SummaryModel>OKQuickInfo}" showValue="true"
+											state="Success" />
+										<ProgressIndicator percentValue="{SummaryModel>KOPercent}"
+											displayValue="{SummaryModel>KOQuickInfo}" showValue="true"
+											state="Error" />
+									</l:content>
+								</l:VerticalLayout>
+							</ColumnListItem>
+						</items>
+					</Table>
+
+				</f:content>
+			</f:SimpleForm>
+
+		</content>
+	</IconTabFilter>
+
+</core:FragmentDefinition>

@@ -113,7 +113,7 @@ sap.ui.define([
 
 				/* Filters' definition */
 				var aFilters = [];
-				var oFilterWorkCenter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+				var oFilterWorkCenter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 				var oFilterFuncLoc = new sap.ui.model.Filter("FunctLoc", sap.ui.model.FilterOperator.StartsWith, funcLocSearchKey);
 				var oFilterComplete = new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, "");
 				aFilters.push(oFilterWorkCenter); 

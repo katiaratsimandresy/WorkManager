@@ -6,10 +6,10 @@
 
 		<content>
 			<Select width="100%"
-				items="{path: '/WorkCenterSet', sorters: [{path: 'WorkCntr'}]}"
-				selectedKey="{ViewModel>/WorkCntr}" change="handleWorkCntrSelectChange">
+				items="{path: '/WorkCenterSet', sorters: [{path: 'Planplant'}]}"
+				selectedKey="{ViewModel>/Planplant}" change="handlePlanplantSelectChange">
 				<items>
-					<core:Item text="{WorkCntr} - {WorkCtrTxt}" key="{WorkCntr}" />
+					<core:Item text="{Planplant} - {WorkCtrTxt}" key="{Planplant}" />
 				</items>
 			</Select>
 			<SearchField search="handleSearchEmployeenumberByWorkCenter" liveChange="handleSearchEmployeenumberByWorkCenter"
@@ -22,7 +22,7 @@
 			        descending : true
 	 			  },				    
 			      filters:[{
-			      	path: 'WorkCntr', 
+			      	path: 'Planplant', 
 			      	operator: 'EQ',
 			      	value1: 'ZZZZZZZZ' 
 			      }]

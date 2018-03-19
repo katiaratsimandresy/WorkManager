@@ -359,7 +359,7 @@ sap.ui.define([
 			} else {
 				var aSelection = [];
 				oControl.oSelectedPlanPlant = oSelectedItem.getBindingContext().getObject().Planplant;
-				// Loop over every item in the workcenter list
+				// Loop over every item in the planplant list
 				aItems.forEach(function(oItem) {
 					aCells = oItem.getCells();
 					var bActive = aCells && aCells.length > 0 ? aCells[0].getState() : false;
@@ -624,7 +624,7 @@ sap.ui.define([
 						var request = null;
 						switch (tileModel.target) {
 						case 'NotificationList':
-							request = "/NotifHeaderSet/$count/?$filter=WorkCntr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27";
+							request = "/NotifHeaderSet/$count/?$filter=Planplant%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27";
 							break;
 						case 'PrepareWorkOrder':
 							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27%20and%20(%20OrderType%20eq%20%27ENS1%27or%20OrderType%20eq%20%27ENS2%27%20)";

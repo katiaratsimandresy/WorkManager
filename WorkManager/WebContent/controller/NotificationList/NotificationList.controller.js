@@ -316,7 +316,7 @@ sap.ui.define([
 				if (data.ItemKey) {
 					// UPDATE
 					var sPath = (window.cordova) ?
-							data.__metadata.uri.replace(kalydia.oData.stores[oControl.getWorkCenter()].serviceUri, "") :
+							data.__metadata.uri.replace(kalydia.oData.stores[oControl.getPlanPlant()].serviceUri, "") :
 								"/" + data.__metadata.uri.split('/').pop();
 							oModelWork.update(
 									sPath,
@@ -352,7 +352,7 @@ sap.ui.define([
 				$.each(oControl._delta.deleted.NotifComponent, function(index, value) {
 					var data = value[0];
 					var sPath = (window.cordova) ?
-							data.__metadata.uri.replace(kalydia.oData.stores[oControl.getWorkCenter()].serviceUri, "") :
+							data.__metadata.uri.replace(kalydia.oData.stores[oControl.getPlanPlant()].serviceUri, "") :
 								"/" + data.__metadata.uri.split('/').pop();
 							oModelWork.remove(sPath, {
 								success: function(oData, oResponse) {
@@ -384,7 +384,7 @@ sap.ui.define([
 							NotifNo: value.NotifNo,
 							RequirementQuantity: value.RequirementQuantity,
 							RequirementQuantityUnit: value.RequirementQuantityUnit,
-							WorkCntr: value.WorkCntr
+							Planplant: value.Planplant
 						});
 					}
 				});
@@ -407,7 +407,7 @@ sap.ui.define([
 				if (!$.isEmptyObject(updates)) {
 					$.each(updates, function(index, value) {
 						var sPath = (window.cordova) ?
-								value.__metadata.uri.replace(kalydia.oData.stores[oControl.getWorkCenter()].serviceUri, "") :
+								value.__metadata.uri.replace(kalydia.oData.stores[oControl.getPlanPlant()].serviceUri, "") :
 									"/" + value.__metadata.uri.split('/').pop();
 								oModelWork.update(
 										sPath,
@@ -497,7 +497,7 @@ sap.ui.define([
 			// update filters
 			oBindingInfo.filters.push(new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, ' '));
 			oBindingInfo.filters.push(new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, ' '));
-			oBindingInfo.filters.push(new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, oControl.getWorkCenter()));
+			oBindingInfo.filters.push(new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, oControl.getPlanPlant()));
 			if (window.cordova) {
 				oList.setGrowingThreshold(5000);
 			}
@@ -641,7 +641,7 @@ sap.ui.define([
 						if ("__metadata" !== index) {
 							if (value && value.__deferred) {
 								if (window.cordova) {
-									sPath = value.__deferred.uri.replace(kalydia.oData.stores[oControl.getWorkCenter()].serviceUri, "");
+									sPath = value.__deferred.uri.replace(kalydia.oData.stores[oControl.getPlanPlant()].serviceUri, "");
 								} else {
 									sPath = oControl.oItemBindingPath + value.__deferred.uri.substring(value.__deferred.uri.lastIndexOf("/"));
 								}
@@ -813,7 +813,7 @@ sap.ui.define([
 				});
 			}
 			oControl._functionalLocationSelect.open();
-			oControl.searchFunctionalLocation(oControl.getWorkCenter(), parent)
+			oControl.searchFunctionalLocation(oControl.getPlanPlant(), parent)
 		},
 
 		/**
@@ -832,7 +832,7 @@ sap.ui.define([
 			try {
 				oControl.selectedFuncLocTableCells = val.oSource.getCells();
 				var funcloc = val.oSource.getCells()[1].getText();
-				oControl.searchFunctionalLocation(oControl.getWorkCenter(), funcloc);
+				oControl.searchFunctionalLocation(oControl.getPlanPlant(), funcloc);
 			} catch (err) {
 				console.error(err);
 			}
@@ -863,7 +863,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, oControl.getWorkCenter());
+			var oFilterWorkCenter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, oControl.getPlanPlant());
 			var oFilterSupFuncLoc = new sap.ui.model.Filter("Supfloc", sap.ui.model.FilterOperator.EQ, parent);
 			if (!window.cordova) {
 				aFilters.push(oFilterWorkCenter);
@@ -944,7 +944,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, oControl.getWorkCenter());
+			var oFilterWorkCenter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, oControl.getPlanPlant());
 			var oFuncLocFilter = new sap.ui.model.Filter("Funcloc", sap.ui.model.FilterOperator.StartsWith, view.byId("functLocationNotification").getValue())
 			if (filterValue != "") {
 				/* Only if search field is not empty */
@@ -1056,10 +1056,10 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, oControl.getWorkCenter());
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, oControl.getPlanPlant());
 			var oEquitypeFilter = new sap.ui.model.Filter("Equitype", sap.ui.model.FilterOperator.EQ, oControl.Equitype)
 
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 			aFilters.push(oEquitypeFilter);
 
 			if (filterValue != "") {
@@ -1172,11 +1172,11 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, oControl.getWorkCenter());
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, oControl.getPlanPlant());
 			var oEquitypeFilter = new sap.ui.model.Filter("Equitype", sap.ui.model.FilterOperator.EQ, oControl.Equitype);
 			var oDamageGroupFilter = new sap.ui.model.Filter("CodeGroup", sap.ui.model.FilterOperator.EQ, this.byId("DCodegrpNotification").getValue());
 
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 			aFilters.push(oEquitypeFilter);
 			aFilters.push(oDamageGroupFilter);
 

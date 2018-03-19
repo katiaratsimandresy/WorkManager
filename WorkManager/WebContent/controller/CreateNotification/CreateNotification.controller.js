@@ -79,7 +79,7 @@ sap.ui.define([
 		onRouteMatched: function(oEvent) {
 			var sName = oEvent.getParameter("name");
 			if (sName === "CreateNotification"){
-				if (ctl.getWorkCenter() != ctl.getView().getModel("CreateNotification").getProperty("/WorkCntr")){
+				if (ctl.getPlanPlant() != ctl.getView().getModel("CreateNotification").getProperty("/Planplant")){
 					ctl.initUserInputModelBinding();
 					ctl.removeAllPics();
 				}
@@ -101,7 +101,7 @@ sap.ui.define([
 			view.byId("Notiftype").setSelectedKey('TDL');
 			view.byId("Priority").setSelectedKey('1');
 			view.getModel("CreateNotification").setProperty("/NotifNo", (Math.floor(Math.random() * 999999999) + 999000000000).toString());
-			view.getModel("CreateNotification").setProperty("/WorkCntr", ctl.getWorkCenter());
+			view.getModel("CreateNotification").setProperty("/Planplant", ctl.getPlanPlant());
 			view.getModel("CreateNotification").setProperty("/CreatedBy", ctl.getEmployeeData().UserName);
 			view.getModel("CreateNotification").setProperty("/Complete", " ");
 			view.getModel("CreateNotification").setProperty("/InProcess", " ");
@@ -129,7 +129,7 @@ sap.ui.define([
 		openFunctionalLocationSelect: function(oEvent) {
 			var parent = "";
 			ctl.functionalLocationSelect.open();
-			ctl.searchFunctionalLocation(ctl.getWorkCenter(), parent)
+			ctl.searchFunctionalLocation(ctl.getPlanPlant(), parent)
 		},
 		/**
 		 * Handle action of selecting a functional location. Go deeper in the structure
@@ -140,7 +140,7 @@ sap.ui.define([
 			try {
 				ctl.selectedFuncLocTableCells = val.oSource.getCells();
 				var funcloc = val.oSource.getCells()[1].getText();
-				ctl.searchFunctionalLocation(ctl.getWorkCenter(), funcloc)
+				ctl.searchFunctionalLocation(ctl.getPlanPlant(), funcloc)
 
 			} catch (err) {
 				console.error(err);
@@ -185,10 +185,10 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, workcenter);
+			var oFilterPlanPlant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, workcenter);
 			var oFilterSupFuncLoc = new sap.ui.model.Filter("Supfloc", sap.ui.model.FilterOperator.EQ, parent);
 			if (!window.cordova) {
-				aFilters.push(oFilterWorkCenter);
+				aFilters.push(oFilterPlanPlant);
 			}
 			aFilters.push(oFilterSupFuncLoc);
 
@@ -261,7 +261,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oFilterPlanPlant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oFuncLocFilter = new sap.ui.model.Filter("Funcloc", sap.ui.model.FilterOperator.StartsWith, view.byId("FunctLoc").getValue());
 			if (filterValue != "") {
 				/* Only if search field is not empty */
@@ -288,7 +288,7 @@ sap.ui.define([
 					aFilters.push(oEquipmentFilter);
 				}
 			}
-			aFilters.push(oFilterWorkCenter);
+			aFilters.push(oFilterPlanPlant);
 			aFilters.push(oFuncLocFilter);
 
 			/* Search and bind data */
@@ -370,10 +370,10 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oEquitypeFilter = new sap.ui.model.Filter("Equitype", sap.ui.model.FilterOperator.EQ, ctl.Equitype)
 
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 			aFilters.push(oEquitypeFilter);
 
 			if (filterValue != "") {
@@ -482,11 +482,11 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oEquitypeFilter = new sap.ui.model.Filter("Equitype", sap.ui.model.FilterOperator.EQ, ctl.Equitype);
 			var oDamageGroupFilter = new sap.ui.model.Filter("CodeGroup", sap.ui.model.FilterOperator.EQ, this.byId("DCodegrp").getValue());
 
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 			aFilters.push(oEquitypeFilter);
 			aFilters.push(oDamageGroupFilter);
 
@@ -544,7 +544,7 @@ sap.ui.define([
 					} else {
 						var line = {
 								ItemKey: '0001',
-								WorkCntr: ctl.getWorkCenter(),
+								Planplant: ctl.getPlanPlant(),
 								DCode: oSelectedDamageCode.getObject().Code,
 								TxtProbcd: oSelectedDamageCode.getObject().ShortText
 						}
@@ -711,7 +711,7 @@ sap.ui.define([
 					MatlDesc: MatlDesc.replace(/[^\w\s]/g, '-'),
 					RequirementQuantity: RequirementQuantity.toString(),
 					ItemNumber: Formatter.addLeadingZero(ctl._ItemNumber.toString(), 4),
-					WorkCntr: ctl.getWorkCenter()
+					Planplant: ctl.getPlanPlant()
 			}
 			aComponents.push(line);
 			ctl._ItemNumber++;
@@ -851,7 +851,7 @@ sap.ui.define([
 				oModelWork.create( sPath, oNotifHeader, {
 					success: function(oData, oResponse) {
 						if (window.cordova){
-							var sPath = oResponse.data.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri,"");
+							var sPath = oResponse.data.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri,"");
 						}else{
 							var sPath = "/NotifHeaderSet('" + oData.NotifNo + "')";
 						}
@@ -874,7 +874,7 @@ sap.ui.define([
 						// Image
 						if (ctl.imageData){
 							if (window.cordova){
-								var sPathCreate = kalydia.oData.stores[ctl.getWorkCenter()].serviceUri + sPath + "/NotifAttach";
+								var sPathCreate = kalydia.oData.stores[ctl.getPlanPlant()].serviceUri + sPath + "/NotifAttach";
 							}else{
 								var sPathCreate = kalydia.logon.ApplicationContext.applicationEndpointURL + sPath + "/NotifAttach";
 							}

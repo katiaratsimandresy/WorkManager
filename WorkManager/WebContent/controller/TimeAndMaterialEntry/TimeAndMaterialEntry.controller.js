@@ -97,7 +97,7 @@ sap.ui.define([
 
 			/* Filters definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oFilterWorkCenter = new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oFilterComplete = new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, "");
 			var oFilterInProcess = new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, "X");
 			aFilters.push(oFilterWorkCenter);
@@ -774,14 +774,14 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent: typing in search field
 		 */
 		handleSearchEmployeenumber: function(oEvent){
-			var sWorkCenter = ctl.getView().getModel("ViewModel").getProperty("/WorkCntr");
-			ctl.searchEmployeenumber(sWorkCenter, oEvent.getSource().getValue());
+			var sPlanPlant = ctl.getView().getModel("ViewModel").getProperty("/Planplant");
+			ctl.searchEmployeenumber(sPlanPlant, oEvent.getSource().getValue());
 		},
 		/**
 		 * Triggered when user changes workcenter into employee search help dialog
 		 * @param {sap.ui.base.Event} oEvent: typing in search field
 		 */
-		handleWorkCntrSelectChange: function(oEvent){
+		handlePlanplantSelectChange: function(oEvent){
 			ctl.getView().getModel("ViewModel").setProperty("/SearchEmployeeNumber", "")
 			ctl.searchEmployeenumber(oEvent.getSource().getProperty("selectedKey"), "");
 		},
@@ -922,10 +922,10 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent: click on button
 		 */
 		handleConfirmationMassCopy: function(oEvent){
-			ctl.searchEmployeenumber(ctl.getWorkCenter(), "");
+			ctl.searchEmployeenumber(ctl.getPlanPlant(), "");
 
 			/* Initialize select for WorkCenters with current workcenter */
-			ctl.getView().getModel("ViewModel").setProperty("/WorkCntr", ctl.getWorkCenter());
+			ctl.getView().getModel("ViewModel").setProperty("/Planplant", ctl.getPlanPlant());
 
 			ctl.getView().getModel("ViewModel").setProperty("/EmployeeNumberCallback", ctl.confirmationMassCopy);
 
@@ -947,8 +947,8 @@ sap.ui.define([
 		 * Open employee number search help dialog
 		 */
 		openEmployeenumberSelect: function(){
-			ctl.searchEmployeenumber(ctl.getWorkCenter(), "");
-			ctl.getView().getModel("ViewModel").setProperty("/WorkCntr", ctl.getWorkCenter());
+			ctl.searchEmployeenumber(ctl.getPlanPlant(), "");
+			ctl.getView().getModel("ViewModel").setProperty("/Planplant", ctl.getPlanPlant());
 			ctl.getView().getModel("ViewModel").setProperty("/EmployeeNumberCallback", ctl.handleEmployeePress);
 			ctl.employeeNumberSelect.open();
 		},
@@ -1290,13 +1290,13 @@ sap.ui.define([
 		},
 		/**
 		 * Search for employee number
-		 * @param {string} sWorkCenter : employee's workcenter
+		 * @param {string} sPlanPlant : employee's workcenter
 		 * @param {string} sFilterValue: search string
 		 */
-		searchEmployeenumber: function(sWorkCenter, sFilterValue){
+		searchEmployeenumber: function(sPlanPlant, sFilterValue){
 			var aFilters = [];
 
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, sWorkCenter);
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, sPlanPlant);
 			if (sFilterValue && sFilterValue != "") {
 				/* Only if search field is not empty */
 				var oUserFullnameFilter = new sap.ui.model.Filter(
@@ -1322,7 +1322,7 @@ sap.ui.define([
 					aFilters.push(oUserFullnameFilter);
 				}
 			}			
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 
 			var oBindingInfo = sap.ui.getCore().byId("employeeNumberTable").getBindingInfo("items");
 			oBindingInfo.filters = aFilters;
@@ -1544,7 +1544,7 @@ sap.ui.define([
 						for (var tabix in oData.results){
 							var confirmation = oData.results[tabix];
 							if (window.cordova) {
-								var sPath = confirmation.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+								var sPath = confirmation.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 							} else {
 								var sPath = confirmation.__metadata.uri.substring(confirmation.__metadata.uri.lastIndexOf("/"));
 							}

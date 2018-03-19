@@ -263,15 +263,15 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					"FuncLoc_DR": "/FuncLocSet?$filter=Planplant eq '" + planplant + "'",
 
 					// Damage Code
-					"DamageCode_DR": "/DamageCodeSet?$filter=WorkCntr eq '" + workcenter + "'",
-					"DamageGroup_DR": "/DamageGroupSet?$filter=WorkCntr eq '" + workcenter + "'",
+					"DamageCode_DR": "/DamageCodeSet?$filter=Planplant eq '" + workcenter + "'",
+					"DamageGroup_DR": "/DamageGroupSet?$filter=Planplant eq '" + workcenter + "'",
 
 					// Notification
 					"NotifHeader_DR": "/NotifHeaderSet?$filter=Planplant eq '" + planplant + "'",
 					"NotifItem_DR": "/NotifItemSet?$filter=Planplant eq '" + planplant + "'",
-					"NotifComponent_DR": "/NotifComponentSet?$filter=WorkCntr eq '" + workcenter + "'",
+					"NotifComponent_DR": "/NotifComponentSet?$filter=Planplant eq '" + workcenter + "'",
 					"NotifAttach_DR": {
-						"url": "/NotifAttachSet?$filter=WorkCntr eq '" + workcenter + "'",
+						"url": "/NotifAttachSet?$filter=Planplant eq '" + workcenter + "'",
 						"retrieveStreams": retrieveStreams
 					},
 
@@ -301,7 +301,7 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					"OrderComponent_DR": "/OrderComponentSet?$filter=Plant eq '" + planplant + "'",
 					//"OrderComponentReserv_DR": "/OrderComponentReservSet?$filter=MnWkCtr eq '" + workcenter + "'",
 
-					"OrderOperationConfirmation_DR": "/OrderOperationConfirmationSet?$filter=WorkCntr eq '" + workcenter + "'",
+					"OrderOperationConfirmation_DR": "/OrderOperationConfirmationSet?$filter=Planplant eq '" + workcenter + "'",
 
 					"OrderAttach_DR": {
 						"url": "/OrderAttachSet?$filter=Planplant eq '" + planplant + "'",

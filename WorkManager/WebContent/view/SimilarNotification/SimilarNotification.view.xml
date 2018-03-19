@@ -22,7 +22,7 @@
 			      	operator: 'EQ',
 			      	value1: '' 
 			      },{
-			      	path: 'WorkCntr', 
+			      	path: 'Planplant', 
 			      	operator: 'EQ',
 			      	value1: 'Z' 
 			      }]

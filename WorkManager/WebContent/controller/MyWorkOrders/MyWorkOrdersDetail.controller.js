@@ -230,7 +230,7 @@ sap.ui.define([
 							if (( index === "OrderAttach" || index === "NotifHeader" || index === "OrderComponent")  
 									&& value && value.__deferred) {
 								if (window.cordova) {
-									sPath = value.__deferred.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+									sPath = value.__deferred.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 								} else {
 									sPath = ctl.sOrderPath + value.__deferred.uri.substring(value.__deferred.uri.lastIndexOf("/"));
 								}
@@ -265,7 +265,7 @@ sap.ui.define([
 											if (!$.isEmptyObject(oHeader)){
 												if (oHeader.NotifAttach && oHeader.NotifAttach.__deferred){
 													if (window.cordova) {
-														sPath = oHeader.NotifAttach.__deferred.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+														sPath = oHeader.NotifAttach.__deferred.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 													} else {
 														sPath = oHeader.__metadata.uri.substring(oHeader.__metadata.uri.lastIndexOf("/")) + oHeader.NotifAttach.__deferred.uri.substring(oHeader.NotifAttach.__deferred.uri.lastIndexOf("/"));
 													}
@@ -298,7 +298,7 @@ sap.ui.define([
 
 												if (oHeader.NotifItem && oHeader.NotifItem.__deferred){
 													if (window.cordova) {
-														sPath = oHeader.NotifItem.__deferred.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+														sPath = oHeader.NotifItem.__deferred.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 													} else {
 														sPath = oHeader.__metadata.uri.substring(oHeader.__metadata.uri.lastIndexOf("/")) + oHeader.NotifItem.__deferred.uri.substring(oHeader.NotifAttach.__deferred.uri.lastIndexOf("/"));
 													}
@@ -431,7 +431,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oFilterWorkCenter = new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oFilterFuncLoc = new sap.ui.model.Filter("FunctLoc", sap.ui.model.FilterOperator.StartsWith, sFuncLocSearchKey);
 			aFilters.push(oFilterWorkCenter); 
 			aFilters.push(oFilterFuncLoc);
@@ -531,7 +531,7 @@ sap.ui.define([
 					ctl.CheckListAttachmentByte = {};
 
 					if (window.cordova) {
-						ctl.sCheckListPath = sUriChecklist.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						ctl.sCheckListPath = sUriChecklist.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						ctl.sCheckListPath =  sUriChecklist.substring(sUriChecklist.lastIndexOf("/"));
 					}
@@ -542,7 +542,7 @@ sap.ui.define([
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("Reference", false);
 					if (window.cordova) {
-						oBindingInfo.path = sUriDocument.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						oBindingInfo.path = sUriDocument.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						oBindingInfo.path =  sUriChecklist.substring(sUriChecklist.lastIndexOf("/"))+"/OrderOperationCheckListDocument";
 					}
@@ -555,7 +555,7 @@ sap.ui.define([
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("ToolId", false);
 					if (window.cordova) {
-						oBindingInfo.path = sUriTool.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						oBindingInfo.path = sUriTool.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						oBindingInfo.path =  sUriChecklist.substring(sUriChecklist.lastIndexOf("/"))+"/OrderOperationCheckListTool";
 					}
@@ -568,7 +568,7 @@ sap.ui.define([
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("PartId", false);
 					if (window.cordova) {
-						oBindingInfo.path = sUriPart.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						oBindingInfo.path = sUriPart.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						oBindingInfo.path =  sUriChecklist.substring(sUriChecklist.lastIndexOf("/"))+"/OrderOperationCheckListPart";
 					}
@@ -581,7 +581,7 @@ sap.ui.define([
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("ToolcalId", false);
 					if (window.cordova) {
-						oBindingInfo.path = sUriCaliTool.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						oBindingInfo.path = sUriCaliTool.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						oBindingInfo.path =  sUriChecklist.substring(sUriChecklist.lastIndexOf("/"))+"/OrderOperationCheckListCaliTool";
 					}
@@ -602,7 +602,7 @@ sap.ui.define([
 					oBindingInfo.sorter = new sap.ui.model.Sorter("TaskId", false);
 					oBindingInfo.parameters = { expand : "OrderOperationCheckListMesure" };
 					if (window.cordova) {
-						oBindingInfo.path = sUriTask.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						oBindingInfo.path = sUriTask.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						oBindingInfo.path =  sUriChecklist.substring(sUriChecklist.lastIndexOf("/"))+"/OrderOperationCheckListTask";
 					}
@@ -1501,7 +1501,7 @@ sap.ui.define([
 				$.each(ctl._delta.deleted.OrderComponent, function(index, value) {
 					var data = value[0];
 					var sPath = (window.cordova) ?
-							data.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "") :
+							data.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "") :
 								"/" + data.__metadata.uri.split('/').pop();
 							oModelWork.remove(sPath, {
 								eTag: data.__metadata.etag,
@@ -1570,7 +1570,7 @@ sap.ui.define([
 				if (!$.isEmptyObject(updates)) {
 					$.each(updates, function(index, value) {
 						var sPath = (window.cordova) ?
-								value.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "") :
+								value.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "") :
 									"/" + value.__metadata.uri.split('/').pop();
 								var oValue = $.extend(true, {}, value);
 								delete oValue.__metadata;
@@ -1608,7 +1608,7 @@ sap.ui.define([
 				if (!$.isEmptyObject(oItemData)){
 					if (oItemData.ItemKey){
 						var sItemPath = (window.cordova) ?
-								oItemData.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "") :
+								oItemData.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "") :
 									"/" + oItemData.__metadata.uri.split('/').pop();
 								oModelWork.update(
 										sItemPath,
@@ -1672,7 +1672,7 @@ sap.ui.define([
 						ctl.removeOrderPicture = false;
 						if (ctl.imageData){
 							if (window.cordova){
-								var sPathCreate = kalydia.oData.stores[ctl.getWorkCenter()].serviceUri + ctl.sOrderPath + "/OrderAttach";
+								var sPathCreate = kalydia.oData.stores[ctl.getPlanPlant()].serviceUri + ctl.sOrderPath + "/OrderAttach";
 							}else{
 								var sPathCreate = kalydia.logon.ApplicationContext.applicationEndpointURL + ctl.sOrderPath + "/OrderAttach";
 							}
@@ -1891,7 +1891,7 @@ sap.ui.define([
 		submitTaskPicture: function(imageData, image) {
 			if (imageData){
 				if (window.cordova){
-					var sPathCreate = kalydia.oData.stores[ctl.getWorkCenter()].serviceUri + ctl.sCheckListTaskPath + "/OrderOperationCheckListTaskAttach";
+					var sPathCreate = kalydia.oData.stores[ctl.getPlanPlant()].serviceUri + ctl.sCheckListTaskPath + "/OrderOperationCheckListTaskAttach";
 				}else{
 					var sPathCreate = kalydia.logon.ApplicationContext.applicationEndpointURL + ctl.sCheckListTaskPath + "/OrderOperationCheckListTaskAttach";
 				}
@@ -1954,7 +1954,7 @@ sap.ui.define([
 		submitFindingPicture: function(imageData, image) {
 			if (imageData){
 				if (window.cordova){
-					var sPathCreate = kalydia.oData.stores[ctl.getWorkCenter()].serviceUri + ctl.sCheckListPath + "/OrderOperationCheckListAttach";
+					var sPathCreate = kalydia.oData.stores[ctl.getPlanPlant()].serviceUri + ctl.sCheckListPath + "/OrderOperationCheckListAttach";
 				}else{
 					var sPathCreate = kalydia.logon.ApplicationContext.applicationEndpointURL + ctl.sCheckListPath + "/OrderOperationCheckListAttach";
 				}
@@ -2039,7 +2039,7 @@ sap.ui.define([
 					ctl.getView().getModel("plant").create("/NotifHeaderSet", ctl.oNotifData, {
 						success: function(oData, oResponse){
 							if (window.cordova){
-								var sPath = oResponse.data.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri,"");
+								var sPath = oResponse.data.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri,"");
 							}else{
 								var sPath = "/NotifHeaderSet('" + oData.NotifNo + "')";
 							}
@@ -2050,7 +2050,7 @@ sap.ui.define([
 							// Image
 							if (ctl.CheckListAttachmentByte[sAttachPath]){
 								if (window.cordova){
-									var sPathCreate = kalydia.oData.stores[ctl.getWorkCenter()].serviceUri + sPath + "/NotifAttach";
+									var sPathCreate = kalydia.oData.stores[ctl.getPlanPlant()].serviceUri + sPath + "/NotifAttach";
 								}else{
 									var sPathCreate = kalydia.logon.ApplicationContext.applicationEndpointURL + sPath + "/NotifAttach";
 								}
@@ -2341,7 +2341,7 @@ sap.ui.define([
 			ctl.getView().getModel("plant").read(sPath,{
 				success: function(oData){
 					if (window.cordova) {
-						var sPath = oData.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						var sPath = oData.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						var sPath = oData.__metadata.uri.substring(oData.__metadata.uri.lastIndexOf("/"));
 					}
@@ -2670,7 +2670,7 @@ sap.ui.define([
 				ctl.selectedFuncLocTableCells = val.oSource.getCells();
 				var funcloc = val.oSource.getCells()[1].getText();
 
-				ctl.searchFunctionalLocation(ctl.getWorkCenter(), funcloc)
+				ctl.searchFunctionalLocation(ctl.getPlanPlant(), funcloc)
 
 			} catch (err) {
 				console.log(err);
@@ -2853,14 +2853,14 @@ sap.ui.define([
 		 * @param{sap.ui.base.Event} oEvent: event that triggered the function
 		 */
 		handleSearchEmployeenumberByWorkCenter: function(oEvent){
-			var sWorkCenter = ctl.getView().getModel("ViewModel").getProperty("/WorkCntr");
-			ctl.searchEmployeenumberByWorkCenter(sWorkCenter, oEvent.getSource().getValue());
+			var sPlanPlant = ctl.getView().getModel("ViewModel").getProperty("/Planplant");
+			ctl.searchEmployeenumberByWorkCenter(sPlanPlant, oEvent.getSource().getValue());
 		},
 		/**
 		 * Handle workcenter modification in search help for employees by workcenter modal
 		 * @param{sap.ui.base.Event} oEvent: event that triggered the function
 		 */
-		handleWorkCntrSelectChange: function(oEvent){
+		handlePlanplantSelectChange: function(oEvent){
 			ctl.getView().getModel("ViewModel").setProperty("/SearchEmployeeNumberByWorkCenter", "")
 			ctl.searchEmployeenumberByWorkCenter(oEvent.getSource().getProperty("selectedKey"), "");
 		},
@@ -3487,10 +3487,10 @@ sap.ui.define([
 		 * @param{sap.ui.base.Event} oEvent: event that triggered the function
 		 */
 		handleConfirmationMassCopy: function(oEvent){
-			ctl.searchEmployeenumberByWorkCenter(ctl.getWorkCenter(), "");
+			ctl.searchEmployeenumberByWorkCenter(ctl.getPlanPlant(), "");
 
 			/* Initialize select for WorkCenters with current workcenter */
-			ctl.getView().getModel("ViewModel").setProperty("/WorkCntr", ctl.getWorkCenter());
+			ctl.getView().getModel("ViewModel").setProperty("/Planplant", ctl.getPlanPlant());
 
 			ctl.getView().getModel("ViewModel").setProperty("/EmployeeNumberByWorkCenterCallback", ctl.confirmationMassCopy);
 
@@ -3527,7 +3527,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, workcenter);
+			var oFilterWorkCenter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, workcenter);
 			var oFilterSupFuncLoc = new sap.ui.model.Filter("Supfloc", sap.ui.model.FilterOperator.EQ, parent);
 			if (!window.cordova) {
 				aFilters.push(oFilterWorkCenter);
@@ -3724,7 +3724,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oFilterWorkCenter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oFuncLocFilter = new sap.ui.model.Filter("Funcloc", sap.ui.model.FilterOperator.StartsWith, oView.byId("FunctLoc").getValue());
 			if (filterValue != "") {
 				/* Only if search field is not empty */
@@ -3779,10 +3779,10 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oEquitypeFilter = new sap.ui.model.Filter("Equitype", sap.ui.model.FilterOperator.EQ, ctl.Equitype)
 
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 			aFilters.push(oEquitypeFilter);
 
 			if (filterValue != "") {
@@ -3835,9 +3835,9 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oEquitypeFilter = new sap.ui.model.Filter("Equitype", sap.ui.model.FilterOperator.EQ, ctl.Equitype)
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 			aFilters.push(oEquitypeFilter);
 
 			var oDamageGroupFilter = new sap.ui.model.Filter("CodeGroup", sap.ui.model.FilterOperator.EQ, this.byId("DCodegrp").getValue())
@@ -3882,13 +3882,13 @@ sap.ui.define([
 		},
 		/**
 		 * Search for employee number using search bar value and workcenter
-		 * @param{string} sWorkCenter: workcenter
+		 * @param{string} sPlanPlant: workcenter
 		 * @param{string} sFilterValue: filter text value
 		 */
-		searchEmployeenumberByWorkCenter: function(sWorkCenter, sFilterValue){
+		searchEmployeenumberByWorkCenter: function(sPlanPlant, sFilterValue){
 			var aFilters = [];
 
-			var oWorkCenterFilter = new sap.ui.model.Filter("WorkCntr", sap.ui.model.FilterOperator.EQ, sWorkCenter);
+			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, sPlanPlant);
 			if (sFilterValue && sFilterValue != "") {
 				/* Only if search field is not empty */
 				var oUserFullnameFilter = new sap.ui.model.Filter(
@@ -3914,7 +3914,7 @@ sap.ui.define([
 					aFilters.push(oUserFullnameFilter);
 				}
 			}			
-			aFilters.push(oWorkCenterFilter);
+			aFilters.push(oPlanPlantFilter);
 
 			var oBindingInfo = sap.ui.getCore().byId("employeeNumberByWorkCenterTable").getBindingInfo("items");
 			oBindingInfo.filters = aFilters;
@@ -4253,7 +4253,7 @@ sap.ui.define([
 		openFunctionalLocationSelect: function() {
 			var parent = "";
 			ctl.functionalLocationSelect.open();
-			ctl.searchFunctionalLocation(ctl.getWorkCenter(), parent);
+			ctl.searchFunctionalLocation(ctl.getPlanPlant(), parent);
 		},
 		/**
 		 * Open equipment search help
@@ -4301,10 +4301,10 @@ sap.ui.define([
 		 * Open employee number search help
 		 */
 		openEmployeenumberAssignmentSelect: function(){
-			ctl.searchEmployeenumberByWorkCenter(ctl.getWorkCenter(), "");
+			ctl.searchEmployeenumberByWorkCenter(ctl.getPlanPlant(), "");
 
 			/* Initialize select for WorkCenters with current workcenter */
-			ctl.getView().getModel("ViewModel").setProperty("/WorkCntr", ctl.getWorkCenter());
+			ctl.getView().getModel("ViewModel").setProperty("/Planplant", ctl.getPlanPlant());
 
 			/* Define what will be the callback function after selection */
 			ctl.getView().getModel("ViewModel").setProperty("/EmployeeNumberByWorkCenterCallback", ctl.handleExpertEmployeePress);
@@ -4551,10 +4551,10 @@ sap.ui.define([
 		 */
 		openEmployeenumberSelect: function(){
 
-			ctl.searchEmployeenumberByWorkCenter(ctl.getWorkCenter(), "");
+			ctl.searchEmployeenumberByWorkCenter(ctl.getPlanPlant(), "");
 
 			/* Initialize select for WorkCenters with current workcenter */
-			ctl.getView().getModel("ViewModel").setProperty("/WorkCntr", ctl.getWorkCenter());
+			ctl.getView().getModel("ViewModel").setProperty("/Planplant", ctl.getPlanPlant());
 
 			/* Define what will be the callback function after selection */
 			ctl.getView().getModel("ViewModel").setProperty("/EmployeeNumberByWorkCenterCallback", ctl.handleTimesheetEmployeePress);
@@ -4752,7 +4752,7 @@ sap.ui.define([
 			if (Attach && Attach.__deferred) {
 				var sPath = null;
 				if (window.cordova) {
-					sPath = Attach.__deferred.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+					sPath = Attach.__deferred.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 				} else {
 					sPath = Attach.__deferred.uri.substring(Attach.__deferred.uri.lastIndexOf("/"));
 					var rest = Attach.__deferred.uri.replace(sPath, "");
@@ -4958,7 +4958,7 @@ sap.ui.define([
 					ctl.oNotifData.Equidescr  = oData.Equidescr;
 					ctl.oNotifData.ShortText  = ctl.getResourceBundle().getText("workOrderDetails.finding.notification.title", [oData.FunctLoc]);
 					ctl.oNotifData.NotifNo = (Math.floor(Math.random() * 999999999) + 999000000000).toString();
-					ctl.oNotifData.WorkCntr = ctl.getWorkCenter();
+					ctl.oNotifData.Planplant = ctl.getPlanPlant();
 					ctl.oNotifData.CreatedBy = ctl.getEmployeeData().UserName;
 					ctl.oNotifData.Complete = " ";
 					ctl.oNotifData.InProcess = " ";
@@ -4994,7 +4994,7 @@ sap.ui.define([
 					ctl.oNotifData.Equipment  = oData.Equipment;
 					ctl.oNotifData.Equidescr  = oData.Equidescr;
 					ctl.oNotifData.NotifNo = (Math.floor(Math.random() * 999999999) + 999000000000).toString();
-					ctl.oNotifData.WorkCntr = ctl.getWorkCenter();
+					ctl.oNotifData.Planplant = ctl.getPlanPlant();
 					ctl.oNotifData.CreatedBy = ctl.getEmployeeData().UserName;
 					ctl.oNotifData.Complete = " ";
 					ctl.oNotifData.InProcess = " ";
@@ -5314,7 +5314,7 @@ sap.ui.define([
 						for (var tabix in oData.results){
 							var confirmation = oData.results[tabix];
 							if (window.cordova) {
-								var sPath = confirmation.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+								var sPath = confirmation.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 							} else {
 								var sPath = confirmation.__metadata.uri.substring(confirmation.__metadata.uri.lastIndexOf("/"));
 							}

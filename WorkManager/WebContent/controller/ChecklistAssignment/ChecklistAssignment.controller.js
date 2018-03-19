@@ -90,7 +90,7 @@ sap.ui.define([
 			ctl.oSearchOptions.filters = {};
 			ctl.oSearchOptions.filters.InProcess  = new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, ' ');
 			ctl.oSearchOptions.filters.Complete   = new sap.ui.model.Filter("Complete",  sap.ui.model.FilterOperator.EQ, ' ');
-			ctl.oSearchOptions.filters.MnWkCtr    = new sap.ui.model.Filter("MnWkCtr",   sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter());
+			ctl.oSearchOptions.filters.MnWkCtr    = new sap.ui.model.Filter("MnWkCtr",   sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			ctl.oSearchOptions.filters.OrderType  = new sap.ui.model.Filter("OrderType", sap.ui.model.FilterOperator.EQ, 'ENS1');
 			// String query
 			ctl.oSearchOptions.searchString = "";
@@ -203,7 +203,7 @@ sap.ui.define([
 			var aFiltersMain = [];
 			var oOrderTypeFilter  = ctl.oSearchOptions.filters.OrderType;
 			var oCompleteFilter   = ctl.oSearchOptions.filters.Complete;
-			var oWorkCenterFilter = ctl.oSearchOptions.filters.MnWkCtr;
+			var oPlanPlantFilter = ctl.oSearchOptions.filters.MnWkCtr;
 			var oOrderidFilter    = new sap.ui.model.Filter("Orderid",   sap.ui.model.FilterOperator.Contains, ctl.oSearchOptions.searchString);
 			var oFunctLocFilter   = new sap.ui.model.Filter("FunctLoc",  sap.ui.model.FilterOperator.Contains, ctl.oSearchOptions.searchString);
 			
@@ -225,7 +225,7 @@ sap.ui.define([
 			
 			aFiltersMain.push(oOrderTypeFilter);
 			aFiltersMain.push(oCompleteFilter);
-			aFiltersMain.push(oWorkCenterFilter);
+			aFiltersMain.push(oPlanPlantFilter);
 
 			if (ctl.oSearchOptions.filters.InProcess) {
 				var oInProcessFilter  = ctl.oSearchOptions.filters.InProcess;
@@ -309,7 +309,7 @@ sap.ui.define([
 			ctl.getView().getModel("plant").read(sPath,{
 				success: function(oData){
 					if (window.cordova) {
-						var sPath = oData.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
+						var sPath = oData.__metadata.uri.replace(kalydia.oData.stores[ctl.getPlanPlant()].serviceUri, "");
 					} else {
 						var sPath = oData.__metadata.uri.substring(oData.__metadata.uri.lastIndexOf("/"));
 					}

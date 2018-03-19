@@ -87,12 +87,12 @@ sap.ui.define([
 				sap.m.MessageToast.show(oControl.getI18nValue("synchronization.start"));
 				oControl.setAppSync(false,true,true);
 				kalydia.oData.refreshStore(
-						oControl.getWorkCenter(), 
+						oControl.getPlanPlant(), 
 						function(storename){
 							oControl.setAppSync(false,false,true);
 							var lastRefresh = new Date();
 							var lastRefreshString = Formatter.DateTimeToString(lastRefresh);
-							if (oControl.getWorkCenter() == storename){
+							if (oControl.getPlanPlant() == storename){
 								oControl.getOwnerComponent().getModel("app").setProperty('/lastSynchronization', lastRefreshString);
 								oControl.updateTilesCounters();
 								oControl.updateErrorIndicator();

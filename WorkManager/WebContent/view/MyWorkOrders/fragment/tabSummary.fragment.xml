@@ -15,31 +15,31 @@
 					<!-- OrderId -->
 					<Label labelFor="SummaryOrderid" text="{i18n>oData.OrderHeader.Orderid}" />
 					<Text id="SummaryOrderid"
-						text="{path: 'work>Orderid', formatter: '.formatRemoveLeadingZeros'}" />
+						text="{path: 'plant>Orderid', formatter: '.formatRemoveLeadingZeros'}" />
 
 					<!-- NotifNo -->
 					<Label labelFor="SummaryNotifNo" text="{i18n>oData.NotifHeader.NotifNo}" />
 					<Text id="SummaryNotifNo"
-						text="{path: 'work>NotifNo', formatter: '.formatRemoveLeadingZeros'}" />
+						text="{path: 'plant>NotifNo', formatter: '.formatRemoveLeadingZeros'}" />
 
 					<!-- Order description -->
 					<Label labelFor="SummaryShortText" text="{i18n>oData.OrderHeader.ShortText}" />
-					<Text id="SummaryShortText" text="{work>ShortText}" />
+					<Text id="SummaryShortText" text="{plant>ShortText}" />
 
 					<!-- Functional location -->
 					<Label labelFor="SummaryFunctLoc" text="{i18n>oData.OrderHeader.FunctLoc}" />
-					<Text id="SummaryFunctLoc" text="{work>FunctLoc}" />
-					<Text id="SummaryFunctLocDesc" text="{work>Funcldescr}" />
+					<Text id="SummaryFunctLoc" text="{plant>FunctLoc}" />
+					<Text id="SummaryFunctLocDesc" text="{plant>Funcldescr}" />
 
 					<!-- Equipment -->
 					<Label labelFor="SummaryEquipment" text="{i18n>oData.OrderHeader.Equipment}" />
 					<Text id="SummaryEquipment"
-						text="{path:'work>Equipment', formatter:'.formatRemoveLeadingZeros'}" />
-					<Text id="SummaryEquipmentDesc" text="{work>Equidescr}" />
+						text="{path : 'plant>Equipment', formatter:'.formatRemoveLeadingZeros'}" />
+					<Text id="SummaryEquipmentDesc" text="{plant>Equidescr}" />
 
 					<!-- Description -->
 					<Label labelFor="SummaryTextheader" text="{i18n>oData.OrderHeader.Textheader}" />
-					<Text id="SummaryTextheader" text="{work>Textheader}" />
+					<Text id="SummaryTextheader" text="{plant>Textheader}" />
 
 				</f:content>
 			</f:SimpleForm>
@@ -87,13 +87,13 @@
 						</columns>
 						<items>
 							<ColumnListItem>
-								<Text text="{work>Activity}" />
-								<Text text="{work>Description}" />
+								<Text text="{plant>Activity}" />
+								<Text text="{plant>Description}" />
 								<Text
-									text="{path: 'work>OrderOperationAssignment', formatter:'.formatArrayCountNoOfPeople'}" />
-								<Text text="{work>WorkForecast} {work>UnWork}" />
-								<Text text="{work>Acttype}" />
-								<CheckBox selected="{path:'work>Complete', formatter:'.formatFlag'}"
+									text="{path: 'plant>OrderOperationAssignment', formatter:'.formatArrayCountNoOfPeople'}" />
+								<Text text="{plant>WorkForecast} {plant>UnWork}" />
+								<Text text="{plant>Acttype}" />
+								<CheckBox selected="{path : 'plant>Complete', formatter:'.formatFlag'}"
 									enabled="false" />
 							</ColumnListItem>
 						</items>
@@ -150,23 +150,23 @@
 						</columns>
 						<items>
 							<ColumnListItem>
-								<Text text="{work>Activity}" />
-								<Text text="{path: 'work>Workdate', formatter:'.formatToDateString'}"
+								<Text text="{plant>Activity}" />
+								<Text text="{path: 'plant>Workdate', formatter:'.formatToDateString'}"
 									wrapping="false" />
 								<Text
-									text="{path: 'work>Starttime', formatter:'.formatToTimeString'}"
+									text="{path: 'plant>Starttime', formatter:'.formatToTimeString'}"
 									wrapping="false" />
 								<Text
 									text="{
 											parts: [
-												{path:'work>Endtime'},
-												{path:'work>Status'}
+												{path : 'plant>Endtime'},
+												{path : 'plant>Status'}
 											], 
 											formatter:'.formatConfirmationEndtime'
 										}"
 									wrapping="false" />
-								<Text text="{work>Text}" />
-								<CheckBox selected="{path:'work>FinConf', formatter:'.formatFlag'}"
+								<Text text="{plant>Text}" />
+								<CheckBox selected="{path : 'plant>FinConf', formatter:'.formatFlag'}"
 									enabled="false" />
 							</ColumnListItem>
 						</items>
@@ -221,16 +221,16 @@
 						</columns>
 						<items>
 							<ColumnListItem>
-								<Text text="{work>Activity}" />
+								<Text text="{plant>Activity}" />
 								<Text
-									text="{path:'work>Material', formatter:'.formatRemoveLeadingZeros'}" />
-								<Text text="{work>MatlDesc}" />
-								<Text text="{work>RequirementQuantity}" />
-								<Text text="{work>WithdQuan}" />
+									text="{path : 'plant>Material', formatter:'.formatRemoveLeadingZeros'}" />
+								<Text text="{plant>MatlDesc}" />
+								<Text text="{plant>RequirementQuantity}" />
+								<Text text="{plant>WithdQuan}" />
 								<Text
 									text="{	parts:[
-												{path: 'work>RequirementQuantity'},
-												{path: 'work>WithdQuan'}
+												{path: 'plant>RequirementQuantity'},
+												{path: 'plant>WithdQuan'}
 											], 
 											formatter: '.calcRemQuantity'}" />
 

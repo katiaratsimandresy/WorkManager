@@ -3,14 +3,14 @@
 	xmlns:core="sap.ui.core">
 	<ActionSheet placement="Bottom">
 		<buttons>
-			<Button text="{i18n>shell.SelectedWorkCenter}: {app>/SelectedWorkCenter}"
-				icon="sap-icon://work-history" press="handleWorkCenterPress"
+			<Button text="{i18n>shell.SelectedPlanPlant}: {app>/SelectedPlanPlant}"
+				icon="sap-icon://work-history" press="handlePlanPlantPress"
 				enabled="{
 					parts: [
 						{path: 'app>/busy'},
 						{path: 'app>/showUserMenu'}
 					],
-					formatter: '.formatter.workcenterChangeButtonEnabled'
+					formatter: '.formatter.planplantChangeButtonEnabled'
 				}" />
 			<!-- <Button text="{i18n>shell.ManagePasscode}" icon="sap-icon://action-settings" -->
 			<!-- press="handleManagePasscodePress" /> -->

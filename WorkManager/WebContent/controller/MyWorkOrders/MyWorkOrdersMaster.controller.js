@@ -100,7 +100,7 @@ sap.ui.define([
 				/* General case */
 				ctl.getView().getModel("ViewModel").setProperty("/MyOrders", false);
 				var oBindingInfo = oView.byId("orderTable").getBindingInfo("items");
-				oBindingInfo.model = "work";
+				oBindingInfo.model = "plant";
 				oBindingInfo.path = "/OrderHeaderSet";
 				oBindingInfo.filters = new sap.ui.model.Filter({
 					filters: aFilters,
@@ -118,7 +118,7 @@ sap.ui.define([
 				var aFiltersAssignment = [];
 				/* Filter with user name */
 				aFiltersAssignment.push(new sap.ui.model.Filter("Employeenumber", sap.ui.model.FilterOperator.EQ, ctl.getEmployeeData().PersonNo));
-				aFiltersAssignment.push(new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter()));
+				aFiltersAssignment.push(new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant()));
 				/* Controller filters */
 				ctl.aOrderFilter = aFilters;
 				/* Sorter */
@@ -127,7 +127,7 @@ sap.ui.define([
 				oBinding.sort(sorter);
 
 				/* Read assignments set */
-				oView.getModel("work").read("/OrderOperationAssignmentSet",{
+				oView.getModel("plant").read("/OrderOperationAssignmentSet",{
 					filters: aFiltersAssignment,
 					success: function(oData){
 						var aBuffer = [];
@@ -140,7 +140,7 @@ sap.ui.define([
 								var aOrderFilter = $.extend(true, [], ctl.aOrderFilter);
 								aOrderFilter.push(new sap.ui.model.Filter("Orderid", sap.ui.model.FilterOperator.EQ, oValue.Orderid));
 								/* Read the corresponding order */
-								oView.getModel("work").read("/OrderHeaderSet",{
+								oView.getModel("plant").read("/OrderHeaderSet",{
 									filters: aOrderFilter,
 									success: function(oData){
 										var aMyOrders = ctl.getView().getModel("ViewModel").getProperty("/MyWorkOrders");
@@ -186,7 +186,7 @@ sap.ui.define([
 
 			var oBindingInfo = ctl.getView().byId("orderTable").getBindingInfo("items");
 			ctl.aFilters = [];
-			ctl.aFilters.push(new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getWorkCenter()));
+			ctl.aFilters.push(new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant()));
 			switch (tab){
 			case "OpenOrders":
 				ctl.aFilters.push(new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, " "));

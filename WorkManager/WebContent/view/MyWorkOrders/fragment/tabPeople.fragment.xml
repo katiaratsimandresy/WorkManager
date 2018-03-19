@@ -50,11 +50,11 @@
 						</columns>
 						<items id="peopleAssignmentList">
 							<ColumnListItem>
-								<Text text="{work>Employeenumber}" />
+								<Text text="{plant>Employeenumber}" />
 								<Text
-									text="{path: 'work>StartDate', formatter: '.formatDateTimeToString'}" />
+									text="{path: 'plant>StartDate', formatter: '.formatDateTimeToString'}" />
 								<Text
-									text="{path: 'work>EndDate'  , formatter: '.formatDateTimeToString'}" />
+									text="{path: 'plant>EndDate'  , formatter: '.formatDateTimeToString'}" />
 								<Button icon="sap-icon://delete" press="handleUnassignExpert"
 									type="Default" width="100%"
 									enabled="{path: 'ViewModel>/Manager', formatter: '.formatFlag'}" />

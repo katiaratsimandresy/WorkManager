@@ -37,9 +37,9 @@ sap.ui.define([
 					appId: com.kalydia.edfen.workmanager.scripts.logon.AppId,
 					applicationContext: com.kalydia.edfen.workmanager.scripts.logon.ApplicationContext,
 				},
-				SelectedWorkCenter: null,
-				SelectedWorkCenters: null,
-				MaxWorkCenter: 2,
+				SelectedPlanPlant: null,
+				SelectedPlanPlants: null,
+				MaxPlanPlants: 2,
 				EmployeeData: null,
 				showUserMenu: true,
 				lastSelectedEmployee : null,
@@ -67,7 +67,7 @@ sap.ui.define([
 			return oModel;
 		},
 
-		createOdataWorkCenterModel: function(uri) {
+		createOdataPlanPlantModel: function(uri) {
 			if ($.isEmptyObject(uri)) {
 				return null;
 			}

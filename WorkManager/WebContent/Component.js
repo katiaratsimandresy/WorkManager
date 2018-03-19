@@ -55,17 +55,17 @@ sap.ui.define([
 			this.setModel(models.createOdataModel());
 		},
 		
-		createWorkCenterModel: function(workcenter) {
-			if (!$.isEmptyObject(kalydia.oData.stores) && !$.isEmptyObject(kalydia.oData.stores[workcenter])
-					&& !$.isEmptyObject(kalydia.oData.stores[workcenter].serviceUri)) {
-				var oModel = models.createOdataWorkCenterModel(kalydia.oData.stores[workcenter].serviceUri);
+		createPlanPlantModel: function(planplant) {
+			if (!$.isEmptyObject(kalydia.oData.stores) && !$.isEmptyObject(kalydia.oData.stores[planplant])
+					&& !$.isEmptyObject(kalydia.oData.stores[planplant].serviceUri)) {
+				var oModel = models.createOdataPlanPlantModel(kalydia.oData.stores[planplant].serviceUri);
 				if (!$.isEmptyObject(oModel)) {
-					this.setModel(oModel, "work");
-					console.log("work model set with uri " + kalydia.oData.stores[workcenter].serviceUri);
+					this.setModel(oModel, "plant");
+					console.log("plant model set with uri " + kalydia.oData.stores[planplant].serviceUri);
 				}
 			} else {
 				if (!window.cordova) {
-					this.setModel(models.createOdataModel(), "work");
+					this.setModel(models.createOdataModel(), "plant");
 				}
 			}
 

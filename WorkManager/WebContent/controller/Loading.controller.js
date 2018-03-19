@@ -30,8 +30,8 @@ sap.ui.define([
 		onInit: function() {
 			var oEventBus = sap.ui.getCore().getEventBus();
 			// register event
-			oEventBus.subscribe("base", "changeWorkCenterSelection", oControl.changeWorkCenterSelection, oControl);
-			oEventBus.subscribe("base", "processChangeWorkCenterSelection", oControl.processChangeWorkCenterSelection, oControl);
+			oEventBus.subscribe("base", "changePlanPlantSelection", oControl.changePlanPlantSelection, oControl);
+			oEventBus.subscribe("base", "processchangePlanPlantSelection", oControl.processchangePlanPlantSelection, oControl);
 			oControl.setAppBusy(true);
 			oControl.setAppLoaded(false);
 		},
@@ -63,22 +63,22 @@ sap.ui.define([
 			oControl.setAppConnect(NetWorkController.isOnline());
 			if (window.cordova) {
 				try {
-					// Get in memory previously selected work center 
+					// Get in memory previously selected PlanPlant
 					sap.Logon.get(function(value) {
-						oControl.setWorkCenter(value);
-						// Get all saved selected work centers
+						oControl.setSelectedPlanPlant(value);
+						// Get all saved selected planplants
 						sap.Logon.get(function(value) {
 							var list = JSON.parse(value) || [];
 							if (!$.isEmptyObject(list) && $.isArray(list)) {
-								oControl.setSelectedWorkCenters(list);
+								oControl.setSelectedPlanPlants(list);
 							}
-							oControl.checkWorkCenterSelection();
+							oControl.checkPlanPlantSelection();
 						},
 						function() {},
-						"selectedWorkCenters");
+						"selectedPlanPlants");
 					},
 					function() {},
-					"currentWorkCenter");
+					"currentPlanPlant");
 
 				} catch (error) {
 					MessageBox.show(
@@ -93,22 +93,22 @@ sap.ui.define([
 							});
 				}
 			} else {
-				oControl.checkWorkCenterSelection();
+				oControl.checkPlanPlantSelection();
 			}
 		},
 		/**
-		 * Check that a workcenter has been selected.
+		 * Check that a planplant has been selected.
 		 */
-		checkWorkCenterSelection: function() {
-			console.log("checkWorkCenter Selection");
-			var aWorkcenters = oControl.getSelectedWorkCenters();
-			if (!aWorkcenters) {
-				aWorkcenters = [];
+		checkPlanPlantSelection: function() {
+			console.log("checkPlanPlant Selection");
+			var aPlanPlants = oControl.getSelectedPlanPlants();
+			if (!aPlanPlants) {
+				aPlanPlants = [];
 			}
-			if (aWorkcenters.length == 0) {
-				oControl.openWorkcenterSelection($.proxy(oControl.startApp, oControl));
+			if (aPlanPlants.length == 0) {
+				oControl.openPlanPlantSelection($.proxy(oControl.startApp, oControl));
 			} else {
-				oControl.startApp(aWorkcenters);
+				oControl.startApp(aPlanPlants);
 			}
 		}
 

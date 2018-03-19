@@ -31,12 +31,12 @@
 				<items>
 					<ColumnListItem type="Navigation" press="handleHistoryOrderPress">
 						<Text
-							text="{path:'work>Orderid', formatter:'.formatRemoveLeadingZeros'}" />
-						<Text text="{work>ShortText}" />
-						<ObjectStatus text="{work>PriorityText}"
-							state="{path: 'work>Priority', formatter: '.formatState'}" />
+							text="{path : 'plant>Orderid', formatter:'.formatRemoveLeadingZeros'}" />
+						<Text text="{plant>ShortText}" />
+						<ObjectStatus text="{plant>PriorityText}"
+							state="{path: 'plant>Priority', formatter: '.formatState'}" />
 						<Text
-							text="{path: 'work>EnterDate', formatter: '.formatDateTimeToDateString'}" />
+							text="{path: 'plant>EnterDate', formatter: '.formatDateTimeToDateString'}" />
 					</ColumnListItem>
 				</items>
 			</Table>

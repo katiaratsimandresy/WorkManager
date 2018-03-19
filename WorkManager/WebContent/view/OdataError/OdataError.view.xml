@@ -8,19 +8,19 @@
 			<semantic:MasterPage title="{i18n>odataError.master.title}">
 				<List id="OdataError"
 					items="{
-						path: 'work>/ErrorArchive',
+						path: 'plant>/ErrorArchive',
 						sorter : {
 							path : 'RequestID',
 							descending : false
 						}
 					}">
 					<items>
-						<ObjectListItem title="{work>RequestID} - {work>RequestMethod}"
+						<ObjectListItem title="{plant>RequestID} - {plant>RequestMethod}"
 							type="Active" press="handleErrorPress">
 							<attributes>
 								<ObjectAttribute
 									text="{
-									path: 'work>Message',
+									path: 'plant>Message',
 									formatter: '.formatMessageSummary'
 								}" />
 							</attributes>

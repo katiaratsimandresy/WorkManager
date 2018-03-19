@@ -59,25 +59,25 @@
 					</columns>
 					<items>
 						<ColumnListItem>
-							<Text text="{work>MeasureDesc}" class="sapUiNoContentPadding" />
+							<Text text="{plant>MeasureDesc}" class="sapUiNoContentPadding" />
 							<Input type="Number"
-								value="{path: 'work>MeasureValue', formatter: '.formatNumberRemoveAllZeros'}"
-								class="sapUiNoContentPadding" placeholder="{work>MeasureDesc}"
+								value="{path: 'plant>MeasureValue', formatter: '.formatNumberRemoveAllZeros'}"
+								class="sapUiNoContentPadding" placeholder="{plant>MeasureDesc}"
 								change="handleMeasureChange" showValueStateMessage="false"
 								valueState="{
 									parts:[
-										{path: 'work>MeasureValue'},
-										{path: 'work>MeasThesMin'},
-										{path: 'work>MeasThesMax'}
+										{path: 'plant>MeasureValue'},
+										{path: 'plant>MeasThesMin'},
+										{path: 'plant>MeasThesMax'}
 									],
 									formatter: '.measureValueState'
 								}"
 								enabled="{path: 'TaskModel>/Statut', formatter: '.formatFieldEnabled'}" />
 							<Text
-								text="{path: 'work>MeasThesMin', formatter: '.formatIntRemoveLeadingZeros'}"
+								text="{path: 'plant>MeasThesMin', formatter: '.formatIntRemoveLeadingZeros'}"
 								class="sapUiNoContentPadding" />
 							<Text
-								text="{path: 'work>MeasThesMax', formatter: '.formatIntRemoveLeadingZeros'}"
+								text="{path: 'plant>MeasThesMax', formatter: '.formatIntRemoveLeadingZeros'}"
 								class="sapUiNoContentPadding" />
 						</ColumnListItem>
 					</items>

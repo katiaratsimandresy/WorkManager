@@ -173,13 +173,13 @@ sap.ui.define([
 			oDialog.open();
 		},
 		/**
-		 * Triggered when user clicks on workcenter link.
-		 * @param {sap.ui.base.Event} oEvent: click on workcenter link
+		 * Triggered when user clicks on planplant link.
+		 * @param {sap.ui.base.Event} oEvent: click on planplant link
 		 */
-		handleWorkCenterPress: function(oEvent) {
+		handlePlanPlantPress: function(oEvent) {
 			var bUserMenuDisplayed = this.getOwnerComponent().getModel("app").getProperty('/showUserMenu');
 			if (bUserMenuDisplayed) {
-				this.openWorkcenterSelection();
+				this.openPlanPlantSelection();
 			}
 		},
 

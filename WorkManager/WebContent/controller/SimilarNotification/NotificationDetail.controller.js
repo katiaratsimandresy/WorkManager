@@ -48,7 +48,7 @@ sap.ui.define([
 			if (sName === "NotificationDetail"){
 				ctl.getView().bindElement({
 					path: "/NotifHeaderSet("+oEvent.getParameter("arguments").NotifNo+")?$expand=NotifItem,NotifComponent,NotifAttach",
-					model: "work",
+					model: "plant",
 					events:  {
 						change: ctl._bindingChange
 					}
@@ -65,7 +65,7 @@ sap.ui.define([
 			oContext = $.isEmptyObject(oSource) ? null : oSource.getBoundContext(),
 					oListAttach = $.isEmptyObject(oContext) ? null : oContext.getProperty('NotifAttach');
 			if (window.cordova){
-				var oModel = ctl.getOwnerComponent().getModel("work");
+				var oModel = ctl.getOwnerComponent().getModel("plant");
 				oModel.read(oContext.sPath + '/NotifAttach',{
 					success: function(oData, response) {
 						var arAttachment = oData.results;

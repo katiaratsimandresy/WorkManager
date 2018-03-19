@@ -29,7 +29,7 @@ sap.ui.define([
 		 */
 		onRouteMatched: function(oEvent) {
 			ctl.initModels();
-			ctl.getView().getModel("work").refresh();
+			ctl.getView().getModel("plant").refresh();
 		},
 		/**
 		 * Not implemented
@@ -56,7 +56,7 @@ sap.ui.define([
 		 * @param {string} sUrl: error url
 		 */
 		readErrorDetails: function(sUrl){
-			ctl.getView().getModel("work").read(sUrl,{
+			ctl.getView().getModel("plant").read(sUrl,{
 				success: function(oData){
 					ctl.mapErrorData(oData);
 				}
@@ -120,13 +120,13 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent: click event
 		 */
 		deleteError: function(oEvent){
-			ctl.getView().getModel("work").remove(ctl.sErrorPath,{
+			ctl.getView().getModel("plant").remove(ctl.sErrorPath,{
 				success: function(oData){
 					// Empty detail screen
 					ctl.initModels();
 					ctl.updateErrorIndicator();
 					// Refresh work model
-					ctl.getView().getModel("work").refresh(true, true);
+					ctl.getView().getModel("plant").refresh(true, true);
 				},
 				error: ctl.oDataCallbackFail
 			})

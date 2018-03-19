@@ -197,7 +197,7 @@ sap.ui.define([
 			/* Info tab, order detail */
 			var oInfoForm = ctl.getView().byId("InfoOrderForm");
 			var oInfoNotificationForm = ctl.getView().byId("InfoNotificationForm");
-			var oModel = ctl.getOwnerComponent().getModel("work");
+			var oModel = ctl.getOwnerComponent().getModel("plant");
 			oModel.refresh();
 			var oJsonData = {};
 			var sPath = ctl.sOrderPath;
@@ -357,14 +357,14 @@ sap.ui.define([
 
 			/* Info Tab, order table */
 			var oBindingInfo = ctl.getView().byId("InfoOperationTable").getBindingInfo("items");
-			oBindingInfo.model = "work";
+			oBindingInfo.model = "plant";
 			oBindingInfo.path = ctl.sOrderPath+"/OrderOperation";
 			oBindingInfo.filters = [];
 			oBindingInfo.sorter = new sap.ui.model.Sorter('Activity', false);
 			oBindingInfo.templateShareable = true;
 			ctl.getView().byId("InfoOperationTable").bindAggregation("items", oBindingInfo);
 			var oBindingInfoActivityMyWorkOrders = ctl.getView().byId("ActivityMyWorkOrders").getBindingInfo("items");
-			oBindingInfoActivityMyWorkOrders.model = "work";
+			oBindingInfoActivityMyWorkOrders.model = "plant";
 			oBindingInfoActivityMyWorkOrders.path = ctl.sOrderPath+"/OrderOperation";
 			oBindingInfoActivityMyWorkOrders.filters = [];
 			oBindingInfoActivityMyWorkOrders.sorter = new sap.ui.model.Sorter('Activity', false);
@@ -443,7 +443,7 @@ sap.ui.define([
 			aFilters.push(oFilterDate); 
 
 			var oBindingInfo = ctl.getView().byId("historyOrderTable").getBindingInfo("items");
-			oBindingInfo.model = "work";
+			oBindingInfo.model = "plant";
 			oBindingInfo.path = "/OrderHeaderSet";
 			oBindingInfo.filters = aFilters;
 			oBindingInfo.sorter  = oDateSorter;
@@ -485,7 +485,7 @@ sap.ui.define([
 		 */
 		readActivities: function(){
 			var oBindingInfo = ctl.getView().byId("OrderOperationTable").getBindingInfo("items");
-			oBindingInfo.model = "work";
+			oBindingInfo.model = "plant";
 			oBindingInfo.path = ctl.sOrderPath+"/OrderOperation";
 			oBindingInfo.filters = [];
 			oBindingInfo.sorter = new sap.ui.model.Sorter('Activity', false);
@@ -501,7 +501,7 @@ sap.ui.define([
 		 */
 		readPeopleAssignment: function(){
 			var oBindingInfo = ctl.getView().byId("PeopleAssignmentTable").getBindingInfo("items");
-			oBindingInfo.model = "work";
+			oBindingInfo.model = "plant";
 			oBindingInfo.path = ctl.sActivityPath+"/OrderOperationAssignment";
 			oBindingInfo.filters = [];
 			var fGrouperPeople = function(oContext) {
@@ -519,7 +519,7 @@ sap.ui.define([
 		readCheckList: function(){
 			ctl.setChecklistFilterText();
 
-			ctl.getView().getModel("work").read(ctl.sActivityPath+"/OrderOperationCheckList",{
+			ctl.getView().getModel("plant").read(ctl.sActivityPath+"/OrderOperationCheckList",{
 				success: function (oData){
 					var sUriChecklist = oData.__metadata.uri;
 					var sUriDocument  = oData.OrderOperationCheckListDocument.__deferred.uri;
@@ -538,7 +538,7 @@ sap.ui.define([
 
 					/* Documents */
 					var oBindingInfo = ctl.getView().byId("orderActivityChecklistDocumentsList").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("Reference", false);
 					if (window.cordova) {
@@ -551,7 +551,7 @@ sap.ui.define([
 
 					/* Tools */
 					var oBindingInfo = ctl.getView().byId("orderActivityChecklistToolTable").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("ToolId", false);
 					if (window.cordova) {
@@ -564,7 +564,7 @@ sap.ui.define([
 
 					/* Parts */
 					var oBindingInfo = ctl.getView().byId("orderActivityChecklistPartTable").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("PartId", false);
 					if (window.cordova) {
@@ -577,7 +577,7 @@ sap.ui.define([
 
 					/* Cali Tools */
 					var oBindingInfo = ctl.getView().byId("orderActivityChecklistCaliToolTable").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("ToolcalId", false);
 					if (window.cordova) {
@@ -592,12 +592,12 @@ sap.ui.define([
 					ctl.checkListPercentageLoad();
 
 					/* Preventive checklist structure */
-					ctl.getView().getModel("work").read(ctl.sCheckListPath+"/OrderOperationCheckListTask",{
+					ctl.getView().getModel("plant").read(ctl.sCheckListPath+"/OrderOperationCheckListTask",{
 						success: ctl.generatePreventiveCheckListStructure,
 						error: ctl.oDataCallbackFail
 					})
 					var oBindingInfo = ctl.getView().byId("orderActivityChecklistTaskList").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.templateShareable = true;
 					oBindingInfo.sorter = new sap.ui.model.Sorter("TaskId", false);
 					oBindingInfo.parameters = { expand : "OrderOperationCheckListMesure" };
@@ -616,7 +616,7 @@ sap.ui.define([
 					ctl.pictureCheckList(oData, function (){
 						ctl.getView().byId("CheckListFindingForm").bindElement({
 							path: ctl.sCheckListPath,
-							model: "work"
+							model: "plant"
 						});
 					});
 
@@ -633,7 +633,7 @@ sap.ui.define([
 			ctl.sPathConfirmationCreate = ctl.sActivityPath+"/OrderOperationConfirmation";
 			/* Activities table */
 			var oBindingInfo = oView.byId("orderActivityConfirmations").getBindingInfo("items");
-			oBindingInfo.model = "work";
+			oBindingInfo.model = "plant";
 			oBindingInfo.path = ctl.sPathConfirmationCreate;
 			oBindingInfo.filters = [];
 			var fGrouper = function(oContext) {
@@ -660,7 +660,7 @@ sap.ui.define([
 
 			/* Activities table */
 			var oBindingInfo = oView.byId("orderActivityComponents").getBindingInfo("items");
-			oBindingInfo.model = "work";
+			oBindingInfo.model = "plant";
 			oBindingInfo.path = ctl.sOrderPath + "/OrderComponent";
 			oBindingInfo.filters = [ new sap.ui.model.Filter("Activity", sap.ui.model.FilterOperator.EQ, ctl.Activity),
 			                         new sap.ui.model.Filter("ItemCat", sap.ui.model.FilterOperator.EQ, 'L') ];
@@ -676,25 +676,25 @@ sap.ui.define([
 			/* Order detail */
 			ctl.getView().byId("SummaryOrderForm").bindElement({
 				path: ctl.sOrderPath,
-				model: "work"
+				model: "plant"
 			});
 
 			/* Activities */ 
 			var oBindingInfo = ctl.getView().byId("SummaryTimeTable").getBindingInfo("items");
-			oBindingInfo.model = "work";
+			oBindingInfo.model = "plant";
 			oBindingInfo.path = ctl.sOrderPath+"/OrderOperation";
 			oBindingInfo.parameters = { expand : "OrderOperationAssignment" };
 			oBindingInfo.filters = [];
 			oBindingInfo.sorter = new sap.ui.model.Sorter('Activity', false);
 			ctl.getView().byId("SummaryTimeTable").bindAggregation("items", oBindingInfo);
 
-			ctl.getView().getModel("work").read(ctl.sOrderPath,{
+			ctl.getView().getModel("plant").read(ctl.sOrderPath,{
 				success: function(oData){
 					var oOrderidFilter = new sap.ui.model.Filter("Orderid", sap.ui.model.FilterOperator.EQ,oData.Orderid);
 
 					/* Confirmations */
 					var oBindingInfo = ctl.getView().byId("SummaryConfirmationTable").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.path = "/OrderOperationConfirmationSet";
 					oBindingInfo.filters = [];
 					oBindingInfo.filters.push(oOrderidFilter);
@@ -713,7 +713,7 @@ sap.ui.define([
 
 					/* Components */
 					var oBindingInfo = ctl.getView().byId("SummaryComponentsTable").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.path = "/OrderComponentSet";
 					oBindingInfo.filters = [];
 					oBindingInfo.filters.push(oOrderidFilter);
@@ -721,7 +721,7 @@ sap.ui.define([
 					ctl.getView().byId("SummaryComponentsTable").bindAggregation("items", oBindingInfo);
 
 					/* Checklist */
-					ctl.getView().getModel("work").read("/OrderOperationCheckListSet",{
+					ctl.getView().getModel("plant").read("/OrderOperationCheckListSet",{
 						urlParameters:  {"$expand": 'OrderOperationCheckListTask'},
 						filters: 		[oOrderidFilter],
 						sorters:		[new sap.ui.model.Sorter('Activity', false)],
@@ -797,7 +797,7 @@ sap.ui.define([
 		 * Read data from checklist task
 		 */
 		readChecklistTask: function(){
-			var oWorkModel = ctl.getView().getModel("work");
+			var oWorkModel = ctl.getView().getModel("plant");
 			var oViewModel = ctl.getView().getModel("ViewModel");
 			oWorkModel.read(ctl.sCheckListTaskPath,{
 				success: function(oData){
@@ -805,7 +805,7 @@ sap.ui.define([
 					ctl.fillTaskModel(oData);
 					// Fill measure table
 					var oBindingInfo = sap.ui.getCore().byId("TaskMeasureTable").getBindingInfo("items");
-					oBindingInfo.model = "work";
+					oBindingInfo.model = "plant";
 					oBindingInfo.path = ctl.sCheckListTaskPath+"/OrderOperationCheckListMesure";
 					oBindingInfo.sorter = new sap.ui.model.Sorter('MeasureId', false);
 					oBindingInfo.templateShareable = true;
@@ -832,7 +832,7 @@ sap.ui.define([
 		 * Check that minimum  one checklist is assigned to one activity
 		 */
 		checkChecklistExists: function(){
-			var oModel = ctl.getView().getModel("work");
+			var oModel = ctl.getView().getModel("plant");
 			var sPath = "/OrderOperationCheckListSet/$count/?$filter=Orderid%20eq%20%27"+ctl.sOrderid+"%27%20and%20ChklstId%20eq%20%2700000%27";
 			oModel.read(sPath, {
 				success: function(oData, response){
@@ -1398,7 +1398,7 @@ sap.ui.define([
 		 */
 		submitSendMail: function(){
 			var oModel = ctl.getView().getModel("SendMailModel");
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 			var sendMailEntry = $.extend(true, {}, oModel.getData());
 
 			sendMailEntry.Startdate = Formatter.JSDateTimeToEDMDateTime(sendMailEntry.Startdate);
@@ -1446,7 +1446,7 @@ sap.ui.define([
 		 */
 		submitOrderInfo: function(){
 			ctl.setAppBusy(true);
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 			var oModelInput = ctl.getView().getModel("InputModel");
 			var objData = $.extend(true, {}, oModelInput.getData());
 			if (ctl._delta){
@@ -1658,12 +1658,12 @@ sap.ui.define([
 		 * Save order pictures
 		 */
 		submitOrderPicture: function(){
-			ctl.getView().getModel("work").read(ctl.sOrderPath+"/OrderAttach",{
+			ctl.getView().getModel("plant").read(ctl.sOrderPath+"/OrderAttach",{
 				success: function(oData, response){
 					if (!$.isEmptyObject(oData.results) && ctl.removeOrderPicture) {
 						var attachData = oData.results[0];
 						// delete Image
-						ctl.getView().getModel("work").remove(attachData.__metadata.edit_media.replace("/$value", "").substring(attachData.__metadata.edit_media.replace("/$value", "").lastIndexOf("/")),{
+						ctl.getView().getModel("plant").remove(attachData.__metadata.edit_media.replace("/$value", "").substring(attachData.__metadata.edit_media.replace("/$value", "").lastIndexOf("/")),{
 							success : ctl.submitOrderPicture,
 							error: ctl.oDataCallbackFail,
 							eTag: attachData.__metadata.etag
@@ -1715,7 +1715,7 @@ sap.ui.define([
 		 */
 		submitChecklistAssignment: function(oData){
 			var sPath = ctl.sActivityPathForChecklist.replace("OrderOperation", "OrderOperationCheckList");
-			ctl.getView().getModel("work").update(sPath, oData,{
+			ctl.getView().getModel("plant").update(sPath, oData,{
 				success: function(){
 					var message = ctl.getI18nValue("workOrderDetails.checklist.assignment.createOk");
 					sap.m.MessageToast.show(message);
@@ -1736,7 +1736,7 @@ sap.ui.define([
 		submitAssignment: function(oEvent){
 			if(ctl._checkCreateAssignmentInput()){
 
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				var oModelInput = ctl.getView().getModel("InputModel");
 
 				var oAssignmentData = $.extend(true, {}, oModelInput.getData());
@@ -1763,7 +1763,7 @@ sap.ui.define([
 
 				var sToolId = sap.ui.getCore().byId("CaliTool").getProperty("value");
 
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				var oModelInput = ctl.getView().getModel("InputModel");
 
 				oModelInput.setProperty("/ToolcalDesc", sToolId);
@@ -1790,7 +1790,7 @@ sap.ui.define([
 
 			var oCurrentDateTime = new Date();
 
-			ctl.getView().getModel("work").update(sPath, {
+			ctl.getView().getModel("plant").update(sPath, {
 				Statut: sStatus,
 				PerformedAt: Formatter.JSDateTimeToEDMDateTime(oCurrentDateTime)
 			},
@@ -1800,7 +1800,7 @@ sap.ui.define([
 					if (ctl.taskStatus != "") {
 						ctl.filterCheckListTasks();
 					} else if (bRefresh){
-						ctl.getView().getModel("work").refresh();
+						ctl.getView().getModel("plant").refresh();
 					}
 				},
 				error: ctl.oDataCallbackFail,
@@ -1815,7 +1815,7 @@ sap.ui.define([
 		 * @param{number} iValue: Measure value
 		 */
 		submitCheckListTaskMeasure: function(sPath, iValue){
-			ctl.getView().getModel("work").update(sPath, {
+			ctl.getView().getModel("plant").update(sPath, {
 				MeasureValue: iValue
 			},
 			{
@@ -1828,7 +1828,7 @@ sap.ui.define([
 		 * Read measures from checklist task 
 		 */
 		updateChecklistTaskMeasStatus: function(){
-			var oWorkModel = ctl.getView().getModel("work");
+			var oWorkModel = ctl.getView().getModel("plant");
 			var oViewModel = ctl.getView().getModel("ViewModel");
 			oWorkModel.read(ctl.sCheckListTaskPath+"/OrderOperationCheckListMesure",{
 				success: function(oData){
@@ -1857,7 +1857,7 @@ sap.ui.define([
 		 * @param{number} iValue: Measure status
 		 */
 		submitCheckListTaskMeasStatus: function(sPath, iValue){
-			ctl.getView().getModel("work").update(sPath, {
+			ctl.getView().getModel("plant").update(sPath, {
 				MeasStatus: iValue
 			},
 			{
@@ -1873,7 +1873,7 @@ sap.ui.define([
 		 * @param{string} sValue: comment
 		 */
 		submitCheckListTaskComment: function(sPath, sValue){
-			ctl.getView().getModel("work").update(sPath, {
+			ctl.getView().getModel("plant").update(sPath, {
 				Comment: sValue
 			},
 			{
@@ -2013,7 +2013,7 @@ sap.ui.define([
 		 */
 		submitCheckListFinding: function(){
 			var sValue = ctl.getView().getModel("InputModel").getProperty("/FindingComment");
-			ctl.getView().getModel("work").update(ctl.sCheckListPath, {
+			ctl.getView().getModel("plant").update(ctl.sCheckListPath, {
 				Comment: sValue
 			},
 			{
@@ -2036,7 +2036,7 @@ sap.ui.define([
 					ctl.oNotifData.NotiftypeText = oData.Description;
 
 					// Create notification
-					ctl.getView().getModel("work").create("/NotifHeaderSet", ctl.oNotifData, {
+					ctl.getView().getModel("plant").create("/NotifHeaderSet", ctl.oNotifData, {
 						success: function(oData, oResponse){
 							if (window.cordova){
 								var sPath = oResponse.data.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri,"");
@@ -2100,7 +2100,7 @@ sap.ui.define([
 		 */
 		submitConfirmationDelete: function(oEvent){
 			var oModel = ctl.getView().getModel();
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 
 			// Set URL
 			var sPath = oEvent.oSource.getParent().getBindingContextPath();
@@ -2125,7 +2125,7 @@ sap.ui.define([
 		submitConfirmation: function(oEvent){
 			if(ctl._checkCreateConfirmationInput()) {
 				var oModel = ctl.getView().getModel();
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				var oModelLocal = ctl.getView().getModel("ViewModel");
 				var oModelInput = ctl.getView().getModel("InputModel");
 
@@ -2170,7 +2170,7 @@ sap.ui.define([
 		createConfirmation: function(oConfirmationData, cpt){
 			ctl._checkConfirmationNoCollision(oConfirmationData, cpt,
 					function(oConfirmationData, cpt){
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				oModelWork.create( ctl.sPathConfirmationCreate, oConfirmationData, {
 					success: function(oData, oResponse) {
 						if (cpt == 1){ // Last confirmation
@@ -2195,7 +2195,7 @@ sap.ui.define([
 		updateConfirmation: function(oConfirmationData){
 			ctl._checkConfirmationNoCollision(oConfirmationData, 1,
 					function(oConfirmationData, cpt){
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				oModelWork.update( ctl.sPathConfirmationUpdate, oConfirmationData, {
 					merge: true,
 					success: function(oData, oResponse) {
@@ -2234,7 +2234,7 @@ sap.ui.define([
 				// If the line is still selected
 				if(oValue.selected){
 					// Read original confirmation data
-					ctl.getView().getModel("work").read(sProperty,{
+					ctl.getView().getModel("plant").read(sProperty,{
 						success: function(oDataConfirmation){
 							var oDataConfirmationCreate = {};
 							// Replace employee with the new one and create the new confirmation
@@ -2291,7 +2291,7 @@ sap.ui.define([
 		 */
 		submitComponentConfirmation: function(){
 
-			var oModel = ctl.getView().getModel("work");
+			var oModel = ctl.getView().getModel("plant");
 			$.each(ctl.oComponentBuffer, function(sPath, oValue){
 				var oComponentConfirmation = $.extend(true, {}, oValue.oData);
 				var oComponentConfirmationZero = $.extend(true, {}, oValue.oData);
@@ -2329,7 +2329,7 @@ sap.ui.define([
 		 * @param{string} sPath: Assignment URI
 		 */
 		removeExpert: function(sPath){
-			ctl.getView().getModel("work").remove(sPath,{
+			ctl.getView().getModel("plant").remove(sPath,{
 				error: ctl.oDataCallbackFail
 			});
 		},
@@ -2338,7 +2338,7 @@ sap.ui.define([
 		 * @param{string} sPath: checklist URI
 		 */
 		removeChecklist: function(sPath){
-			ctl.getView().getModel("work").read(sPath,{
+			ctl.getView().getModel("plant").read(sPath,{
 				success: function(oData){
 					if (window.cordova) {
 						var sPath = oData.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
@@ -2355,7 +2355,7 @@ sap.ui.define([
 							Inactive : "",
 							Titre : ""
 					};
-					ctl.getView().getModel("work").update(sPath, lineRemoveChecklist, {
+					ctl.getView().getModel("plant").update(sPath, lineRemoveChecklist, {
 						merge: true,
 						success: ctl.readActivities,
 						error: ctl.oDataCallbackFail
@@ -2369,7 +2369,7 @@ sap.ui.define([
 		 * @param{string} sPath: calibrated tool URI
 		 */
 		removeCaliTool: function(sPath){
-			ctl.getView().getModel("work").remove(sPath,{
+			ctl.getView().getModel("plant").remove(sPath,{
 				error: ctl.oDataCallbackFail
 			});
 		},
@@ -2381,14 +2381,14 @@ sap.ui.define([
 			if (!callback){
 				callback = null;
 			}
-			ctl.getView().getModel("work").read(ctl.sCheckListTaskPath+"/OrderOperationCheckListTaskAttach",{
+			ctl.getView().getModel("plant").read(ctl.sCheckListTaskPath+"/OrderOperationCheckListTaskAttach",{
 				success: function(oData){
 					if (!$.isEmptyObject(oData.results)){
 						var attachData = oData.results[0];
 						var sPathRoot = attachData.__metadata.edit_media.replace("/$value", "").substring(attachData.__metadata.edit_media.replace("/$value", "").lastIndexOf("/"));
 						delete ctl.CheckListAttachment[ctl.sCheckListTaskPath];
 						delete ctl.CheckListAttachmentByte[ctl.sCheckListTaskPath];
-						ctl.getView().getModel("work").remove(sPathRoot,{
+						ctl.getView().getModel("plant").remove(sPathRoot,{
 							success: callback,
 							error: ctl.oDataCallbackFail,
 							eTag: attachData.__metadata.etag
@@ -2412,13 +2412,13 @@ sap.ui.define([
 					ctl.getView().byId("findingPicture").setSrc("");
 				};
 			}
-			ctl.getView().getModel("work").read(ctl.sCheckListPath+"/OrderOperationCheckListAttach",{
+			ctl.getView().getModel("plant").read(ctl.sCheckListPath+"/OrderOperationCheckListAttach",{
 				success: function(oData){
 					if (!$.isEmptyObject(oData.results)){
 						var attachData = oData.results[0];
 						delete ctl.CheckListAttachment[ctl.sCheckListPath];
 						delete ctl.CheckListAttachmentByte[ctl.sCheckListPath];
-						ctl.getView().getModel("work").remove(attachData.__metadata.edit_media.replace("/$value", "").substring(attachData.__metadata.edit_media.replace("/$value", "").lastIndexOf("/")),{
+						ctl.getView().getModel("plant").remove(attachData.__metadata.edit_media.replace("/$value", "").substring(attachData.__metadata.edit_media.replace("/$value", "").lastIndexOf("/")),{
 							success: callback,
 							error: ctl.oDataCallbackFail,
 							eTag: attachData.__metadata.etag
@@ -2805,7 +2805,7 @@ sap.ui.define([
 			// Define Path for activity
 			ctl.sActivityPath = oEvent.getSource().getBindingContextPath();
 			ctl.readPeopleAssignment();
-			ctl.getView().getModel("work").read(ctl.sActivityPath,{
+			ctl.getView().getModel("plant").read(ctl.sActivityPath,{
 				success: function(oData){
 					ctl.Orderid = oData.Orderid;
 					ctl.Activity = oData.Activity;
@@ -2813,7 +2813,7 @@ sap.ui.define([
 			})
 
 			// Read if there is a checklist
-			ctl.getView().getModel("work").read(ctl.sActivityPath+"/OrderOperationCheckList",{
+			ctl.getView().getModel("plant").read(ctl.sActivityPath+"/OrderOperationCheckList",{
 				success: function (oData){
 					if(oData.CreatedOn){
 						ctl.getView().getModel("ViewModel").setProperty("/ChecklistAssigned", true);
@@ -3294,7 +3294,7 @@ sap.ui.define([
 		 */
 		handleDecrementWithdQuanDelta: function(oEvent){
 			var oView = ctl.getView();
-			var oModel = oView.getModel("work");
+			var oModel = oView.getModel("plant");
 			var sPath = oEvent.oSource.getParent().getParent().getBindingContextPath();
 			var iValue = oModel.getProperty(sPath + "/WithdQuanDelta");
 			if (!isNaN(parseInt(iValue)) && (iValue > 0)){
@@ -3314,7 +3314,7 @@ sap.ui.define([
 		 * @param{sap.ui.base.Event} oEvent: event that triggered the function
 		 */
 		handleChangeWithdQuanDelta: function(oEvent){
-			var oModel = ctl.getView().getModel("work");
+			var oModel = ctl.getView().getModel("plant");
 			var sPath = oEvent.oSource.getParent().getParent().getBindingContextPath();
 			var iValue = oModel.getProperty(sPath + "/WithdQuanDelta");
 			if (isNaN(parseInt(iValue)) || (iValue < 0)){
@@ -3336,7 +3336,7 @@ sap.ui.define([
 		 */
 		handleIncrementWithdQuanDelta: function(oEvent){
 			var oView = ctl.getView();
-			var oModel = oView.getModel("work");
+			var oModel = oView.getModel("plant");
 			var sPath = oEvent.oSource.getParent().getParent().getBindingContextPath();
 			var iValue = oModel.getProperty(sPath + "/WithdQuanDelta");
 			if (!isNaN(parseInt(iValue))) {
@@ -3447,7 +3447,7 @@ sap.ui.define([
 		handleConfirmationPress: function(oEvent){
 			var dialog = new sap.m.Dialog({
 				title: ctl.getI18nValue("oData.OrderOperationConfirmation.Text"),
-				content: new sap.m.Text({text:oEvent.getSource().getBindingContext("work").getProperty("Text")}),
+				content: new sap.m.Text({text:oEvent.getSource().getBindingContext("plant").getProperty("Text")}),
 				beginButton: new sap.m.Button({
 					text: ctl.getI18nValue("common.frag.button.close"),
 					press: function () {
@@ -3536,7 +3536,7 @@ sap.ui.define([
 
 			/* Search and bind data */
 			sap.ui.getCore().byId("funcLocationTableMyWorkOrders").bindItems({
-				path: "work>/FuncLocSet",
+				path: "plant>/FuncLocSet",
 				template: new sap.m.ColumnListItem("funcLocationTableListItemMyWorkOrders", {
 					type: "Navigation",
 					press: function(evt) {
@@ -3546,17 +3546,17 @@ sap.ui.define([
 					        new sap.m.Button({
 					        	text: ctl.getI18nValue("createNotification.frag.button.select"),
 					        	textDirection: "LTR",
-					        	enabled: "{= ${work>Category} !== '1'}",
+					        	enabled: "{= ${plant>Category} !== '1'}",
 					        	press: function(evt) {
 					        		return ctl.validFunctionalLocation(evt.getSource().getParent().getCells()[1].getText(),
 									                                   evt.getSource().getParent().getCells()[2].getText())
 					        	}
 					        }),
 					        new sap.m.ObjectIdentifier({
-					        	text: "{work>Funcloc}"
+					        	text: "{plant>Funcloc}"
 					        }),
 					        new sap.m.ObjectIdentifier({
-					        	text: "{work>Descript}"
+					        	text: "{plant>Descript}"
 					        })
 					        ]
 				}),
@@ -3584,7 +3584,7 @@ sap.ui.define([
 			oView.getModel("InputModel").setProperty("/Funcldescr", sDesc);
 			oView.getModel("InputModel").setProperty("/Equipment", "");
 			oView.getModel("InputModel").setProperty("/Equidescr", "");
-			ctl.getOwnerComponent().getModel("work").read("/FuncLocSet('" + sId + "')", {
+			ctl.getOwnerComponent().getModel("plant").read("/FuncLocSet('" + sId + "')", {
 			    success: function (oData, oResponse) {
 			        // Storage Default
 			        ctl.StgeLocDefault = oData.StgeLocDefault;
@@ -3756,11 +3756,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			ctl.equipmentSelect.bindAggregation("items", {
-				path: "work>/EquiSet",
+				path: "plant>/EquiSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>Descript}",
+					title: "{plant>Descript}",
 					description: {
-						parts: ['work>Equipment'],
+						parts: ['plant>Equipment'],
 						formatter: ctl.formatRemoveLeadingZeros
 					}
 				}),
@@ -3813,11 +3813,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			ctl.damageGroupSelect.bindAggregation("items", {
-				model: "work",
+				model: "plant",
 				path: "/DamageGroupSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>ShortText}",
-					description: "{work>CodeGroup}"
+					title: "{plant>ShortText}",
+					description: "{plant>CodeGroup}"
 				}),
 				filters: aFilters,
 				sorter : new sap.ui.model.Sorter("CodeGroup", false)
@@ -3870,11 +3870,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			ctl.damageCodeSelect.bindAggregation("items", {
-				model: "work",
+				model: "plant",
 				path: "/DamageCodeSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>ShortText}",
-					description: "{work>Code}"
+					title: "{plant>ShortText}",
+					description: "{plant>Code}"
 				}),
 				filters: aFilters,
 				sorter : new sap.ui.model.Sorter("Code", false)
@@ -4189,7 +4189,7 @@ sap.ui.define([
 		 * Read checklist completion data
 		 */
 		checkListPercentageLoad: function(){
-			ctl.getView().getModel("work").read(ctl.sCheckListPath+"/OrderOperationCheckListTask", {
+			ctl.getView().getModel("plant").read(ctl.sCheckListPath+"/OrderOperationCheckListTask", {
 				success: function(oData){
 					ctl.getCheckListTaskPercentage(oData.results);
 					ctl.checkListPercentageDisplay();
@@ -4355,7 +4355,7 @@ sap.ui.define([
 
 			// Getting models
 			var oView = ctl.getView();
-			var oWorkModel = oView.getModel("work");
+			var oWorkModel = oView.getModel("plant");
 			var oInputModel = oView.getModel("InputModel");
 			var oLocalModel = oView.getModel("ViewModel");
 
@@ -4407,7 +4407,7 @@ sap.ui.define([
 
 			// Getting models
 			var oView = ctl.getView();
-			var oWorkModel  = oView.getModel("work");
+			var oWorkModel  = oView.getModel("plant");
 			var oInputModel = oView.getModel("InputModel");
 			var oLocalModel = oView.getModel("ViewModel");
 
@@ -4452,7 +4452,7 @@ sap.ui.define([
 
 			// Getting models
 			var oView = ctl.getView();
-			var oWorkModel = oView.getModel("work");
+			var oWorkModel = oView.getModel("plant");
 			var oInputModel = oView.getModel("InputModel");
 			var oLocalModel = oView.getModel("ViewModel");
 
@@ -4759,7 +4759,7 @@ sap.ui.define([
 					sPath = rest.substring(rest.lastIndexOf("/")) + sPath;
 				}
 				var sPathRoot = sPath.replace(sPath.substring(sPath.lastIndexOf('/')), "")
-				ctl.getView().getModel("work").read(sPath, {
+				ctl.getView().getModel("plant").read(sPath, {
 					success: function(oData, response) {
 						if (!$.isEmptyObject(oData.results)) {
 							$.each(oData.results, function(key, attachData) {
@@ -4948,7 +4948,7 @@ sap.ui.define([
 		createNotificationFromFinding: function(){
 			ctl.oNotifData = {};
 			// Read order data
-			ctl.getView().getModel("work").read(ctl.sOrderPath,{
+			ctl.getView().getModel("plant").read(ctl.sOrderPath,{
 				success: function(oData){
 					ctl.oNotifData.Notiftype  = "FPM";
 					ctl.oNotifData.Priority   =  "4";
@@ -4966,7 +4966,7 @@ sap.ui.define([
 					ctl.oNotifData.PriorityText = ctl.oNotifData.Priority.replace(/[^\w\s]/g, '-');
 
 					// Read checklist data
-					ctl.getView().getModel("work").read(ctl.sCheckListPath,{
+					ctl.getView().getModel("plant").read(ctl.sCheckListPath,{
 						success: function(oData){
 							ctl.oNotifData.Notifdesctext = oData.Comment;
 							ctl.oNotifData.Aufnr		  = oData.Orderid;
@@ -4985,7 +4985,7 @@ sap.ui.define([
 		createNotificationFromTask: function(){
 			ctl.oNotifData = {};
 			// Read order data
-			ctl.getView().getModel("work").read(ctl.sOrderPath,{
+			ctl.getView().getModel("plant").read(ctl.sOrderPath,{
 				success: function(oData){
 					ctl.oNotifData.Notiftype  = "FPM";
 					ctl.oNotifData.Priority   =  "4";
@@ -5002,7 +5002,7 @@ sap.ui.define([
 					ctl.oNotifData.PriorityText = ctl.oNotifData.Priority.replace(/[^\w\s]/g, '-');
 
 					// Read checklist task data
-					ctl.getView().getModel("work").read(ctl.sCheckListTaskPath,{
+					ctl.getView().getModel("plant").read(ctl.sCheckListTaskPath,{
 						success: function(oData){
 							ctl.oNotifData.ShortText      = oData.ChklstLoc4 + oData.TaskId;
 							ctl.oNotifData.Notifdesctext  = ctl.getResourceBundle().getText("oData.OrderOperationCheckListTask.TaskId")+": "+oData.TaskDescription;
@@ -5012,7 +5012,7 @@ sap.ui.define([
 							ctl.oNotifData.TaskId		  = oData.TaskId;
 
 							// Read checklist task measures
-							ctl.getView().getModel("work").read(ctl.sCheckListTaskPath+"/OrderOperationCheckListMesure",{
+							ctl.getView().getModel("plant").read(ctl.sCheckListTaskPath+"/OrderOperationCheckListMesure",{
 								success: function(oData){
 									$.each(oData.results, function(index, oValue){
 										ctl.oNotifData.Notifdesctext +=	"\n"+oValue.MeasureDesc+": "+oValue.MeasureValue;
@@ -5034,7 +5034,7 @@ sap.ui.define([
 		 * Define number of notification created from the checklist 
 		 */
 		setChecklistNotifCreated: function() {
-			ctl.getView().getModel("work").update(ctl.sCheckListPath, 
+			ctl.getView().getModel("plant").update(ctl.sCheckListPath, 
 				{
 					NotifCreated: 'X'
 				},
@@ -5049,7 +5049,7 @@ sap.ui.define([
 		 * Define flag value to indicate that a notification has been created
 		 */
 		setChecklistTaskNotifCreated: function() {
-			ctl.getView().getModel("work").update(ctl.sCheckListTaskPath, 
+			ctl.getView().getModel("plant").update(ctl.sCheckListTaskPath, 
 					{
 						NotifCreated: 'X'
 					},
@@ -5073,7 +5073,7 @@ sap.ui.define([
 				ctl.oComponentBuffer[sPath].oData.WithdQuanDelta = iValue;
 			} else {
 				// No, we have to read model for WitdhQuan
-				var oModel = ctl.getView().getModel("work");
+				var oModel = ctl.getView().getModel("plant");
 
 				// Read the original data
 				oModel.read(sPath,{
@@ -5119,7 +5119,7 @@ sap.ui.define([
 				ctl.oComponentBuffer[sPath].oData.Withdrawn = sWithdrawn;
 			} else {
 				// No, we have to read model for WitdhQuan
-				var oModel = ctl.getView().getModel("work");
+				var oModel = ctl.getView().getModel("plant");
 
 				// Read the original data
 				oModel.read(sPath,{
@@ -5279,7 +5279,7 @@ sap.ui.define([
 		 * @param{JSON} fSuccess: function to launch in case no collision
 		 */
 		_checkConfirmationNoCollision: function (oConfirmationData, cpt, fSuccess){
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 
 			// Filter for selecting Confirmation
 			var aFilters = new Array();

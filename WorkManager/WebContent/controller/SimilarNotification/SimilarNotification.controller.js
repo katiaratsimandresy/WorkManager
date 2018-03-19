@@ -81,7 +81,7 @@ sap.ui.define([
 
 				const cSeparator = "-"; 
 				var oView = ctl.getView();
-				var oModel = oView.getModel("work");
+				var oModel = oView.getModel("plant");
 
 				/* Split of functional location's different levels */
 				var aLevels = oEvent.getParameter("arguments").FunctLoc.split(cSeparator);
@@ -98,7 +98,7 @@ sap.ui.define([
 				/* Search for Functional location's description */
 				ctl.getView().byId("detailForm").bindElement({
 					path: "/FuncLocSet('"+funcLocSearchKey+"')",
-					model: "work"
+					model: "plant"
 				});
 
 				/* Search for functional location's notifications */

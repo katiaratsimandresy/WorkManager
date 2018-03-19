@@ -140,7 +140,7 @@ sap.ui.define([
 
 			/* Data binding */
 			var oBindingInfo = oView.byId("orderList").getBindingInfo("items");
-			oBindingInfo.path = "work>/OrderHeaderSet";
+			oBindingInfo.path = "plant>/OrderHeaderSet";
 			oBindingInfo.filters = aFilters;
 			oBindingInfo.sorter  = new sap.ui.model.Sorter('EnterDate', true);
 			ctl.getView().byId("orderList").bindAggregation("items", oBindingInfo);
@@ -161,7 +161,7 @@ sap.ui.define([
 			var oView = ctl.getView();
 			ctl.sPathOrder = sPath;
 			/* Check that checklist is assigned */
-			ctl.getView().getModel("work").read(ctl.sPathOrder, {
+			ctl.getView().getModel("plant").read(ctl.sPathOrder, {
 				urlParameters: {
 					$expand: "OrderOperation,OrderOperation/OrderOperationCheckList"
 				},
@@ -287,7 +287,7 @@ sap.ui.define([
 		 */
 		submitConfirmationDelete: function(oEvent){
 			var oModel = ctl.getView().getModel();
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 
 			// Set URL
 			var sPath = oEvent.getSource().getParent().getBindingContextPath();
@@ -312,7 +312,7 @@ sap.ui.define([
 		submitConfirmation: function(oEvent){
 			if(ctl._checkCreateConfirmationInput()) {
 				var oModel = ctl.getView().getModel();
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				var oModelLocal = ctl.getView().getModel("ViewModel");
 				var oModelInput = ctl.getView().getModel("CreateConfirmation");
 
@@ -356,7 +356,7 @@ sap.ui.define([
 		createConfirmation: function(oConfirmationData, cpt){
 			ctl._checkConfirmationNoCollision(oConfirmationData, cpt,
 					function(oConfirmationData, cpt){
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				oModelWork.create( ctl.sPathConfirmationCreate, oConfirmationData, {
 					success: function(oData, oResponse) {
 						if (cpt == 1){ // Last confirmation
@@ -381,7 +381,7 @@ sap.ui.define([
 		updateConfirmation: function(oConfirmationData){
 			ctl._checkConfirmationNoCollision(oConfirmationData, 1,
 					function(oConfirmationData, cpt){
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				oModelWork.update( ctl.sPathConfirmationUpdate, oConfirmationData, {
 					merge: true,
 					success: function(oData, oResponse) {
@@ -420,7 +420,7 @@ sap.ui.define([
 				// If the line is still selected
 				if(oValue.selected){
 					// Read original confirmation data
-					ctl.getView().getModel("work").read(sProperty,{
+					ctl.getView().getModel("plant").read(sProperty,{
 						success: function(oDataConfirmation){
 							var oDataConfirmationCreate = {};
 							// Replace employee with the new one and create the new confirmation
@@ -477,7 +477,7 @@ sap.ui.define([
 		 */
 		submitClosure: function(oEvent){
 			var oModel = ctl.getView().getModel();
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 			var oModelSubmit = {};
 			var dialog = new sap.m.Dialog({
 				title: ctl.getResourceBundle().getText('timeAndMaterialEntry.create.orderClosure.Confirm'),
@@ -608,7 +608,7 @@ sap.ui.define([
 		 */
 		submitComponentConfirmation: function(){
 
-			var oModel = ctl.getView().getModel("work");
+			var oModel = ctl.getView().getModel("plant");
 			$.each(ctl.oComponentBuffer, function(sPath, oValue){
 				var oComponentConfirmation = $.extend(true, {}, oValue.oData);
 				var oComponentConfirmationZero = $.extend(true, {}, oValue.oData);
@@ -706,7 +706,7 @@ sap.ui.define([
 
 			ctl.sActivityPath = oEvent.getSource().getBindingContextPath();
 
-			ctl.getView().getModel("work").read(oEvent.getSource().getBindingContextPath(),{
+			ctl.getView().getModel("plant").read(oEvent.getSource().getBindingContextPath(),{
 				success: function(oData){
 					ctl.Orderid = oData.Orderid;
 					ctl.Activity = oData.Activity;
@@ -802,7 +802,7 @@ sap.ui.define([
 		 */
 		handleDecrementWithdQuanDelta: function(oEvent){
 			var oView = ctl.getView();
-			var oModel = oView.getModel("work");
+			var oModel = oView.getModel("plant");
 			var sPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
 			var iValue = oModel.getProperty(sPath + "/WithdQuanDelta");
 			if (!isNaN(parseInt(iValue)) && (iValue > 0)){
@@ -822,7 +822,7 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent: change input value
 		 */
 		handleChangeWithdQuanDelta: function(oEvent){
-			var oModel = ctl.getView().getModel("work");
+			var oModel = ctl.getView().getModel("plant");
 			var sPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
 			var iValue = oModel.getProperty(sPath + "/WithdQuanDelta");
 			if (isNaN(parseInt(iValue)) || (iValue < 0)){
@@ -844,7 +844,7 @@ sap.ui.define([
 		 */
 		handleIncrementWithdQuanDelta: function(oEvent){
 			var oView = ctl.getView();
-			var oModel = oView.getModel("work");
+			var oModel = oView.getModel("plant");
 			var sPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
 			var iValue = oModel.getProperty(sPath + "/WithdQuanDelta");
 			if (!isNaN(parseInt(iValue))) {
@@ -882,7 +882,7 @@ sap.ui.define([
 		handleConfirmationPress: function(oEvent){
 			var dialog = new sap.m.Dialog({
 				title: ctl.getI18nValue("oData.OrderOperationConfirmation.Text"),
-				content: new sap.m.Text({text:oEvent.getSource().getBindingContext("work").getProperty("Text")}),
+				content: new sap.m.Text({text:oEvent.getSource().getBindingContext("plant").getProperty("Text")}),
 				beginButton: new sap.m.Button({
 					text: ctl.getI18nValue("common.frag.button.close"),
 					press: function () {
@@ -1043,7 +1043,7 @@ sap.ui.define([
 
 			// Getting models
 			var oView = ctl.getView();
-			var oWorkModel = oView.getModel("work");
+			var oWorkModel = oView.getModel("plant");
 			var oInputModel = oView.getModel("CreateConfirmation");
 			var oLocalModel = oView.getModel("ViewModel");
 
@@ -1095,7 +1095,7 @@ sap.ui.define([
 
 			// Getting models
 			var oView = ctl.getView();
-			var oWorkModel = oView.getModel("work");
+			var oWorkModel = oView.getModel("plant");
 			var oInputModel = oView.getModel("CreateConfirmation");
 			var oLocalModel = oView.getModel("ViewModel");
 
@@ -1143,7 +1143,7 @@ sap.ui.define([
 
 			// Getting models
 			var oView = ctl.getView();
-			var oWorkModel = oView.getModel("work");
+			var oWorkModel = oView.getModel("plant");
 			var oInputModel = oView.getModel("CreateConfirmation");
 			var oLocalModel = oView.getModel("ViewModel");
 
@@ -1376,7 +1376,7 @@ sap.ui.define([
 				ctl.oComponentBuffer[sPath].oData.WithdQuanDelta = iValue;
 			} else {
 				// No, we have to read model for WitdhQuan
-				var oModel = ctl.getView().getModel("work");
+				var oModel = ctl.getView().getModel("plant");
 
 				// Read the original data
 				oModel.read(sPath,{
@@ -1420,7 +1420,7 @@ sap.ui.define([
 				ctl.oComponentBuffer[sPath].oData.Withdrawn = sWithdrawn;
 			} else {
 				// No, we have to read model for WitdhQuan
-				var oModel = ctl.getView().getModel("work");
+				var oModel = ctl.getView().getModel("plant");
 
 				// Read the original data
 				oModel.read(sPath,{
@@ -1509,7 +1509,7 @@ sap.ui.define([
 		 * @param{JSON} fSuccess: function to launch in case no collision
 		 */
 		_checkConfirmationNoCollision: function (oConfirmationData, cpt, fSuccess){
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 
 			// Filter for selecting Confirmation
 			var aFilters = new Array();

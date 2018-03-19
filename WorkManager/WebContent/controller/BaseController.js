@@ -33,8 +33,8 @@ sap.ui.define([
 			if (oControl._oBarcodeDialog) {
 				oControl._oBarcodeDialog.destroy();
 			}
-			if (oControl._oSelectedWorkCentersDialog) {
-				oControl._oSelectedWorkCentersDialog.destroy();
+			if (oControl._oSelectedPlanPlantsDialog) {
+				oControl._oSelectedPlanPlantsDialog.destroy();
 			}
 			if (oControl._oEnlarge) {
 				oControl._oEnlarge.destroy();
@@ -210,57 +210,57 @@ sap.ui.define([
 			oControl.getMessagePopover().toggle(oEvent.getSource());
 		},
 		/**
-		 * get Selected Work Center
+		 * get Selected PlanPlant
 		 * **/
-		getWorkCenter: function() {
-			return oControl.getOwnerComponent().getModel("app").getProperty("/SelectedWorkCenter");
+		getPlanPlant: function() {
+			return oControl.getOwnerComponent().getModel("app").getProperty("/SelectedPlanPlant");
 		},
 		/**
-		 * get Selected Work Centers
+		 * get Selected PlanPlants
 		 * **/
-		getSelectedWorkCenters: function() {
-			return oControl.getOwnerComponent().getModel("app").getProperty("/SelectedWorkCenters");
+		getSelectedPlanPlants: function() {
+			return oControl.getOwnerComponent().getModel("app").getProperty("/SelectedPlanPlants");
 		},
 		getEmployeeData: function() {
 			return oControl.getOwnerComponent().getModel("app").getProperty("/EmployeeData");
 		},
 		/**
-		 * set Selected Work Center
+		 * set Selected PlanPlant
 		 * **/
-		setWorkCenter: function(sWorkCenter) {
-			console.log("set selected workcenter " + sWorkCenter);
-			oControl.getOwnerComponent().getModel("app").setProperty("/SelectedWorkCenter", sWorkCenter);
+		setSelectedPlanPlant: function(sPlanPlant) {
+			console.log("set selected planplant " + sPlanPlant);
+			oControl.getOwnerComponent().getModel("app").setProperty("/SelectedPlanPlant", sPlanPlant);
 			if (window.cordova) {
 				// Define current workcenter in device memroy so it can be loaded when application starts
-				sap.Logon.set(function(){}, function(){}, 'currentWorkCenter', sWorkCenter);	
+				sap.Logon.set(function(){}, function(){}, 'currentPlanPlant', sPlanPlant);	
 			}
 
 		},
 		/**
 		 * set Selected Work Centers
 		 * **/
-		setSelectedWorkCenters: function(aWorkCenters) {
-			oControl.getOwnerComponent().getModel("app").setProperty("/SelectedWorkCenters", aWorkCenters);
+		setSelectedPlanPlants: function(aPlanPlants) {
+			oControl.getOwnerComponent().getModel("app").setProperty("/SelectedPlanPlants", aPlanPlants);
 			if(window.cordova) {
-				sap.Logon.set(function(){}, function(){}, 'selectedWorkCenters', JSON.stringify(aWorkCenters));	
+				sap.Logon.set(function(){}, function(){}, 'selectedPlanPlants', JSON.stringify(aPlanPlants));	
 			}
 		},
 
 		/*******
-		 *  Start WORK CENTER SELECTION MANAGEMENT
+		 *  Start PLANT SELECTION MANAGEMENT
 		 * *****/
 
 		/**
-		 * Open WorkCenter Selection Dialog
+		 * Open PlanPlant Selection Dialog
 		 */
-		openWorkcenterSelection: function(callback) {
+		openPlanPlantSelection: function(callback) {
 			var oModel = oControl.getOwnerComponent().getModel();
 			if (!oModel){
 				oControl.getOwnerComponent().createGeneralModel();
 				oModel = oControl.getOwnerComponent().getModel();
 			}
 			if (!oControl._oDialog) {
-				oControl._oDialog = sap.ui.xmlfragment("com.kalydia.edfen.workmanager.view.Common.WorkCenterSelection", oControl);
+				oControl._oDialog = sap.ui.xmlfragment("com.kalydia.edfen.workmanager.view.Common.PlanPlantSelection", oControl);
 			}
 
 			if ('function' === typeof callback) {
@@ -280,30 +280,30 @@ sap.ui.define([
 			$("#splash-screen").remove();
 		},
 		/**
-		 * Returns wether a workcenter has been selected or not
+		 * Returns whether a planplant has been selected or not
+		 * @param   {string}  value: planplant to test
+		 * @returns {boolean} 
+		 */
+		_isPlanPlantSelected: function(value) {
+			return (-1 !== $.inArray(value, oControl.getSelectedPlanPlants()));
+		},
+		/**
+		 * Returns whether a workcenter is active or not
 		 * @param   {string}  value: workcenter to test
 		 * @returns {boolean} 
 		 */
-		_isWorkCenterSelected: function(value) {
-			return (-1 !== $.inArray(value, oControl.getSelectedWorkCenters()));
+		_isPlanPlantActive: function(value) {
+			return (value === oControl.getPlanPlant());
 		},
 		/**
-		 * Returns wether a workcenter is active or not
-		 * @param   {string}  value: workcenter to test
-		 * @returns {boolean} 
-		 */
-		_isWorkCenterActive: function(value) {
-			return (value === oControl.getWorkCenter());
-		},
-		/**
-		 * Factory for workcenter list item
+		 * Factory for planplant list item
 		 * @param {string} sId: line ID
 		 * @param {sap.ui.model.Context} oContext: context
 		 * @returns {sap.m.ColumnListItem} 
 		 */
-		_workCenterListFactory: function(sId, oContext) {
+		_planplantListFactory: function(sId, oContext) {
 			var oUIControl = null;
-			var bActive = oControl._isWorkCenterActive(oContext.getProperty('WorkCntr'));
+			var bActive = oControl._isPlanPlantActive(oContext.getProperty('Planplant'));
 
 			oUIControl = new sap.m.ColumnListItem(sId, {
 				selected: bSelected,
@@ -312,13 +312,10 @@ sap.ui.define([
 				        	state: bActive
 				        }),
 				        new sap.m.Text({
-				        	text: '{WorkCntr}'
+				        	text: '{Planplant}'
 				        }),
 				        new sap.m.Text({
-				        	text: '{WorkCtrTxt}'
-				        }),
-				        new sap.m.Text({
-				        	text: '{Plant}'
+				        	text: '{PlantName}'
 				        })
 				        ]
 			});
@@ -326,42 +323,42 @@ sap.ui.define([
 		},
 
 		/**
-		 * Handle the search event of the WorkCenter Selection Dialog
+		 * Handle the search event of the PlanPlant Selection Dialog
 		 * **/
-		handleWorkCenterSearch: function(oEvent) {
+		handlePlanPlantSearch: function(oEvent) {
 			var sValue = oEvent.getParameter("value");
-			var oFilter = new Filter("WorkCntr", sap.ui.model.FilterOperator.Contains, sValue.toUpperCase());
+			var oFilter = new Filter("Planplant", sap.ui.model.FilterOperator.Contains, sValue.toUpperCase());
 			var oBinding = oEvent.getSource().getBinding("items");
 			oBinding.filter([oFilter]);
 		},
 
 		/**
-		 * Handle the close and confirm events of the WorkCenter Selection Dialog
+		 * Handle the close and confirm events of the PlanPlant Selection Dialog
 		 *
 		 * **/
-		handleWorkCenterClose: function(oEvent) {
+		handlePlantPlantClose: function(oEvent) {
 			// All list items
 			var aItems = oEvent.oSource.getItems();
 			if ($.isEmptyObject(aItems)) {
-				// Something's wrong, no workcenter at all in the list, Logout
+				// Something's wrong, no planplant at all in the list, Logout
 				kalydia.logon.logout();
 			}
 			
 			// Clicked list item
 			var oSelectedItem = oEvent.getParameter("selectedItem");
-			// aCells is the array containing the cells of the Clicked workcenter line
+			// aCells is the array containing the cells of the Clicked planplant line
 			var aCells = $.isEmptyObject(oSelectedItem) ? [] : oSelectedItem.getCells();
-			// First cell contains the switch indicating if the workcenter is selected or not
+			// First cell contains the switch indicating if the planplant is selected or not
 			var bSelectedState = $.isEmptyObject(aCells) ? false : aCells[0].getState();
 			if (!$.isEmptyObject(oSelectedItem) && !bSelectedState) {
-				// Workcenter has been clicked but is not selected
-				oControl.openWorkcenterSelection(null);
+				// Planplant has been clicked but is not selected
+				oControl.openPlanPlantSelection(null);
 			} else if ($.isEmptyObject(oSelectedItem)) {
 				// If nothing has been clicked (cancel button click)
-				oControl.setWorkCenterSelection([]);
+				oControl.setPlanPlantSelection([]);
 			} else {
 				var aSelection = [];
-				oControl.oSelectedWorkCntr = oSelectedItem.getBindingContext().getObject().WorkCntr;
+				oControl.oSelectedPlanPlant = oSelectedItem.getBindingContext().getObject().Planplant;
 				// Loop over every item in the workcenter list
 				aItems.forEach(function(oItem) {
 					aCells = oItem.getCells();
@@ -369,62 +366,62 @@ sap.ui.define([
 					var oContext = oItem.getBindingContext();
 					// If switch is in position "On"
 					if (bActive) {
-						aSelection.push(oContext.getObject().WorkCntr);
+						aSelection.push(oContext.getObject().Planplant);
 					}
 				});
-				oControl.setWorkCenterSelection(aSelection);
+				oControl.setPlanPlantSelection(aSelection);
 			}
 			oEvent.getSource().getBinding("items").filter([]);
 		},
 
 		/**
-		 * Check the work center selection and populate values in storage or model
+		 * Check the planplant selection and populate values in storage or model
 		 * **/
-		setWorkCenterSelection: function(aSelection) {
-			if (aSelection.length == 0 && $.isEmptyObject(oControl.getWorkCenter())) {
+		setPlanPlantSelection: function(aSelection) {
+			if (aSelection.length == 0 && $.isEmptyObject(oControl.getPlanPlant())) {
 				// No selection done and no workcenter selected
 				MessageBox.show(
-						oControl.getI18nValue("workcenter.ErrorNoSelection"), {
+						oControl.getI18nValue("planplant.ErrorNoSelection"), {
 							icon: sap.m.MessageBox.Icon.ERROR,
-							title: oControl.getI18nValue("workcenter.ErrorSelectionTile"),
+							title: oControl.getI18nValue("planplant.ErrorSelectionTile"),
 							actions: sap.m.MessageBox.Action.OK,
-							onClose: $.isEmptyObject(oControl._oDialog._oTable.getItems()) && window.cordova ? $.proxy(oControl.openWorkcenterSelection, oControl) : $.proxy(oControl.openWorkcenterSelection, oControl),
+							onClose: $.isEmptyObject(oControl._oDialog._oTable.getItems()) && window.cordova ? $.proxy(oControl.openPlanPlantSelection, oControl) : $.proxy(oControl.openPlanPlantSelection, oControl),
 									styleClass: "",
 									initialFocus: null,
 									textDirection: sap.ui.core.TextDirection.Inherit
 						});
-			} else if (aSelection.length == 0 && !$.isEmptyObject(oControl.getWorkCenter())) {
-				// No selection but a workcenter has been selected
-				// Happened when the user open the workcenter selection from shell and 
-				// cancel without changing work center
+			} else if (aSelection.length == 0 && !$.isEmptyObject(oControl.getPlanPlant())) {
+				// No selection but a planplant has been selected
+				// Happened when the user open the planplant selection from shell and 
+				// cancel without changing planplant
 				return;
 			} else {
-				if (aSelection.length > oControl.getOwnerComponent().getModel("app").getProperty("/MaxWorkCenter")) {
-					// There is too many workcenter selected
+				if (aSelection.length > oControl.getOwnerComponent().getModel("app").getProperty("/MaxPlanPlant")) {
+					// There is too many planplant selected
 					MessageBox.show(
-							oControl.getResourceBundle().getText("workcenter.ErrorSelectionExceed", [oControl.getOwnerComponent().getModel("app").getProperty("/MaxWorkCenter")]), {
+							oControl.getResourceBundle().getText("planplant.ErrorSelectionExceed", [oControl.getOwnerComponent().getModel("app").getProperty("/MaxPlanPlant")]), {
 								icon: sap.m.MessageBox.Icon.ERROR,
-								title: oControl.getI18nValue("workcenter.ErrorSelectionTile"),
+								title: oControl.getI18nValue("planplant.ErrorSelectionTile"),
 								actions: sap.m.MessageBox.Action.OK,
-								onClose: $.proxy(oControl.openWorkcenterSelection, oControl),
+								onClose: $.proxy(oControl.openPlanPlantSelection, oControl),
 								styleClass: "",
 								initialFocus: null,
 								textDirection: sap.ui.core.TextDirection.Inherit
 							});
 				} else {
-					oControl.setWorkCenter(oControl.oSelectedWorkCntr);
-					oControl.setSelectedWorkCenters(aSelection);
+					oControl.setSelectedPlanPlant(oControl.oSelectedPlanPlant);
+					oControl.setSelectedPlanPlants(aSelection);
 					
-					sap.m.MessageToast.show(oControl.getResourceBundle().getText("workcenter.SelectionMessage", [oControl.getWorkCenter()]));
+					sap.m.MessageToast.show(oControl.getResourceBundle().getText("planplant.SelectionMessage", [oControl.getPlanPlant()]));
 					oControl.startApp(aSelection);
 				}
 			}
 		},
 		/**
-		 * Start application after workcenter selection.
-		 * @param {string} sWorkcenter: selected work center
+		 * Start application after planplant selection.
+		 * @param {string} sPlanPlant: selected planplant
 		 */
-		startApp: function(aWorkcenter) {
+		startApp: function(aPlanPlant) {
 			console.log("startApp");
 
 			if (window.cordova) {
@@ -439,13 +436,13 @@ sap.ui.define([
 
 					var aDeferred = [];
 
-					if (aWorkcenter.length > 0) {
-						// Create Deferred functions to open the work center store
-						$.each(aWorkcenter, function(index, workcenter) {
+					if (aPlanPlant.length > 0) {
+						// Create Deferred functions to open the planplant store
+						$.each(aPlanPlant, function(index, planplant) {
 							oControl.iBusy++;
-							aDeferred.push(ODataController.openStore(workcenter, workcenter, function() {
-								sap.m.MessageToast.show(oControl.getResourceBundle().getText("loading.WorkCenterStoreLoaded", [workcenter]));
-								console.log("success opening " + workcenter + " store loading controller");
+							aDeferred.push(ODataController.openStore(planplant, planplant, function() {
+								sap.m.MessageToast.show(oControl.getResourceBundle().getText("loading.PlanPlantStoreLoaded", [planplant]));
+								console.log("success opening " + planplant + " store loading controller");
 								oControl.iBusy--;
 								if(oControl.iBusy == 0) {
 									oControl.displayHome();
@@ -453,14 +450,14 @@ sap.ui.define([
 //									oControl.setAppLoaded(true);
 								}
 							}, function(error) {
-								console.log("error opening " + workcenter + " store loading controller");
+								console.log("error opening " + planplant + " store loading controller");
 								oControl.onErrorOpenStore(error);
 							}, oControl.setAppSyncProgress
 							, 0 === index
 							, oControl));
 						});
 						// Launch deferred
-						console.log("--- Start open work center stores ---");
+						console.log("--- Start open plant stores ---");
 						$.when.apply($, aDeferred);
 					} else {
 						// Ne devrait jamais se produire
@@ -545,7 +542,7 @@ sap.ui.define([
 			console.log("Go Home");
 			oControl.getOwnerComponent().createGeneralModel();
 			oControl.retrieveUserData();
-			oControl.getOwnerComponent().createWorkCenterModel(oControl.getWorkCenter());
+			oControl.getOwnerComponent().createPlanPlantModel(oControl.getPlanPlant());
 			oControl.setAppBusy(false);
 			oControl.setAppLoaded(true);
 			oControl.updateTilesCounters();
@@ -554,22 +551,22 @@ sap.ui.define([
 			}
 		},
 		/**
-		 * Change work center selection
+		 * Change planplant selection
 		 * @param {string} sName: not used
 		 * @param {string} sEvent: not used
 		 * @param {data}
 		 */
-		changeWorkCenterSelection: function(sName, sEvent, data) {
-			var aWorkCenters = oControl.getSelectedWorkCenters();
+		changePlanPlantSelection: function(sName, sEvent, data) {
+			var aPlanPlants = oControl.getSelectedPlanPlants();
 			var aStoreToDelete = [];
 			var aNewStores = [];
-			oControl.changeWorkCenterSelectionProcessed = true;
-			// check work centers stores
+			oControl.changePlanPlantSelectionProcessed = true;
+			// check plant stores
 			if (!$.isEmptyObject(kalydia.oData.stores)) {
 				$.each(kalydia.oData.stores, function(index, value) {
 					if ("General" !== index) {
-						if (!oControl._isWorkCenterSelected(index)) {
-							// work center store exist but not selected anymore
+						if (!oControl._isPlanPlantSelected(index)) {
+							//plant store exist but not selected anymore
 							// Close and clean store
 							console.log("Close and clean store " + index);
 							if (window.cordova) {
@@ -577,16 +574,16 @@ sap.ui.define([
 							}
 						} else {
 							// remove from list of work centers to create
-							aWorkCenters.splice($.inArray(index, aWorkCenters), 1);
+							aPlanPlants.splice($.inArray(index, aPlanPlants), 1);
 						}
 					}
 				});
 			}
-			// check selected work centers
-			if (!$.isEmptyObject(aWorkCenters)) {
-				$.each(aWorkCenters, function(index, value) {
+			// check selected plants
+			if (!$.isEmptyObject(aPlanPlants)) {
+				$.each(aPlanPlants, function(index, value) {
 					if ($.isEmptyObject(kalydia.oData.stores[value]) && !$.isEmptyObject(kalydia.oData.stores)) {
-						console.log("store " + value + " does not exits ==> create and open it");
+						console.log("store " + value + " does not exist ==> create and open it");
 						if (window.cordova) {
 							aNewStores.push(value);	
 						}
@@ -596,15 +593,15 @@ sap.ui.define([
 			
 			if (window.cordova) {
 				var oEventBus = sap.ui.getCore().getEventBus();
-				oEventBus.publish("base", "processChangeWorkCenterSelection", {
+				oEventBus.publish("base", "processchangePlanPlantSelection", {
 					deleteStore: aStoreToDelete,
 					newStore: aNewStores,
-					isActiveWorkCenterChanged: data.isActiveWorkCenterChanged
+					isActivePlanPlantChanged: data.isActivePlanPlantChanged
 				});	
 			} else {
-				if (data.isActiveWorkCenterChanged) {
+				if (data.isActivePlanPlantChanged) {
 					// set the work center model
-					console.log("New active work center " + oControl.getWorkCenter());
+					console.log("New active work center " + oControl.getPlanPlant());
 					oControl.updateErrorIndicator();
 					oControl.updateTilesCounters();
 				}	
@@ -615,7 +612,7 @@ sap.ui.define([
 		 */
 		updateTilesCounters: function() {
 			// Retrieve TimeSheet Counter
-			var oModel = oControl.getOwnerComponent().getModel("work");
+			var oModel = oControl.getOwnerComponent().getModel("plant");
 			var oEmployeeData = oControl.getOwnerComponent().getModel("app").getProperty("/EmployeeData");
 			var aTileModel = this.getOwnerComponent().getModel("mainTiles").getProperty('/TileCollection');
 			console.log("update tiles counters");
@@ -627,16 +624,16 @@ sap.ui.define([
 						var request = null;
 						switch (tileModel.target) {
 						case 'NotificationList':
-							request = "/NotifHeaderSet/$count/?$filter=WorkCntr%20eq%20%27" + oControl.getWorkCenter() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27";
+							request = "/NotifHeaderSet/$count/?$filter=WorkCntr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27";
 							break;
 						case 'PrepareWorkOrder':
-							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getWorkCenter() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27%20and%20(%20OrderType%20eq%20%27ENS1%27or%20OrderType%20eq%20%27ENS2%27%20)";
+							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27%20and%20(%20OrderType%20eq%20%27ENS1%27or%20OrderType%20eq%20%27ENS2%27%20)";
 							break;
 						case 'MyWorkOrders':
-							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getWorkCenter() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
+							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
 							break;
 						case 'TimeAndMaterialEntry':
-							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getWorkCenter() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
+							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
 							break;
 						default:
 							console.error('no request defined to compute counter for target ' + tileModel.target);
@@ -667,7 +664,7 @@ sap.ui.define([
 			if (!window.cordova) return;
 			
 			// Retrieve TimeSheet Counter
-			var oModel = oControl.getOwnerComponent().getModel("work");
+			var oModel = oControl.getOwnerComponent().getModel("plant");
 
 			oModel.read("/ErrorArchive/$count", {
 				success: function(oData, response) {
@@ -684,12 +681,12 @@ sap.ui.define([
 			});
 		},
 		/**
-		 * Process work center modification
+		 * Process planplant modification
 		 * @param {string} sName: not used
 		 * @param {string} sEvent: not used
 		 * @param {data}   data: workcenter data
 		 */
-		processChangeWorkCenterSelection: function(sName, sEvent, data) {
+		processchangePlanPlantSelection: function(sName, sEvent, data) {
 			console.log('processChangeCenterSelection');
 			console.log(data);
 			oControl.setAppBusy(true);
@@ -702,15 +699,15 @@ sap.ui.define([
 
 			if (data.deleteStore.length > 0) {
 				console.log('delete Store ' + data.deleteStore[0]);
-				sap.m.MessageToast.show(oControl.getResourceBundle().getText("workcenter.CloseStore", [data.deleteStore[0]]));
+				sap.m.MessageToast.show(oControl.getResourceBundle().getText("planplant.CloseStore", [data.deleteStore[0]]));
 				kalydia.oData.closeStore(data.deleteStore[0], function() {
 					kalydia.oData.removeStoreFromSession(data.deleteStore[0], function() {
 						// remove first element
 						data.deleteStore.shift();
-						oControl.processChangeWorkCenterSelection("base", "processWorkChangeCenterSelection", {
+						oControl.processchangePlanPlantSelection("base", "processPlanChangePlantSelection", {
 							deleteStore: data.deleteStore,
 							newStore: data.newStore,
-							isActiveWorkCenterChanged: data.isActiveWorkCenterChanged
+							isActivePlanPlantChanged: data.isActivePlanPlantChanged
 						});
 					}, function() {
 						// error clear
@@ -722,29 +719,29 @@ sap.ui.define([
 				});
 			} else if (data.newStore.length > 0) {
 				console.log('create Store ' + data.newStore[0]);
-				// check existing work center stores
-				var iWorkCenterStore = 0;
-				var isWorkCenter1 = false;
-				var isWorkCenter2 = false;
+				// check existing plant stores
+				var iPlanPlantStore = 0;
+				var isPlanPlant1 = false;
+				var isPlanPlant2 = false;
 				$.each(kalydia.oData.stores, function(index, value) {
 					if ("General" !== index) {
-						iWorkCenterStore++;
-						isWorkCenter1 = (-1 !== kalydia.oData.stores[index].serviceRoot.indexOf(".workcenter1"));
-						isWorkCenter2 = (-1 !== kalydia.oData.stores[index].serviceRoot.indexOf(".workcenter2"));
+						iPlanPlantStore++;
+						isPlanPlant1 = (-1 !== kalydia.oData.stores[index].serviceRoot.indexOf(".planplant1"));
+						isPlanPlant2 = (-1 !== kalydia.oData.stores[index].serviceRoot.indexOf(".planplant2"));
 					}
 				});
 
-				if (iWorkCenterStore < 2) {
-					sap.m.MessageToast.show(oControl.getResourceBundle().getText("workcenter.OpenStore", [data.newStore[0]]));
+				if (iPlanPlantStore < 2) {
+					sap.m.MessageToast.show(oControl.getResourceBundle().getText("planplant.OpenStore", [data.newStore[0]]));
 					kalydia.oData.openStore(data.newStore[0], data.newStore[0], function() {
-						sap.m.MessageToast.show(oControl.getResourceBundle().getText("loading.WorkCenterStoreLoaded", [data.newStore[0]]));
+						sap.m.MessageToast.show(oControl.getResourceBundle().getText("loading.PlanPlantStoreLoaded", [data.newStore[0]]));
 						console.log("success opening " + data.newStore[0] + " store base controller");
 						// remove first element
 						data.newStore.shift();
-						oControl.processChangeWorkCenterSelection("base", "processWorkChangeCenterSelection", {
+						oControl.processchangePlanPlantSelection("base", "processPlanChangePlantSelection", {
 							deleteStore: data.deleteStore,
 							newStore: data.newStore,
-							isActiveWorkCenterChanged: data.isActiveWorkCenterChanged
+							isActivePlanPlantChanged: data.isActivePlanPlantChanged
 						});
 					}, function(error) {
 						console.error("error opening " + data.newStore[0] + " store loading controller");
@@ -764,16 +761,16 @@ sap.ui.define([
 									textDirection: sap.ui.core.TextDirection.Inherit
 								});
 					}, oControl.setAppSyncProgress
-					, !isWorkCenter1);
+					, !isPlanPlant1);
 				} else {
 					// Error
-					console.error("There is already 2 work center stores");
+					console.error("There are already 2 plant stores");
 				}
 
-			} else if (data.isActiveWorkCenterChanged) {
-				// set the work center model
-				console.log("New active work center " + oControl.getWorkCenter());
-				oControl.getOwnerComponent().createWorkCenterModel(oControl.getWorkCenter());
+			} else if (data.isActivePlanPlantChanged) {
+				// set the plant model
+				console.log("New active plant " + oControl.getPlanPlant());
+				oControl.getOwnerComponent().createPlanPlantModel(oControl.getPlanPlant());
 				oControl.updateErrorIndicator();
 				oControl.updateTilesCounters();
 			}
@@ -1098,7 +1095,7 @@ sap.ui.define([
 					function(storename) {
 						var lastRefresh = new Date();
 						var lastRefreshString = Formatter.DateTimeToString(lastRefresh);
-						if (oControl.getWorkCenter() == storename){
+						if (oControl.getPlanPlant() == storename){
 							oControl.setAppSync(false,false,true);
 							oControl.getOwnerComponent().getModel("app").setProperty('/lastSynchronization', lastRefreshString);
 							oControl.updateErrorIndicator();

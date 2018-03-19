@@ -11,14 +11,14 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 		 * Create the store.
 		 * The store will be available for offline access only after it is open successfully.
 		 */
-		createStore: function(workcenter, isFirstWorkCenter) {
+		createStore: function(planplant, isFirstPlanPlant) {
 			var authCtx = com.kalydia.edfen.workmanager.scripts.logon.ApplicationContext;
 			var authStr = "Basic " + btoa(authCtx.registrationContext.user + ":" + authCtx.registrationContext.password);
-			var sCategory = $.isEmptyObject(workcenter) ? ".general" : isFirstWorkCenter ? ".wc1" : ".wc2";
+			var sCategory = $.isEmptyObject(planplant) ? ".general" : isFirstPlanPlant ? ".pp1" : ".pp2";
 			var sServiceRoot = com.kalydia.edfen.workmanager.scripts.logon.AppId + sCategory;
 			
 			var properties = {
-			        "name": authCtx.registrationContext.serverHost + '.' + workcenter + sCategory,
+			        "name": authCtx.registrationContext.serverHost + '.' + planplant + sCategory,
 					"host": authCtx.registrationContext.serverHost,
 					"port": authCtx.registrationContext.serverPort,
 					"https": authCtx.registrationContext.https,
@@ -29,7 +29,7 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 						"X-SMP-APPCID": authCtx.applicationConnectionId,
 						"accept-language": sap.ui.getCore().getConfiguration().getLanguage()
 					},
-					"definingRequests": kalydia.oData._defineRequest(workcenter),
+					"definingRequests": kalydia.oData._defineRequest(planplant),
 					"enableRepeatableRequests": true,
 					"onrequesterror": kalydia.oData._onrequestError
 			};
@@ -37,7 +37,7 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 			// Check if the store is already opened
 			for (var i in sap.OData.stores) {
 				if (sap.OData.stores[i].name.indexOf(sCategory) !== -1) {
-					// This store is currently opened, check if it is for the same Workcenter (or the general store)
+					// This store is currently opened, check if it is for the same PlanPlant (or the general store)
 					if (sap.OData.stores[i].name == 'null.general') {
 						// It is the same, nothing to do
 						return sap.OData.stores[i];
@@ -65,9 +65,9 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 		 * Open the store.
 		 * The store will be available for offline access only after it is open successfully.
 		 */
-		openStore: function(storename, workcenter, callback, errorcallback, progress, isFirstWorkCenter, oController) {
+		openStore: function(storename, planplant, callback, errorcallback, progress, isFirstPlanPlant, oController) {
 			var startTime = new Date();
-			kalydia.oData.stores[storename] = kalydia.oData.createStore(workcenter, isFirstWorkCenter);
+			kalydia.oData.stores[storename] = kalydia.oData.createStore(planplant, isFirstPlanPlant);
 			console.log("Opening store " + storename);
 			if (!$.isEmptyObject(kalydia.oData.stores[storename])) {
 				kalydia.oData.stores[storename].open(function() {
@@ -208,13 +208,16 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 			console.error(error);
 		},
 
-		_defineRequest: function(workcenter) {
+		_defineRequest: function(planplant) {
 			var retrieveStreams = true;
 			// retrieve snchronization date
 
-			if ($.isEmptyObject(workcenter)) {
+			if ($.isEmptyObject(planplant)) {
 				return {
-					// Workcenter List
+					// PlanPlant List
+					"PlanPlant_DR": "/PlanPlantSet",
+					
+					// WorkCenter List
 					"WorkCenter_DR": "/WorkCenterSet",
 
 					// Checklist Model
@@ -250,22 +253,22 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					"CompType_DR": "/CompTypeSet"
 				};
 			} else {
-				// add request depending on workcenter
+				// add request depending on planplant
 				return {
 
 					//Equipment
-					"Equi_DR": "/EquiSet?$filter=WorkCntr eq '" + workcenter + "'",
+					"Equi_DR": "/EquiSet?$filter=Planplant eq '" + planplant + "'",
 
 					//Function Location
-					"FuncLoc_DR": "/FuncLocSet?$filter=WorkCntr eq '" + workcenter + "'",
+					"FuncLoc_DR": "/FuncLocSet?$filter=Planplant eq '" + planplant + "'",
 
 					// Damage Code
 					"DamageCode_DR": "/DamageCodeSet?$filter=WorkCntr eq '" + workcenter + "'",
 					"DamageGroup_DR": "/DamageGroupSet?$filter=WorkCntr eq '" + workcenter + "'",
 
 					// Notification
-					"NotifHeader_DR": "/NotifHeaderSet?$filter=WorkCntr eq '" + workcenter + "'",
-					"NotifItem_DR": "/NotifItemSet?$filter=WorkCntr eq '" + workcenter + "'",
+					"NotifHeader_DR": "/NotifHeaderSet?$filter=Planplant eq '" + planplant + "'",
+					"NotifItem_DR": "/NotifItemSet?$filter=Planplant eq '" + planplant + "'",
 					"NotifComponent_DR": "/NotifComponentSet?$filter=WorkCntr eq '" + workcenter + "'",
 					"NotifAttach_DR": {
 						"url": "/NotifAttachSet?$filter=WorkCntr eq '" + workcenter + "'",
@@ -273,9 +276,10 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					},
 
 					// WorkOrder
-					"OrderHeader_DR": "/OrderHeaderSet?$filter=MnWkCtr eq '" + workcenter + "'",
-					"OrderOperation_DR": "/OrderOperationSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					"OrderHeader_DR": "/OrderHeaderSet?$filter=Planplant eq '" + planplant + "'",
+					"OrderOperation_DR": "/OrderOperationSet?$filter=Plant eq '" + planplant + "'",
 					"OrderOperationAssignment_DR": "/OrderOperationAssignmentSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					
 
 					"OrderOperationCheckList_DR": "/OrderOperationCheckListSet?$filter=MnWkCtr eq '" + workcenter + "'",
 					"OrderOperationCheckListAttach_DR": {
@@ -294,13 +298,13 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					"OrderOperationCheckListTool_DR": "/OrderOperationCheckListToolSet?$filter=MnWkCtr eq '" + workcenter + "'",
 					"OrderOperationCheckListPart_DR": "/OrderOperationCheckListPartSet?$filter=MnWkCtr eq '" + workcenter + "'",
 
-					"OrderComponent_DR": "/OrderComponentSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					"OrderComponent_DR": "/OrderComponentSet?$filter=Plant eq '" + planplant + "'",
 					//"OrderComponentReserv_DR": "/OrderComponentReservSet?$filter=MnWkCtr eq '" + workcenter + "'",
 
 					"OrderOperationConfirmation_DR": "/OrderOperationConfirmationSet?$filter=WorkCntr eq '" + workcenter + "'",
 
 					"OrderAttach_DR": {
-						"url": "/OrderAttachSet?$filter=MnWkCtr eq '" + workcenter + "'",
+						"url": "/OrderAttachSet?$filter=Planplant eq '" + planplant + "'",
 						"retrieveStreams": retrieveStreams
 					},
 

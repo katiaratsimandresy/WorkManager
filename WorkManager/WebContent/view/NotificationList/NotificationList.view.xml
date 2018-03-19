@@ -19,7 +19,7 @@
 				<PullToRefresh refresh="handleRefresh" id="pullToRefresh" />
 				<List id="list"
 					items="{
-			      path: 'work>/NotifHeaderSet',	
+			      path: 'plant>/NotifHeaderSet',	
 			      sorter : {
 						path : 'NotifNo',
 						descending : true
@@ -37,20 +37,20 @@
 					growingThreshold="35" growing="true" mode="SingleSelectMaster"
 					select="onSelect">
 					<items id="listItems">
-						<ObjectListItem type="Active" icon="{ path : 'work>@com.sap.vocabularies.Offline.v1.inErrorState', formatter: '.iconSaveStatus' }"
-							title="{ path : 'work>NotifNo', formatter: '.formatRemoveLeadingZeros' }">
+						<ObjectListItem type="Active" icon="{ path : 'plant>@com.sap.vocabularies.Offline.v1.inErrorState', formatter: '.iconSaveStatus' }"
+							title="{ path : 'plant>NotifNo', formatter: '.formatRemoveLeadingZeros' }">
 							<firstStatus>
-								<ObjectStatus text="{work>PriorityText}"
-									state="{path:'work>Priority', formatter:'.formatState'}"></ObjectStatus>
+								<ObjectStatus text="{plant>PriorityText}"
+									state="{path : 'plant>Priority', formatter:'.formatState'}"></ObjectStatus>
 							</firstStatus>
 							<secondStatus>
 								<ObjectStatus
-									text="{path:'work>CreatedDate',formatter:'.formatDate'}">
+									text="{path : 'plant>CreatedDate',formatter:'.formatDate'}">
 								</ObjectStatus>
 							</secondStatus>
 							<attributes>
-								<ObjectAttribute text="{work>ShortText}"></ObjectAttribute>
-								<ObjectAttribute text="{work>FunctLoc}"></ObjectAttribute>
+								<ObjectAttribute text="{plant>ShortText}"></ObjectAttribute>
+								<ObjectAttribute text="{plant>FunctLoc}"></ObjectAttribute>
 							</attributes>
 						</ObjectListItem>
 					</items>

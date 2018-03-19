@@ -106,13 +106,13 @@
 								<items>
 									<ColumnListItem type="Navigation" press="handleOrderPress">
 										<Text
-											text="{path:'work>Orderid', formatter:'.formatRemoveLeadingZeros'}" />
-										<Text text="{work>ShortText}" />
-										<Text text="{work>FunctLoc}" />
-										<ObjectStatus text="{work>PriorityText}"
-											state="{path: 'work>Priority', formatter: '.formatState'}" />
+											text="{path : 'plant>Orderid', formatter:'.formatRemoveLeadingZeros'}" />
+										<Text text="{plant>ShortText}" />
+										<Text text="{plant>FunctLoc}" />
+										<ObjectStatus text="{plant>PriorityText}"
+											state="{path: 'plant>Priority', formatter: '.formatState'}" />
 										<Text
-											text="{path: 'work>EnterDate', formatter: '.formatDateTimeToDateString'}" />
+											text="{path: 'plant>EnterDate', formatter: '.formatDateTimeToDateString'}" />
 									</ColumnListItem>
 								</items>
 							</Table>

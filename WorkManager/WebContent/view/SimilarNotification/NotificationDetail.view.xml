@@ -14,23 +14,23 @@
 
 							<Label text="{i18n>oData.NotifHeader.NotifNo}" />
 							<Text
-								text="{path:'work>NotifNo', formatter:'.formatRemoveLeadingZeros'}" />
+								text="{path : 'plant>NotifNo', formatter:'.formatRemoveLeadingZeros'}" />
 
 							<Label text="{i18n>oData.NotifHeader.ShortText}" />
-							<Text text="{work>ShortText}" />
+							<Text text="{plant>ShortText}" />
 
 							<Label text="{i18n>oData.NotifHeader.Notiftype}" />
-							<Text text="{work>NotiftypeText}" />
+							<Text text="{plant>NotiftypeText}" />
 
 							<Label text="{i18n>oData.NotifHeader.FunctLoc}" />
-							<Text text="{work>FunctLoc}" />
+							<Text text="{plant>FunctLoc}" />
 
 							<Label text="{i18n>oData.NotifHeader.Equipment}" />
 							<Text
-								text="{path:'work>Equipment', formatter:'.formatRemoveLeadingZeros'}" />
+								text="{path : 'plant>Equipment', formatter:'.formatRemoveLeadingZeros'}" />
 
 							<Label text="{i18n>oData.NotifHeader.Breakdown}" />
-							<CheckBox editable="false" selected="{work>Breakdown}" />
+							<CheckBox editable="false" selected="{plant>Breakdown}" />
 
 						</f:content>
 					</f:SimpleForm>
@@ -44,30 +44,30 @@
 						<f:content>
 
 							<Label text="{i18n>oData.NotifHeader.Priority}" />
-							<Text text="{work>PriorityText}" />
+							<Text text="{plant>PriorityText}" />
 
 							<Label
 								text="{i18n>oData.NotifItem.DCodegrp} / {i18n>oData.NotifItem.DCode}" />
-							<List items="{work>NotifItem}" backgroundDesign="Transparent">
+							<List items="{plant>NotifItem}" backgroundDesign="Transparent">
 								<items>
-									<StandardListItem title="{work>StxtGrpcd} - {work>TxtProbcd}"
-										description="{work>DCodegrp} - {work>DCode}" />
+									<StandardListItem title="{plant>StxtGrpcd} - {plant>TxtProbcd}"
+										description="{plant>DCodegrp} - {plant>DCode}" />
 								</items>
 							</List>
 
 							<Label text="{i18n>oData.NotifHeader.StrmlfnDate}" />
 							<Text
-								text="{path:'work>StrmlfnDate', formatter:'.formatDateTimeToString'}" />
+								text="{path : 'plant>StrmlfnDate', formatter:'.formatDateTimeToString'}" />
 
  							<Label text="{i18n>NotificationList.picture}" />
 							<HBox id="attachedImageBox">
 							</HBox>
 							
 							<Label text="{i18n>oData.NotifHeader.Notifdesctext}" />
-							<Text text="{work>Notifdesctext}" rows="5" editable="false" />
+							<Text text="{plant>Notifdesctext}" rows="5" editable="false" />
 
 							<Label text="{i18n>oData.Material.MaterialId}" />
-							<Table items="{work>NotifComponent}">
+							<Table items="{plant>NotifComponent}">
 								<columns>
 									<Column hAlign="Center" vAlign="Middle">
 										<header>
@@ -89,9 +89,9 @@
 								<items>
 									<ColumnListItem>
 										<Text
-											text="{path:'work>Material', formatter:'.formatRemoveLeadingZeros'}" />
-										<Text text="{work>MatlDesc}" />
-										<Text text="{work>RequirementQuantity}" />
+											text="{path : 'plant>Material', formatter:'.formatRemoveLeadingZeros'}" />
+										<Text text="{plant>MatlDesc}" />
+										<Text text="{plant>RequirementQuantity}" />
 									</ColumnListItem>
 								</items>
 							</Table>

@@ -338,10 +338,10 @@ sap.ui.define(function() {
 		},
 		
 		/**
-		 * Define if user can or cannot activate workcenter switch
+		 * Define if user can or cannot activate planplant switch
 		 * @param {String} icon: Sync icon
 		 */
-		workcenterChangeEnabled: function (icon) {
+		planplantChangeEnabled: function (icon) {
 			if (icon == 'upload-to-cloud' || icon == 'download-from-cloud') {
 				return false;
 			} else {
@@ -349,12 +349,12 @@ sap.ui.define(function() {
 			}
 		},
 		/**
-		 * Define if user or cannot open workcenter selection list
+		 * Define if user or cannot open planplant selection list
 		 * @param {Boolean} bBusy: is app busy?
 		 * @param {Boolean} bMenu: is menu display?
 		 * @returns {Boolean}
 		 */
-		workcenterChangeButtonEnabled: function (bBusy, bMenu) {
+		planplantChangeButtonEnabled: function (bBusy, bMenu) {
 			if (bBusy || !bMenu) {
 				return false;
 			} else {

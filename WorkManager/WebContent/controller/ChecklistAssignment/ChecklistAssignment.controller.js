@@ -76,7 +76,7 @@ sap.ui.define([
 			ctl.oSearchOptions = {};
 
 			// Model
-			ctl.oSearchOptions.model = "work";
+			ctl.oSearchOptions.model = "plant";
 			// Set
 			ctl.oSearchOptions.path  = "/OrderHeaderSet";
 			// Sorter by default
@@ -306,7 +306,7 @@ sap.ui.define([
 		 * @param{string} sPath: checklist URI
 		 */
 		removeChecklist: function(sPath){
-			ctl.getView().getModel("work").read(sPath,{
+			ctl.getView().getModel("plant").read(sPath,{
 				success: function(oData){
 					if (window.cordova) {
 						var sPath = oData.__metadata.uri.replace(kalydia.oData.stores[ctl.getWorkCenter()].serviceUri, "");
@@ -323,7 +323,7 @@ sap.ui.define([
 							Inactive : "",
 							Titre : ""
 					};
-					ctl.getView().getModel("work").update(sPath, lineRemoveChecklist, {
+					ctl.getView().getModel("plant").update(sPath, lineRemoveChecklist, {
 						merge: true,
 						success: ctl.loadOrderOperations,
 						error: ctl.oDataCallbackFail
@@ -383,7 +383,7 @@ sap.ui.define([
 		 */
 		submitChecklistAssignment: function(oData){
 			var sPath = ctl.sActivityPathForChecklist.replace("OrderOperation", "OrderOperationCheckList");
-			ctl.getView().getModel("work").update(sPath, oData,{
+			ctl.getView().getModel("plant").update(sPath, oData,{
 				success: function(){
 					var message = ctl.getI18nValue("workOrderDetails.checklist.assignment.createOk");
 					sap.m.MessageToast.show(message);

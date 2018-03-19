@@ -251,7 +251,7 @@ sap.ui.define([
 		 */
 		Save: function(oEvent) {
 			oControl.setAppBusy(true);
-			var oModelWork = oControl.getView().getModel("work");
+			var oModelWork = oControl.getView().getModel("plant");
 
 			var oModelInput = oControl.getDetailModel();
 
@@ -618,7 +618,7 @@ sap.ui.define([
 		 * **/
 		updateDetailElementsBindings: function(oItem) {
 			var oDetail = oControl.getView().byId("detailNotification");
-			var oModel = oControl.getOwnerComponent().getModel("work");
+			var oModel = oControl.getOwnerComponent().getModel("plant");
 			var oJsonData = {};
 			oControl.oItemBindingPath = oItem.getBindingContextPath();
 			oControl.setReviewButton(false);
@@ -872,7 +872,7 @@ sap.ui.define([
 
 			/* Search and bind data */
 			sap.ui.getCore().byId("funcLocationTableNotificationList").bindItems({
-				path: "work>/FuncLocSet",
+				path: "plant>/FuncLocSet",
 				template: new sap.m.ColumnListItem("funcLocationTableListItemNotificationList", {
 					type: "Navigation",
 					press: function(evt) {
@@ -882,16 +882,16 @@ sap.ui.define([
 					        new sap.m.Button({
 					        	text: oControl.getI18nValue("createNotification.frag.button.select"),
 					        	textDirection: "LTR",
-					        	enabled: "{= ${work>Category} !== '1'}",
+					        	enabled: "{= ${plant>Category} !== '1'}",
 					        	press: function(evt) {
 					        		return oControl.validFunctionalLocation(evt)
 					        	}
 					        }),
 					        new sap.m.ObjectIdentifier({
-					        	text: "{work>Funcloc}"
+					        	text: "{plant>Funcloc}"
 					        }),
 					        new sap.m.ObjectIdentifier({
-					        	text: "{work>Descript}"
+					        	text: "{plant>Descript}"
 					        })
 					        ]
 				}),
@@ -976,11 +976,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			oControl.equipmentSelect.bindAggregation("items", {
-				path: "work>/EquiSet",
+				path: "plant>/EquiSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>Descript}",
+					title: "{plant>Descript}",
 					description: {
-						parts: ['work>Equipment'],
+						parts: ['plant>Equipment'],
 						formatter: oControl.formatRemoveLeadingZeros
 					}
 				}),
@@ -1090,11 +1090,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			oControl.damageGroupSelect.bindAggregation("items", {
-				model: "work",
+				model: "plant",
 				path: "/DamageGroupSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>ShortText}",
-					description: "{work>CodeGroup}"
+					title: "{plant>ShortText}",
+					description: "{plant>CodeGroup}"
 				}),
 				filters: aFilters,
 				sorter : [ new sap.ui.model.Sorter("Pos", false),
@@ -1208,11 +1208,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			oControl.damageCodeSelect.bindAggregation("items", {
-				model: "work",
+				model: "plant",
 				path: "/DamageCodeSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>ShortText}",
-					description: "{work>Code}"
+					title: "{plant>ShortText}",
+					description: "{plant>Code}"
 				}),
 				filters: aFilters,
 				sorter : new sap.ui.model.Sorter("Code", false)

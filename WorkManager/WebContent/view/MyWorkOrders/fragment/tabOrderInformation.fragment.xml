@@ -151,7 +151,7 @@
 									items="{}"
 									selectedKey="{InfoOrderForm>Activity}">
 									<items>
-										<core:Item text="{work>Activity}" key="{work>Activity}" />
+										<core:Item text="{plant>Activity}" key="{plant>Activity}" />
 									</items>
 								</Select>
 								<ObjectIdentifier text="{InfoOrderForm>StgeLoc}" />
@@ -283,13 +283,13 @@
 						</columns>
 						<items>
 							<ColumnListItem>
-								<Text text="{work>Activity}" />
-								<Text text="{work>Description}" />
-								<Text text="{work>NumberOfCapacities}" />
-								<!-- <Text text="{path: 'work>OrderOperationAssignment', formatter:'.formatArrayCount'}" 
+								<Text text="{plant>Activity}" />
+								<Text text="{plant>Description}" />
+								<Text text="{plant>NumberOfCapacities}" />
+								<!-- <Text text="{path: 'plant>OrderOperationAssignment', formatter:'.formatArrayCount'}" 
 									/> -->
-								<Text text="{work>WorkActivity} {work>UnWork}" />
-								<Text text="{work>Acttype}" />
+								<Text text="{plant>WorkActivity} {plant>UnWork}" />
+								<Text text="{plant>Acttype}" />
 							</ColumnListItem>
 						</items>
 					</Table>

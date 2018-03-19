@@ -10,13 +10,13 @@
 				<f:content>
 				
 					<Label text="{i18n>oData.FuncLoc.Funcloc}" />
-					<Text text="{work>Funcloc} - {work>Descript}" />
+					<Text text="{plant>Funcloc} - {plant>Descript}" />
 					
 				</f:content>
 			</f:SimpleForm>
 			<Table id="NotificationTable" 
 				items="{
-			      path: 'work>/NotifHeaderSet',			    
+			      path: 'plant>/NotifHeaderSet',			    
 			      filters:[{
 			      	path: 'Complete', 
 			      	operator: 'EQ',
@@ -73,15 +73,15 @@
 				<items id="NotificationList">
 					<ColumnListItem type="Navigation" press="openNotification">
 						<ObjectIdentifier 
-							text="{path:'work>NotifNo', formatter:'.formatRemoveLeadingZeros'}" />
-						<ObjectIdentifier text="{work>ShortText}" />
-						<ObjectIdentifier text="{work>FunctLoc}" />
-						<ObjectIdentifier text="{work>Priority}" />
-						<ObjectStatus text="{work>PriorityText}"
-							state="{path:'work>Priority', formatter:'.formatState'}" />
-						<ObjectIdentifier text="{work>CreatedBy}" />
+							text="{path : 'plant>NotifNo', formatter:'.formatRemoveLeadingZeros'}" />
+						<ObjectIdentifier text="{plant>ShortText}" />
+						<ObjectIdentifier text="{plant>FunctLoc}" />
+						<ObjectIdentifier text="{plant>Priority}" />
+						<ObjectStatus text="{plant>PriorityText}"
+							state="{path : 'plant>Priority', formatter:'.formatState'}" />
+						<ObjectIdentifier text="{plant>CreatedBy}" />
 						<ObjectIdentifier 
-							text="{path:'work>CreatedDate', formatter:'.formatDateTimeToDateString'}" />
+							text="{path : 'plant>CreatedDate', formatter:'.formatDateTimeToDateString'}" />
 					</ColumnListItem>
 				</items>
 			</Table>

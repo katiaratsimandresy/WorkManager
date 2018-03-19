@@ -46,7 +46,7 @@ sap.ui.define([
 				if (tab.getItems().length == 0) {
 					if (ctl.selectedFuncLocTableCells != null) {
 						var view = ctl.getView();
-						var model = view.getModel("work");
+						var model = view.getModel("plant");
 						view.getModel("CreateNotification").setProperty("/FunctLoc", ctl.selectedFuncLocTableCells[1].getText());
 						view.getModel("CreateNotification").setProperty("/Funcldescr", ctl.selectedFuncLocTableCells[2].getText());
 						view.byId("FunctLoc").setValueState(sap.ui.core.ValueState.None);
@@ -152,7 +152,7 @@ sap.ui.define([
 		 */
 		validFunctionalLocation: function(val) {
 			var view = ctl.getView();
-			var model = view.getModel("work");
+			var model = view.getModel("plant");
 			view.getModel("CreateNotification").setProperty("/FunctLoc", val.oSource.oParent.getCells()[1].getText());
 			view.getModel("CreateNotification").setProperty("/Funcldescr", val.oSource.oParent.getCells()[2].getText());
 			view.byId("FunctLoc").setValueState(sap.ui.core.ValueState.None);
@@ -194,7 +194,7 @@ sap.ui.define([
 
 			/* Search and bind data */
 			sap.ui.getCore().byId("funcLocationTable").bindItems({
-				path: "work>/FuncLocSet",
+				path: "plant>/FuncLocSet",
 				template: new sap.m.ColumnListItem("funcLocationTableListItem", {
 					type: "Navigation",
 					press: function(evt) {
@@ -204,16 +204,16 @@ sap.ui.define([
 					        new sap.m.Button({
 					        	text: ctl.getI18nValue("createNotification.frag.button.select"),
 					        	textDirection: "LTR",
-					        	enabled: "{= ${work>Category} !== '1'}",
+					        	enabled: "{= ${plant>Category} !== '1'}",
 					        	press: function(evt) {
 					        		return ctl.validFunctionalLocation(evt)
 					        	}
 					        }),
 					        new sap.m.ObjectIdentifier({
-					        	text: "{work>Funcloc}"
+					        	text: "{plant>Funcloc}"
 					        }),
 					        new sap.m.ObjectIdentifier({
-					        	text: "{work>Descript}"
+					        	text: "{plant>Descript}"
 					        })
 					        ]
 				}),
@@ -293,11 +293,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			ctl.equipmentSelect.bindAggregation("items", {
-				path: "work>/EquiSet",
+				path: "plant>/EquiSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>Descript}",
+					title: "{plant>Descript}",
 					description: {
-						parts: ['work>Equipment'],
+						parts: ['plant>Equipment'],
 						formatter: ctl.formatRemoveLeadingZeros
 					}
 				}),
@@ -404,11 +404,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			ctl.damageGroupSelect.bindAggregation("items", {
-				model: "work",
+				model: "plant",
 				path: "/DamageGroupSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>ShortText}",
-					description: "{work>CodeGroup}"
+					title: "{plant>ShortText}",
+					description: "{plant>CodeGroup}"
 				}),
 				filters: aFilters,
 				sorter : [ new sap.ui.model.Sorter("Pos", false),
@@ -518,11 +518,11 @@ sap.ui.define([
 
 			/* Search and bind data */
 			ctl.damageCodeSelect.bindAggregation("items", {
-				model: "work",
+				model: "plant",
 				path: "/DamageCodeSet",
 				template: new sap.m.StandardListItem({
-					title: "{work>ShortText}",
-					description: "{work>Code}"
+					title: "{plant>ShortText}",
+					description: "{plant>Code}"
 				}),
 				filters: aFilters,
 				sorter : new sap.ui.model.Sorter("Code", false)
@@ -831,7 +831,7 @@ sap.ui.define([
 		 */
 		submitNotification: function() {
 			if (ctl._checkInput(false)) {
-				var oModelWork = ctl.getView().getModel("work");
+				var oModelWork = ctl.getView().getModel("plant");
 				var oModelInput = ctl.getView().getModel("CreateNotification");
 				// Add value
 				oModelInput.setProperty("/NotiftypeText", ctl.getView().byId("Notiftype").getSelectedItem().getText().replace(/[^\w\s]/g, '-'));
@@ -924,7 +924,7 @@ sap.ui.define([
 		 * @param{number} Component: count of remaining components to be created
 		 */
 		submitComponent: function(sPathCreate, NotifComponent, Component){
-			var oModelWork = ctl.getView().getModel("work");
+			var oModelWork = ctl.getView().getModel("plant");
 			oModelWork.create( sPathCreate, NotifComponent[Component],{
 				success: function(oData, oResponse) {
 					if (Component != 0){

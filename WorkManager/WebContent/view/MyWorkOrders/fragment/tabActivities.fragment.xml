@@ -36,16 +36,16 @@
 				</columns>
 				<items id="orderActivitiesList">
 					<ColumnListItem type="Navigation" press="handleActivityPress">
-						<Text text="{work>Activity}" />
-						<Text text="{work>Description}" />
-						<Text text="{work>OrderOperationCheckList/Titre}" />
-						<!-- <Text text="{ path: 'work>OrderOperationCheckList/OrderOperationCheckListTask', 
+						<Text text="{plant>Activity}" />
+						<Text text="{plant>Description}" />
+						<Text text="{plant>OrderOperationCheckList/Titre}" />
+						<!-- <Text text="{ path: 'plant>OrderOperationCheckList/OrderOperationCheckListTask', 
 							formatter: '.displayActivityCheckListQuickInfo' }" /> -->
 						<FlexBox direction="Column">
 							<Button icon="sap-icon://add-activity-2" press="openChecklistSelect"
 								type="Default" width="100%"
 								visible="{
-									path: 'work>OrderOperationCheckList/Titre', 
+									path: 'plant>OrderOperationCheckList/Titre', 
 									formatter: '.formatNotFlag'
 								}"
 								enabled="{
@@ -55,7 +55,7 @@
 							<Button icon="sap-icon://delete" press="handleUnassignChecklist"
 								type="Default" width="100%"
 								visible="{
-									path: 'work>OrderOperationCheckList/Titre', 
+									path: 'plant>OrderOperationCheckList/Titre', 
 									formatter: '.formatFlag'
 								}"
 								enabled="{

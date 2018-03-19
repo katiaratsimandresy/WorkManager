@@ -94,58 +94,58 @@
 													selected="false"
 													visible="{
 														parts: [
-															{path:'work>Status'},
-															{path:'work>UserFullname'}
+															{path : 'plant>Status'},
+															{path : 'plant>UserFullname'}
 														],
 														formatter:'.confirmationIsCopyable'
 													}" />
-												<Text text="{work>Acttype}" wrapping="false" />
-												<Text text="{work>OtCompTypeText}" wrapping="false" />
+												<Text text="{plant>Acttype}" wrapping="false" />
+												<Text text="{plant>OtCompTypeText}" wrapping="false" />
 												<Text
-													text="{path:'work>Workdate', formatter:'.formatDateTimeToDateString'}"
+													text="{path : 'plant>Workdate', formatter:'.formatDateTimeToDateString'}"
 													wrapping="false" />
 												<Text
-													text="{path:'work>Starttime', formatter:'.formatToTimeString'}"
+													text="{path : 'plant>Starttime', formatter:'.formatToTimeString'}"
 													wrapping="false" />
 												<Text
 													text="{
 														parts: [
-															{path:'work>Endtime'},
-															{path:'work>Status'}
+															{path : 'plant>Endtime'},
+															{path : 'plant>Status'}
 														], 
 														formatter:'.formatConfirmationEndtime'
 													}"
 													wrapping="false" />
 												<CheckBox id="FinConf" editable="false"
-													selected="{path:'work>FinConf', formatter:'.formatFlag'}" />
+													selected="{path : 'plant>FinConf', formatter:'.formatFlag'}" />
 												<Button icon="sap-icon://edit" press="handleEditConfirmations"
 													type="Transparent"
 													visible="{
 														parts:[
-															{path:'work>Status'},
-															{path:'work>UserFullname'}	
+															{path : 'plant>Status'},
+															{path : 'plant>UserFullname'}	
 														], 
 														formatter:'.confirmationIsEditable'
 													}" />
 												<Button icon="sap-icon://delete" press="submitConfirmationDelete"
 													type="Transparent"
-													visible="{path:'work>Status', formatter:'.confirmationIsChangeable'}" />
+													visible="{path : 'plant>Status', formatter:'.confirmationIsChangeable'}" />
 												<FlexBox direction="Column">
 													<Button icon="sap-icon://duplicate" press="handleCopyConfirmations"
 														type="Transparent"
 														visible="{
 															parts: [
-																{path:'work>Status'},
-																{path:'work>UserFullname'}
+																{path : 'plant>Status'},
+																{path : 'plant>UserFullname'}
 															],
 															formatter:'.confirmationIsCopyable'
 														}" />
 													<Button icon="sap-icon://media-play" press="handleEndConfirmations"
 														type="Transparent"
-														visible="{path:'work>Status', formatter:'.confirmationIsDraft'}" />
+														visible="{path : 'plant>Status', formatter:'.confirmationIsDraft'}" />
 												</FlexBox>
 												<core:Icon
-													src="{ path : 'work>@com.sap.vocabularies.Offline.v1.inErrorState',
+													src="{ path : 'plant>@com.sap.vocabularies.Offline.v1.inErrorState',
 														formatter: '.iconSaveStatus' }" />
 											</ColumnListItem>
 										</items>
@@ -202,67 +202,67 @@
 										<items id="orderActivityComponentsList">
 											<ColumnListItem>
 												<Text
-													text="{path:'work>Material', formatter:'.formatRemoveLeadingZeros'}" />
-												<Text text="{work>MatlDesc}" />
-												<Text text="{work>RequirementQuantity}" />
+													text="{path : 'plant>Material', formatter:'.formatRemoveLeadingZeros'}" />
+												<Text text="{plant>MatlDesc}" />
+												<Text text="{plant>RequirementQuantity}" />
 												<FlexBox>
 													<Button icon="sap-icon://sys-minus" press="handleDecrementWithdQuanDelta"
 														visible="{	parts:[
-																				{path: 'work>ItemCat'},
-																				{path: 'work>StgeLoc'}
+																				{path: 'plant>ItemCat'},
+																				{path: 'plant>StgeLoc'}
 																				],
 																			formatter: '.confirmationComponentIsNotInError'
 																		}"
 														enabled="{ parts:[
-															{path: 'work>Withdrawn'},
-															{path: 'work>ItemCat'},
-															{path: 'work>StgeLoc'}
+															{path: 'plant>Withdrawn'},
+															{path: 'plant>ItemCat'},
+															{path: 'plant>StgeLoc'}
 															], formatter:'.confirmationComponentIsPossible'}" />
 													<core:Icon src="sap-icon://alert" color="red"
 														visible="{	parts:[
-																				{path: 'work>ItemCat'},
-																				{path: 'work>StgeLoc'}
+																				{path: 'plant>ItemCat'},
+																				{path: 'plant>StgeLoc'}
 																				],
 																			formatter: '.confirmationComponentIsInError'
 																		}">
 													</core:Icon>
-													<Input type="Number" value="{work>WithdQuanDelta}"
+													<Input type="Number" value="{plant>WithdQuanDelta}"
 														width="95%" change="handleChangeWithdQuanDelta"
 														visible="{	parts:[
-																				{path: 'work>ItemCat'},
-																				{path: 'work>StgeLoc'}
+																				{path: 'plant>ItemCat'},
+																				{path: 'plant>StgeLoc'}
 																				],
 																			formatter: '.confirmationComponentIsNotInError'
 																		}"
 														enabled="{	parts:[
-																			{path: 'work>Withdrawn'},
-																			{path: 'work>ItemCat'},
-																			{path: 'work>StgeLoc'}
+																			{path: 'plant>Withdrawn'},
+																			{path: 'plant>ItemCat'},
+																			{path: 'plant>StgeLoc'}
 																		], formatter:'.confirmationComponentIsPossible'}" />
 													<Button icon="sap-icon://sys-add" press="handleIncrementWithdQuanDelta"
 														visible="{	parts:[
-																				{path: 'work>ItemCat'},
-																				{path: 'work>StgeLoc'}
+																				{path: 'plant>ItemCat'},
+																				{path: 'plant>StgeLoc'}
 																				],
 																			formatter: '.confirmationComponentIsNotInError'
 																		}"
 														enabled="{parts:[
-																				{path: 'work>Withdrawn'},
-																				{path: 'work>ItemCat'},
-																				{path: 'work>StgeLoc'}
+																				{path: 'plant>Withdrawn'},
+																				{path: 'plant>ItemCat'},
+																				{path: 'plant>StgeLoc'}
 																			], formatter:'.confirmationComponentIsPossible'}" />
 												</FlexBox>
-												<Text text="{work>WithdQuan}" />
+												<Text text="{plant>WithdQuan}" />
 												<Text
 													text="{
 														parts:[
-															{path: 'work>RequirementQuantity'},
-															{path: 'work>WithdQuan'}
+															{path: 'plant>RequirementQuantity'},
+															{path: 'plant>WithdQuan'}
 															], 
 														formatter: '.calcRemQuantity'
 													}" />
 												<core:Icon
-													src="{ path : 'work>@com.sap.vocabularies.Offline.v1.inErrorState',
+													src="{ path : 'plant>@com.sap.vocabularies.Offline.v1.inErrorState',
 														formatter: '.iconSaveStatus' }" />
 											</ColumnListItem>
 										</items>

@@ -39,11 +39,11 @@
 												<items>
 													<core:Icon
 														src="{
-															path: 'work>Mimetype',
+															path: 'plant>Mimetype',
 															formatter: '.formatIconMimeType'
 														}"
 														class="sapUiSmallMarginBegin sapUiMediumMarginEnd" />
-													<Link text="{work>Title}" target="{work>UrlLink}"
+													<Link text="{plant>Title}" target="{plant>UrlLink}"
 														press="handleChecklistDocumentPress" />
 												</items>
 											</FlexBox>
@@ -86,9 +86,9 @@
 
 										<items>
 											<ColumnListItem>
-												<Text text="{work>ToolId}" />
-												<Text text="{work>ToolDescription}" />
-												<Text text="{work>ToolQuantity}" />
+												<Text text="{plant>ToolId}" />
+												<Text text="{plant>ToolDescription}" />
+												<Text text="{plant>ToolQuantity}" />
 											</ColumnListItem>
 										</items>
 
@@ -131,9 +131,9 @@
 
 										<items>
 											<ColumnListItem>
-												<Text text="{work>PartId}" />
-												<Text text="{work>PartDescription}" />
-												<Text text="{work>PartQuantExcel}" />
+												<Text text="{plant>PartId}" />
+												<Text text="{plant>PartDescription}" />
+												<Text text="{plant>PartQuantExcel}" />
 											</ColumnListItem>
 										</items>
 
@@ -204,12 +204,12 @@
 
 										<items>
 											<ColumnListItem>
-												<Text text="{work>ToolcalDesc}" />
-												<Text text="{work>Comment}" />
-												<Text text="{work>ToolcalSn}" />
+												<Text text="{plant>ToolcalDesc}" />
+												<Text text="{plant>Comment}" />
+												<Text text="{plant>ToolcalSn}" />
 <!-- 												<Text -->
-<!-- 													text="{path: 'work>ToolcalDate', formatter: '.formatDateTimeToDateString'}" /> -->
-												<Text text="{work>ToolcalIntRef}" />
+<!-- 													text="{path: 'plant>ToolcalDate', formatter: '.formatDateTimeToDateString'}" /> -->
+												<Text text="{plant>ToolcalIntRef}" />
 												<Button icon="sap-icon://delete" press="handleDeleteCaliTool"
 													type="Transparent"
 													enabled="{path: 'ViewModel>/Manager', formatter: '.formatFlag'}" />
@@ -310,7 +310,7 @@
 												<Image id="findingPicture" class="sapUiSmallMarginEnd"
 													press="_enlargeImage"
 													src="{
-														path: 'work>__metadata',
+														path: 'plant>__metadata',
 														formatter: '.imageUrlForCheckListAttachment'
 													}"
 													densityAware="true" width="100px" height="75px" />
@@ -369,7 +369,7 @@
 									<Toolbar design="Transparent">
 										<Bar>
 											<contentLeft>
-												<Button text="{work>TaskDescription}" press="handleOpenTask">
+												<Button text="{plant>TaskDescription}" press="handleOpenTask">
 													<layoutData>
 														<FlexItemData growFactor="1" />
 													</layoutData>
@@ -378,24 +378,24 @@
 											<contentRight>
 												<Button icon="sap-icon://measure" press="handleOpenTask"
 													class="sapUiSmallMarginBegin"
-													visible="{path: 'work>MeasStatus', formatter: '.formatTaskMeasureVisible'}"
-													type="{path: 'work>MeasStatus', formatter: '.formatMeasStatusColor'}" />
+													visible="{path: 'plant>MeasStatus', formatter: '.formatTaskMeasureVisible'}"
+													type="{path: 'plant>MeasStatus', formatter: '.formatMeasStatusColor'}" />
 												<ToggleButton text="{i18n>workOrderDetails.summary.checklist.ko}"
 													key="KO" press="handleCheckListTaskKo" type="Reject"
-													pressed="{path: 'work>Statut', formatter: '.formatKOButton'}"
-													enabled="{parts:[{path: 'work>Comment'},
-													                 {path: 'work>MeasStatus'}], 
+													pressed="{path: 'plant>Statut', formatter: '.formatKOButton'}"
+													enabled="{parts:[{path: 'plant>Comment'},
+													                 {path: 'plant>MeasStatus'}], 
 													          formatter: '.formatKOButtonEnabled'}"
-													app:currentStatus="{work>Statut}" />
+													app:currentStatus="{plant>Statut}" />
 												<ToggleButton text="{i18n>workOrderDetails.summary.checklist.ok}"
 													key="OK" press="handleCheckListTaskOk" type="Accept"
-													pressed="{path: 'work>Statut', formatter: '.formatOKButton'}"
-													enabled="{path: 'work>MeasStatus', formatter: '.formatOKButtonEnabled'}"
-													app:currentStatus="{work>Statut}" />
+													pressed="{path: 'plant>Statut', formatter: '.formatOKButton'}"
+													enabled="{path: 'plant>MeasStatus', formatter: '.formatOKButtonEnabled'}"
+													app:currentStatus="{plant>Statut}" />
 												<ToggleButton text="{i18n>workOrderDetails.summary.checklist.na}"
 													key="NA" press="handleCheckListTaskNa" type="Default"
-													pressed="{path: 'work>Statut', formatter: '.formatNAButton'}"
-													app:currentStatus="{work>Statut}" />
+													pressed="{path: 'plant>Statut', formatter: '.formatNAButton'}"
+													app:currentStatus="{plant>Statut}" />
 											</contentRight>
 										</Bar>
 									</Toolbar>

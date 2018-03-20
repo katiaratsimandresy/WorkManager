@@ -263,15 +263,15 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					"FuncLoc_DR": "/FuncLocSet?$filter=Planplant eq '" + planplant + "'",
 
 					// Damage Code
-					"DamageCode_DR": "/DamageCodeSet?$filter=Planplant eq '" + workcenter + "'",
-					"DamageGroup_DR": "/DamageGroupSet?$filter=Planplant eq '" + workcenter + "'",
+					"DamageCode_DR": "/DamageCodeSet?$filter=Planplant eq '" + planplant + "'",
+					"DamageGroup_DR": "/DamageGroupSet?$filter=Planplant eq '" + planplant + "'",
 
 					// Notification
 					"NotifHeader_DR": "/NotifHeaderSet?$filter=Planplant eq '" + planplant + "'",
 					"NotifItem_DR": "/NotifItemSet?$filter=Planplant eq '" + planplant + "'",
-					"NotifComponent_DR": "/NotifComponentSet?$filter=Planplant eq '" + workcenter + "'",
+					"NotifComponent_DR": "/NotifComponentSet?$filter=Planplant eq '" + planplant + "'",
 					"NotifAttach_DR": {
-						"url": "/NotifAttachSet?$filter=Planplant eq '" + workcenter + "'",
+						"url": "/NotifAttachSet?$filter=Planplant eq '" + planplant + "'",
 						"retrieveStreams": retrieveStreams
 					},
 

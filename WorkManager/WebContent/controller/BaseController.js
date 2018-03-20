@@ -627,13 +627,13 @@ sap.ui.define([
 							request = "/NotifHeaderSet/$count/?$filter=Planplant%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27";
 							break;
 						case 'PrepareWorkOrder':
-							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27%20and%20(%20OrderType%20eq%20%27ENS1%27or%20OrderType%20eq%20%27ENS2%27%20)";
+							request = "/OrderHeaderSet/$count/?$filter=Planplant%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27%20%27%20and%20Complete%20eq%20%27%20%27%20and%20(%20OrderType%20eq%20%27ENS1%27or%20OrderType%20eq%20%27ENS2%27%20)";
 							break;
 						case 'MyWorkOrders':
-							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
+							request = "/OrderHeaderSet/$count/?$filter=Planplant%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
 							break;
 						case 'TimeAndMaterialEntry':
-							request = "/OrderHeaderSet/$count/?$filter=MnWkCtr%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
+							request = "/OrderHeaderSet/$count/?$filter=Planplant%20eq%20%27" + oControl.getPlanPlant() + "%27%20and%20InProcess%20eq%20%27X%27%20and%20Complete%20eq%20%27%20%27";
 							break;
 						default:
 							console.error('no request defined to compute counter for target ' + tileModel.target);

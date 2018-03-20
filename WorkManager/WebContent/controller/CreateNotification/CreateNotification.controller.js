@@ -174,10 +174,10 @@ sap.ui.define([
 		},
 		/**
 		 * Functional location search
-		 * @param{string} workcenter: Workcenter
+		 * @param{string} planplant: planplant
 		 * @param{string} parent: 	  Superior functional location
 		 */
-		searchFunctionalLocation: function (workcenter, parent) {
+		searchFunctionalLocation: function (planplant, parent) {
 			/* Research of function functional locations for matchcode, into list */
 
 			/* Deletion of existing items */
@@ -185,7 +185,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterPlanPlant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, workcenter);
+			var oFilterPlanPlant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, planplant);
 			var oFilterSupFuncLoc = new sap.ui.model.Filter("Supfloc", sap.ui.model.FilterOperator.EQ, parent);
 			if (!window.cordova) {
 				aFilters.push(oFilterPlanPlant);

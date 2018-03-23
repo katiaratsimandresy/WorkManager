@@ -278,7 +278,7 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					// WorkOrder
 					"OrderHeader_DR": "/OrderHeaderSet?$filter=Planplant eq '" + planplant + "'",
 					"OrderOperation_DR": "/OrderOperationSet?$filter=Plant eq '" + planplant + "'",
-					"OrderOperationAssignment_DR": "/OrderOperationAssignmentSet?$filter=Plant eq '" + planplant + "'",
+					//"OrderOperationAssignment_DR": "/OrderOperationAssignmentSet?$filter=Plant eq '" + planplant + "'",
 					
 
 					"OrderOperationCheckList_DR": "/OrderOperationCheckListSet?$filter=Plant eq '" + planplant + "'",

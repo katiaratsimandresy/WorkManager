@@ -278,30 +278,30 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 					// WorkOrder
 					"OrderHeader_DR": "/OrderHeaderSet?$filter=Planplant eq '" + planplant + "'",
 					"OrderOperation_DR": "/OrderOperationSet?$filter=Plant eq '" + planplant + "'",
-					"OrderOperationAssignment_DR": "/OrderOperationAssignmentSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					"OrderOperationAssignment_DR": "/OrderOperationAssignmentSet?$filter=Plant eq '" + planplant + "'",
 					
 
-					"OrderOperationCheckList_DR": "/OrderOperationCheckListSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					"OrderOperationCheckList_DR": "/OrderOperationCheckListSet?$filter=Plant eq '" + planplant + "'",
 					"OrderOperationCheckListAttach_DR": {
-						"url": "/OrderOperationCheckListAttachSet?$filter=MnWkCtr eq '" + workcenter + "'",
+						"url": "/OrderOperationCheckListAttachSet?$filter=Plant eq '" + planplant + "'",
 						"retrieveStreams": retrieveStreams
 					},
-					"OrderOperationCheckListTask_DR": "/OrderOperationCheckListTaskSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					"OrderOperationCheckListTask_DR": "/OrderOperationCheckListTaskSet?$filter=Plant eq '" + planplant + "'",
 					"OrderOperationCheckListTaskAttach_DR": {
-						"url": "/OrderOperationCheckListTaskAttachSet?$filter=MnWkCtr eq '" + workcenter + "'",
+						"url": "/OrderOperationCheckListTaskAttachSet?$filter=Plant eq '" + planplant + "'",
 						"retrieveStreams": retrieveStreams
 					},
-					"OrderOperationCheckListMesure_DR": "/OrderOperationCheckListMesureSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					"OrderOperationCheckListMesure_DR": "/OrderOperationCheckListMesureSet?$filter=Plant eq '" + planplant + "'",
 
-					"OrderOperationCheckListCaliTool_DR": "/OrderOperationCheckListCaliToolSet?$filter=MnWkCtr eq '" + workcenter + "'",
-					"OrderOperationCheckListDocument_DR": "/OrderOperationCheckListDocumentSet?$filter=MnWkCtr eq '" + workcenter + "'",
-					"OrderOperationCheckListTool_DR": "/OrderOperationCheckListToolSet?$filter=MnWkCtr eq '" + workcenter + "'",
-					"OrderOperationCheckListPart_DR": "/OrderOperationCheckListPartSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					"OrderOperationCheckListCaliTool_DR": "/OrderOperationCheckListCaliToolSet?$filter=Plant eq '" + planplant + "'",
+					"OrderOperationCheckListDocument_DR": "/OrderOperationCheckListDocumentSet?$filter=Plant eq '" + planplant + "'",
+					"OrderOperationCheckListTool_DR": "/OrderOperationCheckListToolSet?$filter=Plant eq '" + planplant + "'",
+					"OrderOperationCheckListPart_DR": "/OrderOperationCheckListPartSet?$filter=Plant eq '" + planplant + "'",
 
 					"OrderComponent_DR": "/OrderComponentSet?$filter=Plant eq '" + planplant + "'",
 					//"OrderComponentReserv_DR": "/OrderComponentReservSet?$filter=MnWkCtr eq '" + workcenter + "'",
 
-					"OrderOperationConfirmation_DR": "/OrderOperationConfirmationSet?$filter=Planplant eq '" + workcenter + "'",
+					"OrderOperationConfirmation_DR": "/OrderOperationConfirmationSet?$filter=Planplant eq '" + planplant + "'",
 
 					"OrderAttach_DR": {
 						"url": "/OrderAttachSet?$filter=Planplant eq '" + planplant + "'",

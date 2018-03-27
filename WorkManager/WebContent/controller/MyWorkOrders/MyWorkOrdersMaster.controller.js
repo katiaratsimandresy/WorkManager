@@ -206,22 +206,22 @@ sap.ui.define([
 				ctl.aFilters.push(new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, "X"));
 				ctl.aFilters.push(new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, " "));
 				break;
-			case "prioritySafety":
+			case "veryHigh":
 				ctl.aFilters.push(new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, "X"));
 				ctl.aFilters.push(new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, " "));
 				ctl.aFilters.push(new sap.ui.model.Filter("Priority", sap.ui.model.FilterOperator.EQ, "1"));
 				break;
-			case "stopDefault":
+			case "high":
 				ctl.aFilters.push(new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, "X"));
 				ctl.aFilters.push(new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, " "));
 				ctl.aFilters.push(new sap.ui.model.Filter("Priority", sap.ui.model.FilterOperator.EQ, "2"));
 				break;
-			case "minorIssue":
+			case "medium":
 				ctl.aFilters.push(new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, "X"));
 				ctl.aFilters.push(new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, " "));
 				ctl.aFilters.push(new sap.ui.model.Filter("Priority", sap.ui.model.FilterOperator.EQ, "3"));
 				break;
-			case "nextIntervention":
+			case "low":
 				ctl.aFilters.push(new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, "X"));
 				ctl.aFilters.push(new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, " "));
 				ctl.aFilters.push(new sap.ui.model.Filter("Priority", sap.ui.model.FilterOperator.EQ, "4"));

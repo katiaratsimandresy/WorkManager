@@ -22,20 +22,20 @@
 								iconColor="Default" key="allOrders" />
 
 							<IconTabFilter id="Priority1Filter" icon="sap-icon://documents"
-								design="Horizontal" text="{i18n>myWorkOrders.icon.text.prioritySafety}"
-								iconColor="Critical" key="prioritySafety" />
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.veryhigh}"
+								iconColor="Critical" key="veryHigh" />
 
 							<IconTabFilter id="Priority2Filter" icon="sap-icon://activity-items"
-								design="Horizontal" text="{i18n>myWorkOrders.icon.text.stopDefault}"
-								iconColor="Negative" key="stopDefault" />
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.high}"
+								iconColor="Negative" key="high" />
 
 							<IconTabFilter id="Priority3Filter" icon="sap-icon://document-text"
-								design="Horizontal" text="{i18n>myWorkOrders.icon.text.minorIssue}"
-								iconColor="Neutral" key="minorIssue" />
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.medium}"
+								iconColor="Neutral" key="medium" />
 
 							<IconTabFilter id="Priority4Filter" icon="sap-icon://attachment-e-pub"
-								design="Horizontal" text="{i18n>myWorkOrders.icon.text.nextIntervention}"
-								iconColor="Positive" key="nextIntervention" expanded="false"
+								design="Horizontal" text="{i18n>myWorkOrders.icon.text.low}"
+								iconColor="Positive" key="low" expanded="false"
 								expandable="false" />
 
 							<IconTabFilter id="ENS1Filter" icon="sap-icon://attachment-e-pub"

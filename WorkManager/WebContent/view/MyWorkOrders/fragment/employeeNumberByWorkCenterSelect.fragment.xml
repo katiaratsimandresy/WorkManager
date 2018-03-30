@@ -22,7 +22,7 @@
 			        descending : true
 	 			  },				    
 			      filters:[{
-			      	path: 'Planplant', 
+			      	path: 'Plant', 
 			      	operator: 'EQ',
 			      	value1: 'ZZZZZZZZ' 
 			      }]

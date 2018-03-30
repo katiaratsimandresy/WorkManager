@@ -345,7 +345,7 @@ sap.ui.define([
 			/* Filters' definition */
 			var aFilters = [];
 			var oFilterWorkCenter = new sap.ui.model.Filter("ChklstSiteId", sap.ui.model.FilterOperator.EQ, ctl.ChklstSiteId);
-			var oInactiveFilter    = new sap.ui.model.Filter("Inactive", sap.ui.model.FilterOperator.EQ, " ");
+			var oInactiveFilter = new sap.ui.model.Filter("Inactive", sap.ui.model.FilterOperator.EQ, "");
 			if (sFilterValue != "") {
 				/* Only if search field is not empty */
 				var oTitreFilter = new sap.ui.model.Filter(

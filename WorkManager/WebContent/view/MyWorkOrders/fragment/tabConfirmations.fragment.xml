@@ -29,6 +29,7 @@
 										<headerToolbar>
 											<OverflowToolbar>
 												<ToolbarSpacer />
+									<!--  BUTTON CONFIRMATION -->
 												<Button type="Emphasized" icon="sap-icon://create-entry-time"
 													text="{i18n>timeAndMaterialEntry.detail.orderConfirmation.create}"
 													press="handleCreateConfirmation" />
@@ -118,6 +119,8 @@
 													wrapping="false" />
 												<CheckBox id="FinConf" editable="false"
 													selected="{path : 'plant>FinConf', formatter:'.formatFlag'}" />
+													
+									<!-- BUTTON MODIFY -->
 												<Button icon="sap-icon://edit" press="handleEditConfirmations"
 													type="Transparent"
 													visible="{
@@ -127,9 +130,13 @@
 														], 
 														formatter:'.confirmationIsEditable'
 													}" />
+													
+									<!-- BUTTON DELETE -->
 												<Button icon="sap-icon://delete" press="submitConfirmationDelete"
 													type="Transparent"
 													visible="{path : 'plant>Status', formatter:'.confirmationIsChangeable'}" />
+													
+									<!-- BUTTON COPY -->
 												<FlexBox direction="Column">
 													<Button icon="sap-icon://duplicate" press="handleCopyConfirmations"
 														type="Transparent"

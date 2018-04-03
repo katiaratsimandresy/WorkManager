@@ -695,7 +695,7 @@ sap.ui.define([
 					/* Confirmations */
 					var oBindingInfo = ctl.getView().byId("SummaryConfirmationTable").getBindingInfo("items");
 					oBindingInfo.model = "plant";
-					oBindingInfo.path = "/OrderOperationConfirmationSet";
+					oBindingInfo.path = "/OrderConfirmationSet";
 					oBindingInfo.filters = [];
 					oBindingInfo.filters.push(oOrderidFilter);
 
@@ -707,7 +707,7 @@ sap.ui.define([
 					                       new sap.ui.model.Sorter("UserFullname", false, fGrouper),
 					                       new sap.ui.model.Sorter("Workdate", false),
 					                       new sap.ui.model.Sorter("Starttime", false),
-					                       new sap.ui.model.Sorter('Activity', false)					                       
+					                       new sap.ui.model.Sorter('ActType', false)					                       
 					                       ];
 					ctl.getView().byId("SummaryConfirmationTable").bindAggregation("items", oBindingInfo);
 
@@ -3881,14 +3881,14 @@ sap.ui.define([
 			});
 		},
 		/**
-		 * Search for employee number using search bar value and workcenter
-		 * @param{string} sPlanPlant: workcenter
+		 * Search for employee number using search bar value and plant
+		 * @param{string} sPlanPlant: plant
 		 * @param{string} sFilterValue: filter text value
 		 */
 		searchEmployeenumberByWorkCenter: function(sPlanPlant, sFilterValue){
 			var aFilters = [];
 
-			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, sPlanPlant);
+			var oPlanPlantFilter = new sap.ui.model.Filter("Plant", sap.ui.model.FilterOperator.EQ, sPlanPlant);
 			if (sFilterValue && sFilterValue != "") {
 				/* Only if search field is not empty */
 				var oUserFullnameFilter = new sap.ui.model.Filter(
@@ -4553,7 +4553,7 @@ sap.ui.define([
 
 			ctl.searchEmployeenumberByWorkCenter(ctl.getPlanPlant(), "");
 
-			/* Initialize select for WorkCenters with current workcenter */
+			/* Initialize select for planplants with current Planplant */
 			ctl.getView().getModel("ViewModel").setProperty("/Planplant", ctl.getPlanPlant());
 
 			/* Define what will be the callback function after selection */
@@ -5307,7 +5307,7 @@ sap.ui.define([
 			}
 
 			if (oConfirmationData.Employeenumber){ // Check collision only with Employee Number
-				oModelWork.read("/OrderOperationConfirmationSet", {  
+				oModelWork.read("/OrderConfirmationSet", {  
 					filters: aFilters,  
 					success: function(oData, response){
 						var message = null;

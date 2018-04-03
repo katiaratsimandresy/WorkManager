@@ -300,6 +300,8 @@ com.kalydia.edfen.workmanager.scripts.oData = {
 
 					"OrderComponent_DR": "/OrderComponentSet?$filter=Plant eq '" + planplant + "'",
 					//"OrderComponentReserv_DR": "/OrderComponentReservSet?$filter=MnWkCtr eq '" + workcenter + "'",
+					
+					"OrderConfirmation_DR": "/OrderConfirmationSet?$filter=Plant eq '" + planplant + "'",
 
 					"OrderOperationConfirmation_DR": "/OrderOperationConfirmationSet?$filter=Planplant eq '" + planplant + "'",
 

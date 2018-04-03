@@ -1537,7 +1537,7 @@ sap.ui.define([
 			}
 
 			if (oConfirmationData.Employeenumber){ // Check collision only with Employee Number
-				oModelWork.read("/OrderOperationConfirmationSet", {  
+				oModelWork.read("/OrderConfirmationSet", {  
 					filters: aFilters,  
 					success: function(oData, response){
 						var message = null;

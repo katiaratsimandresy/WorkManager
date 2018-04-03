@@ -36,19 +36,19 @@
 					<Label labelFor="Workdate" required="true"
 						text="{i18n>oData.OrderOperationConfirmation.Workdate}" />
 					<DatePicker id="Workdate" change="handleTimeDateChange"
-						dateValue="{ViewModel>/Workdate}" />
+						dateValue="{ViewModel>/Postgdate}" />
 
 					<!-- Start Time -->
 					<Label labelFor="Starttime" required="true"
 						text="{i18n>oData.OrderOperationConfirmation.Starttime}" />
 					<TimePicker id="Starttime" change="handleTimeDateChange"
-						dateValue="{ViewModel>/Starttime}" displayFormat="HH:mm" />
+						dateValue="{ViewModel>/Execstart}" displayFormat="HH:mm" />
 
 					<!-- End Time -->
 					<Label labelFor="Endtime"
 						text="{i18n>oData.OrderOperationConfirmation.Endtime}" required="{path:'ViewModel>/Externe', formatter:'.formatFlag'}" />
 					<TimePicker id="Endtime" change="handleTimeDateChange"
-						dateValue="{ViewModel>/Endtime}" displayFormat="HH:mm" />
+						dateValue="{ViewModel>/Execfinish}" displayFormat="HH:mm" />
 
 					<!-- Final confirmation ? -->
 					<Label labelFor="FinConf"

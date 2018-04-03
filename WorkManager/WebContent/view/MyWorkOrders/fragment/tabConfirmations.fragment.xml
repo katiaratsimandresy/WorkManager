@@ -103,15 +103,15 @@
 												<Text text="{plant>Acttype}" wrapping="false" />
 												<Text text="{plant>OtCompTypeText}" wrapping="false" />
 												<Text
-													text="{path : 'plant>Workdate', formatter:'.formatDateTimeToDateString'}"
+													text="{path : 'plant>Postgdate', formatter:'.formatDateTimeToDateString'}"
 													wrapping="false" />
 												<Text
-													text="{path : 'plant>Starttime', formatter:'.formatToTimeString'}"
+													text="{path : 'plant>Execstart', formatter:'.formatToTimeString'}"
 													wrapping="false" />
 												<Text
 													text="{
 														parts: [
-															{path : 'plant>Endtime'},
+															{path : 'plant>Execfinish'},
 															{path : 'plant>Status'}
 														], 
 														formatter:'.formatConfirmationEndtime'

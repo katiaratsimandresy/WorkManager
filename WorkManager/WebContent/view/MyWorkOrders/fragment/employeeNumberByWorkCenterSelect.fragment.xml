@@ -31,7 +31,7 @@
 			    <columns>
 			    	<Column hAlign="Center" vAlign="Middle">
 						<header>
-							<ObjectIdentifier title="{i18n>oData.EmployeeWorkCenter.PersonNo}" />
+							<ObjectIdentifier title="{i18n>oData.EmployeeWorkCenter.PersNo}" />
 						</header>
 					</Column>
 					<Column hAlign="Center" vAlign="Middle">

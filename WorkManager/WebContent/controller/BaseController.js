@@ -485,7 +485,7 @@ sap.ui.define([
 					// retrieve Employee Data
 					var oEmployeeData = $.isEmptyObject(oData) || $.isEmptyObject(oData.results) ? null : oData.results[0];
 					if (!$.isEmptyObject(oEmployeeData)) {
-						oEmployeeData.username = $.isEmptyObject(oEmployeeData.PersonNo) ? oEmployeeData.UserFullname : oEmployeeData.UserFullname; //+ " ( " + oEmployeeData.PersonNo + " )";
+						oEmployeeData.username = $.isEmptyObject(oEmployeeData.PersNo) ? oEmployeeData.UserFullname : oEmployeeData.UserFullname; //+ " ( " + oEmployeeData.PersNo + " )";
 						oEmployeeData.isAreaManager = $.isEmptyObject(oEmployeeData.AreaManager) ? false : 'X' === oEmployeeData.AreaManager;
 						oEmployeeData.isTechnician = $.isEmptyObject(oEmployeeData.Technician) ? false : 'X' === oEmployeeData.Technician;
 						// Retrieve TimeSheet Counter

@@ -642,7 +642,7 @@ sap.ui.define([
 			};
 			oBindingInfo.sorter = [  
 			                       new sap.ui.model.Sorter("UserFullname", false, fGrouper),
-			                       new sap.ui.model.Sorter("Postgdate", false),
+			                       new sap.ui.model.Sorter("Execstart", false),
 			                       new sap.ui.model.Sorter("Execstart", false)    
 			                       ]  
 			oView.byId("orderActivityConfirmations").bindAggregation("items", oBindingInfo);
@@ -705,7 +705,7 @@ sap.ui.define([
 					};
 					oBindingInfo.sorter = [  
 					                       new sap.ui.model.Sorter("UserFullname", false, fGrouper),
-					                       new sap.ui.model.Sorter("Postgdate", false),
+					                       new sap.ui.model.Sorter("Execstart", false),
 					                       new sap.ui.model.Sorter("Execstart", false),
 					                       new sap.ui.model.Sorter('ActType', false)					                       
 					                       ];
@@ -2147,7 +2147,7 @@ sap.ui.define([
 					oModelInput.setProperty("/OtCompTypeText", "");
 				}
 				// Time conversion
-				oModelInput.setProperty("/Postgdate", Formatter.JSDateTimeToEDMDate(oModelLocal.getProperty("/Postgdate")));
+				oModelInput.setProperty("/Execstart", Formatter.JSDateTimeToEDMDate(oModelLocal.getProperty("/Execstart")));
 				oModelInput.setProperty("/Execstart", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execstart")));
 				if(oModelLocal.getProperty("/Execfinish")){
 					oModelInput.setProperty("/Execfinish", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execfinish")));
@@ -2251,7 +2251,7 @@ sap.ui.define([
 							// Replace employee with the new one and create the new confirmation
 							oDataConfirmationCreate.Status = "20";
 							// Modify date/time format
-							oDataConfirmationCreate.Postgdate  = Formatter.JSDateTimeToEDMDate(oDataConfirmation.Postgdate);
+							oDataConfirmationCreate.Execstart  = Formatter.JSDateTimeToEDMDate(oDataConfirmation.Execstart);
 							oDataConfirmationCreate.Execstart = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Execstart));
 							oDataConfirmationCreate.Execfinish   = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Execfinish));
 							// Call creation method
@@ -4336,7 +4336,7 @@ sap.ui.define([
 			ctl.OrderOperationConfirmationFragmentForEdit = false;
 			ctl.OrderOperationConfirmationFragmentForCopy = false;
 			// Date
-			oLocalModel.setProperty("/Postgdate", Formatter.getDateAtMidnight());
+			oLocalModel.setProperty("/Execstart", Formatter.getDateAtMidnight());
 
 			// Times
 			oLocalModel.setProperty("/Execstart", new Date());
@@ -4378,7 +4378,7 @@ sap.ui.define([
 					ctl.readActtype(sPathActtype);
 
 					// Date
-					oLocalModel.setProperty("/Postgdate", Formatter.EDMDateToJSObject(oData.Postgdate));
+					oLocalModel.setProperty("/Execstart", Formatter.EDMDateToJSObject(oData.Execstart));
 
 					// Times
 					oLocalModel.setProperty("/Execstart", Formatter.EDMTimeToJSObject(oData.Execstart));
@@ -4420,7 +4420,7 @@ sap.ui.define([
 					ctl.readActtype(sPathActtype);
 
 					// Date
-					oInputModel.setProperty("/Postgdate", oData.Postgdate);
+					oInputModel.setProperty("/Execstart", oData.Execstart);
 
 					//Times
 					oLocalModel.setProperty("/Execstart", Formatter.EDMTimeToJSObject(oData.Execstart));
@@ -4469,7 +4469,7 @@ sap.ui.define([
 					ctl.readActtype(sPathActtype);
 
 					// Date
-					oLocalModel.setProperty("/Postgdate", Formatter.EDMDateToJSObject(oData.Postgdate));
+					oLocalModel.setProperty("/Execstart", Formatter.EDMDateToJSObject(oData.Execstart));
 
 					// Times
 					oLocalModel.setProperty("/Execstart", Formatter.EDMTimeToJSObject(oData.Execstart));
@@ -5238,7 +5238,7 @@ sap.ui.define([
 
 			// Start and stop not allow external and only for current date
 			if ((oView.getModel("ViewModel").getProperty("/Externe") == "X") ||
-					(oView.getModel("ViewModel").getProperty("/Postgdate").getTime() != Formatter.getDateAtMidnight().getTime())){
+					(oView.getModel("ViewModel").getProperty("/Execstart").getTime() != Formatter.getDateAtMidnight().getTime())){
 				aInputs.push(sap.ui.getCore().byId("EndtimeMyWorkOrders"));
 			}
 
@@ -5290,9 +5290,9 @@ sap.ui.define([
 				value1: oConfirmationData.PersonNo
 			}); 
 			var ofilterWorkdate = new sap.ui.model.Filter({  
-				path: "Postgdate",  
+				path: "Execstart",  
 				operator: sap.ui.model.FilterOperator.EQ,  
-				value1: Formatter.XSDateToJSObject(oConfirmationData.Postgdate)
+				value1: Formatter.XSDateToJSObject(oConfirmationData.Execstart)
 			}); 
 
 			aFilters.push(ofilterEmployeenumber);
@@ -5333,7 +5333,7 @@ sap.ui.define([
 								// Collision detected
 								message = ctl.getResourceBundle().getText("timeAndMaterialEntry.collision", 
 										[oConfirmationData.UserFullname, Formatter.removeLeadingZeros(ctl.Orderid), 
-										 Formatter.DateTimeToDateString(oConfirmationData.Postgdate), 
+										 Formatter.DateTimeToDateString(oConfirmationData.Execstart), 
 										 Formatter.EDMTimeToTimeString(oConfirmationData.Execstart), Formatter.EDMTimeToTimeString(oConfirmationData.Execfinish),
 										 Formatter.removeLeadingZeros(confirmation.Orderid), 
 										 Formatter.EDMTimeToTimeString(confirmation.Execstart), Formatter.EDMTimeToTimeString(confirmation.Execfinish)

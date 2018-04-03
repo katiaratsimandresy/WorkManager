@@ -103,7 +103,7 @@
 												<Text text="{plant>Acttype}" wrapping="false" />
 												<Text text="{plant>OtCompTypeText}" wrapping="false" />
 												<Text
-													text="{path : 'plant>Postgdate', formatter:'.formatDateTimeToDateString'}"
+													text="{path : 'plant>Execstart', formatter:'.formatDateTimeToDateString'}"
 													wrapping="false" />
 												<Text
 													text="{path : 'plant>Execstart', formatter:'.formatToTimeString'}"

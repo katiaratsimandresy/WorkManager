@@ -37,7 +37,7 @@
 					<Label labelFor="WorkdateMyWorkOrders" required="true"
 						text="{i18n>oData.OrderOperationConfirmation.Workdate}" />
 					<DatePicker id="WorkdateMyWorkOrders" change="handleTimeDateChange"
-						dateValue="{ViewModel>/Postgdate}" />
+						dateValue="{ViewModel>/Execstart}" />
 
 					<!-- Start Time -->
 					<Label labelFor="StarttimeMyWorkOrders" required="true"

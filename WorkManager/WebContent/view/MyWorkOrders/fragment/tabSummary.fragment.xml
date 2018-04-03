@@ -151,7 +151,7 @@
 						<items>
 							<ColumnListItem>
 								<Text text="{plant>Activity}" />
-								<Text text="{path: 'plant>Postgdate', formatter:'.formatToDateString'}"
+								<Text text="{path: 'plant>Execstart', formatter:'.formatToDateString'}"
 									wrapping="false" />
 								<Text
 									text="{path: 'plant>Execstart', formatter:'.formatToTimeString'}"

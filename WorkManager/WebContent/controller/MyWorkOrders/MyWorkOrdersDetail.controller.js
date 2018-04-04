@@ -508,7 +508,7 @@ sap.ui.define([
 				var sType = oContext.getProperty("Fullname") || ctl.getI18nValue("timeAndMaterialEntry.STTRA");
 				return { key: sType, value: sType }
 			};
-			oBindingInfo.sorter = [ new sap.ui.model.Sorter('PersonNo', false, fGrouperPeople),
+			oBindingInfo.sorter = [ new sap.ui.model.Sorter('Employeenumber', false, fGrouperPeople),
 			                        new sap.ui.model.Sorter('StartDate', false) ];
 			oBindingInfo.templateShareable = true;
 			ctl.getView().byId("PeopleAssignmentTable").bindAggregation("items", oBindingInfo);
@@ -630,7 +630,7 @@ sap.ui.define([
 		 */
 		readConfirmations: function(){
 			var oView = ctl.getView();
-			ctl.sPathConfirmationCreate = ctl.sActivityPath+"/OrderConfirmation";
+			ctl.sPathConfirmationCreate = ctl.sActivityPath+"/OrderOperationConfirmation";
 			/* Activities table */
 			var oBindingInfo = oView.byId("orderActivityConfirmations").getBindingInfo("items");
 			oBindingInfo.model = "plant";
@@ -642,8 +642,8 @@ sap.ui.define([
 			};
 			oBindingInfo.sorter = [  
 			                       new sap.ui.model.Sorter("UserFullname", false, fGrouper),
-			                       new sap.ui.model.Sorter("Execstart", false),
-			                       new sap.ui.model.Sorter("Execstart", false)    
+			                       new sap.ui.model.Sorter("Workdate", false),
+			                       new sap.ui.model.Sorter("Starttime", false)    
 			                       ]  
 			oView.byId("orderActivityConfirmations").bindAggregation("items", oBindingInfo);
 
@@ -705,8 +705,8 @@ sap.ui.define([
 					};
 					oBindingInfo.sorter = [  
 					                       new sap.ui.model.Sorter("UserFullname", false, fGrouper),
-					                       new sap.ui.model.Sorter("Execstart", false),
-					                       new sap.ui.model.Sorter("Execstart", false),
+					                       new sap.ui.model.Sorter("Workdate", false),
+					                       new sap.ui.model.Sorter("Starttime", false),
 					                       new sap.ui.model.Sorter('ActType', false)					                       
 					                       ];
 					ctl.getView().byId("SummaryConfirmationTable").bindAggregation("items", oBindingInfo);
@@ -1740,10 +1740,10 @@ sap.ui.define([
 				var oModelInput = ctl.getView().getModel("InputModel");
 
 				var oAssignmentData = $.extend(true, {}, oModelInput.getData());
-				oAssignmentData.StartDate = Formatter.XSDateToJSObject(oAssignmentData.StartDate + oAssignmentData.Execstart);
-				oAssignmentData.EndDate = Formatter.XSDateToJSObject(oAssignmentData.EndDate + oAssignmentData.Execfinish);
-				delete oAssignmentData.Execstart;
-				delete oAssignmentData.Execfinish;
+				oAssignmentData.StartDate = Formatter.XSDateToJSObject(oAssignmentData.StartDate + oAssignmentData.Starttime);
+				oAssignmentData.EndDate = Formatter.XSDateToJSObject(oAssignmentData.EndDate + oAssignmentData.Endtime);
+				delete oAssignmentData.Starttime;
+				delete oAssignmentData.Endtime;
 				var sPath = ctl.sActivityPath+"/OrderOperationAssignment";
 				oModelWork.create( sPath, oAssignmentData, {
 					success: function(oData){
@@ -2147,13 +2147,13 @@ sap.ui.define([
 					oModelInput.setProperty("/OtCompTypeText", "");
 				}
 				// Time conversion
-				oModelInput.setProperty("/Execstart", Formatter.JSDateTimeToEDMDate(oModelLocal.getProperty("/Execstart")));
-				oModelInput.setProperty("/Execstart", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execstart")));
-				if(oModelLocal.getProperty("/Execfinish")){
-					oModelInput.setProperty("/Execfinish", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execfinish")));
+				oModelInput.setProperty("/Workdate", Formatter.JSDateTimeToEDMDate(oModelLocal.getProperty("/Workdate")));
+				oModelInput.setProperty("/Starttime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime")));
+				if(oModelLocal.getProperty("/Endtime")){
+					oModelInput.setProperty("/Endtime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Endtime")));
 					oModelInput.setProperty("/Status", "20");
 				} else {
-					oModelInput.setProperty("/Execfinish", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execstart")));
+					oModelInput.setProperty("/Endtime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime")));
 					oModelInput.setProperty("/Status", "10");
 				}
 				var oConfirmationData = $.extend(true, {}, oModelInput.getData());
@@ -2246,14 +2246,14 @@ sap.ui.define([
 							oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
 							oDataConfirmationCreate.Text = oDataConfirmation.Text;
 
-							oDataConfirmationCreate.PersonNo = oDataEmployee.PersonNo;
+							oDataConfirmationCreate.Employeenumber = oDataEmployee.PersonNo;
 							oDataConfirmationCreate.UserFullname   = oDataEmployee.UserFullname;
 							// Replace employee with the new one and create the new confirmation
 							oDataConfirmationCreate.Status = "20";
 							// Modify date/time format
-							oDataConfirmationCreate.Execstart  = Formatter.JSDateTimeToEDMDate(oDataConfirmation.Execstart);
-							oDataConfirmationCreate.Execstart = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Execstart));
-							oDataConfirmationCreate.Execfinish   = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Execfinish));
+							oDataConfirmationCreate.Workdate  = Formatter.JSDateTimeToEDMDate(oDataConfirmation.Workdate);
+							oDataConfirmationCreate.Starttime = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Starttime));
+							oDataConfirmationCreate.Endtime   = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Endtime));
 							// Call creation method
 							ctl.createConfirmation(oDataConfirmationCreate, 1);
 							delete ctl.selectedConfTab[sProperty];
@@ -2871,7 +2871,7 @@ sap.ui.define([
 		handleExpertEmployeePress: function(oEvent){
 			ctl.getView().getModel().read(oEvent.oSource.getBindingContextPath(),{
 				success: function(oData){
-					ctl.getView().getModel("InputModel").setProperty("/PersonNo", oData.PersonNo);
+					ctl.getView().getModel("InputModel").setProperty("/Employeenumber", oData.PersonNo);
 					ctl.getView().getModel("InputModel").setProperty("/Fullname", oData.UserFullname);
 					ctl.employeeNumberByWorkCenterSelect.close();
 				}
@@ -4119,7 +4119,7 @@ sap.ui.define([
 		assignEmployee: function(sPath){
 			ctl.getView().getModel().read(sPath,{
 				success: function(oData){
-					ctl.getView().getModel("InputModel").setProperty("/PersonNo", oData.PersonNo);
+					ctl.getView().getModel("InputModel").setProperty("/Employeenumber", oData.PersonNo);
 					ctl.getView().getModel("InputModel").setProperty("/UserFullname", oData.UserFullname);
 					// Keep Employee Number
 					ctl.getOwnerComponent().getModel("app").setProperty('/lastSelectedEmployee', sPath);
@@ -4294,8 +4294,8 @@ sap.ui.define([
 		 */
 		initCreateOrderOperationAssignmentFragment: function(){
 			ctl.initModels();
-			ctl.getView().getModel("InputModel").setProperty("/Execstart", "T08:00");
-			ctl.getView().getModel("InputModel").setProperty("/Execfinish", "T16:45");
+			ctl.getView().getModel("InputModel").setProperty("/Starttime", "T08:00");
+			ctl.getView().getModel("InputModel").setProperty("/Endtime", "T16:45");
 		},
 		/**
 		 * Open employee number search help
@@ -4336,11 +4336,11 @@ sap.ui.define([
 			ctl.OrderOperationConfirmationFragmentForEdit = false;
 			ctl.OrderOperationConfirmationFragmentForCopy = false;
 			// Date
-			oLocalModel.setProperty("/Execstart", Formatter.getDateAtMidnight());
+			oLocalModel.setProperty("/Workdate", Formatter.getDateAtMidnight());
 
 			// Times
-			oLocalModel.setProperty("/Execstart", new Date());
-			oLocalModel.setProperty("/Execfinish",   null);
+			oLocalModel.setProperty("/Starttime", new Date());
+			oLocalModel.setProperty("/Endtime",   null);
 
 			// By default
 			ctl.getView().getModel("ViewModel").setProperty("/ValidateConfirmationFunction", ctl.createConfirmation);
@@ -4370,7 +4370,7 @@ sap.ui.define([
 				success: function(oData){
 
 					// Employee number
-					oInputModel.setProperty("/PersonNo", oData.PersonNo);
+					oInputModel.setProperty("/Employeenumber", oData.Employeenumber);
 					oInputModel.setProperty("/UserFullname", oData.UserFullname);
 
 					// Acttype
@@ -4378,12 +4378,12 @@ sap.ui.define([
 					ctl.readActtype(sPathActtype);
 
 					// Date
-					oLocalModel.setProperty("/Execstart", Formatter.EDMDateToJSObject(oData.Execstart));
+					oLocalModel.setProperty("/Workdate", Formatter.EDMDateToJSObject(oData.Workdate));
 
 					// Times
-					oLocalModel.setProperty("/Execstart", Formatter.EDMTimeToJSObject(oData.Execstart));
-					if (oData.Execstart.ms != oData.Execfinish.ms){
-						oLocalModel.setProperty("/Execfinish",   Formatter.EDMTimeToJSObject(oData.Execfinish));
+					oLocalModel.setProperty("/Starttime", Formatter.EDMTimeToJSObject(oData.Starttime));
+					if (oData.Starttime.ms != oData.Endtime.ms){
+						oLocalModel.setProperty("/Endtime",   Formatter.EDMTimeToJSObject(oData.Endtime));
 					}
 
 					// Finale
@@ -4420,11 +4420,11 @@ sap.ui.define([
 					ctl.readActtype(sPathActtype);
 
 					// Date
-					oInputModel.setProperty("/Execstart", oData.Execstart);
+					oInputModel.setProperty("/Workdate", oData.Workdate);
 
 					//Times
-					oLocalModel.setProperty("/Execstart", Formatter.EDMTimeToJSObject(oData.Execstart));
-					oLocalModel.setProperty("/Execfinish",   Formatter.EDMTimeToJSObject(oData.Execfinish));
+					oLocalModel.setProperty("/Starttime", Formatter.EDMTimeToJSObject(oData.Starttime));
+					oLocalModel.setProperty("/Endtime",   Formatter.EDMTimeToJSObject(oData.Endtime));
 
 					// Finale
 					oInputModel.setProperty("/FinConf", oData.FinConf);
@@ -4461,7 +4461,7 @@ sap.ui.define([
 				success: function(oData){
 
 					// Employee number
-					oInputModel.setProperty("/PersonNo", oData.PersonNo);
+					oInputModel.setProperty("/Employeenumber", oData.Employeenumber);
 					oInputModel.setProperty("/UserFullname", oData.UserFullname);
 
 					// Acttype
@@ -4469,11 +4469,11 @@ sap.ui.define([
 					ctl.readActtype(sPathActtype);
 
 					// Date
-					oLocalModel.setProperty("/Execstart", Formatter.EDMDateToJSObject(oData.Execstart));
+					oLocalModel.setProperty("/Workdate", Formatter.EDMDateToJSObject(oData.Workdate));
 
 					// Times
-					oLocalModel.setProperty("/Execstart", Formatter.EDMTimeToJSObject(oData.Execstart));
-					oLocalModel.setProperty("/Execfinish",   new Date());
+					oLocalModel.setProperty("/Starttime", Formatter.EDMTimeToJSObject(oData.Starttime));
+					oLocalModel.setProperty("/Endtime",   new Date());
 
 					// Finale
 					oInputModel.setProperty("/FinConf", oData.FinConf);
@@ -4499,7 +4499,7 @@ sap.ui.define([
 			if (ctl.OrderOperationConfirmationFragmentForEdit === false){
 				sap.ui.getCore().byId("EmployeenumberMyWorkOrders").setEnabled(true);
 				// Last Employee number used
-				if (!oInputModel.getProperty("/PersonNo") && ctl.getOwnerComponent().getModel("app").getProperty('/lastSelectedEmployee')){
+				if (!oInputModel.getProperty("/Employeenumber") && ctl.getOwnerComponent().getModel("app").getProperty('/lastSelectedEmployee')){
 					ctl.assignEmployee(ctl.getOwnerComponent().getModel("app").getProperty('/lastSelectedEmployee'));
 				}
 			}
@@ -4515,7 +4515,7 @@ sap.ui.define([
 		externalConfirmationDisplay: function(){
 			var oView = ctl.getView();
 			var oLocalModel = oView.getModel("InputModel");
-			oLocalModel.setProperty("/PersonNo","");
+			oLocalModel.setProperty("/Employeenumber","");
 			oLocalModel.setProperty("/UserFullname","");
 			oLocalModel.setProperty("/Acttype","");
 			oLocalModel.setProperty("/ActtypeName","");
@@ -5238,7 +5238,7 @@ sap.ui.define([
 
 			// Start and stop not allow external and only for current date
 			if ((oView.getModel("ViewModel").getProperty("/Externe") == "X") ||
-					(oView.getModel("ViewModel").getProperty("/Execstart").getTime() != Formatter.getDateAtMidnight().getTime())){
+					(oView.getModel("ViewModel").getProperty("/Workdate").getTime() != Formatter.getDateAtMidnight().getTime())){
 				aInputs.push(sap.ui.getCore().byId("EndtimeMyWorkOrders"));
 			}
 
@@ -5253,9 +5253,9 @@ sap.ui.define([
 				}
 			});
 
-			if ( ( oModelLocal.getProperty("/Execfinish") ) &&
-					( ( Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execstart"))) && Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execstart"))).ms ) >=
-						( Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execfinish"))) && Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Execfinish"))).ms) )
+			if ( ( oModelLocal.getProperty("/Endtime") ) &&
+					( ( Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime"))) && Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime"))).ms ) >=
+						( Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Endtime"))) && Formatter.XSTimeToEDMTime(Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Endtime"))).ms) )
 			){
 				sap.ui.getCore().byId("EndtimeMyWorkOrders").setValueState(sap.ui.core.ValueState.Error);
 				incompleteInput = true;
@@ -5285,28 +5285,28 @@ sap.ui.define([
 			var aFilters = new Array();
 
 			var ofilterEmployeenumber = new sap.ui.model.Filter({  
-				path: "PersNo",  
+				path: "Employeenumber",  
 				operator: sap.ui.model.FilterOperator.EQ,  
-				value1: oConfirmationData.PersonNo
+				value1: oConfirmationData.Employeenumber
 			}); 
 			var ofilterWorkdate = new sap.ui.model.Filter({  
-				path: "Execstart",  
+				path: "Workdate",  
 				operator: sap.ui.model.FilterOperator.EQ,  
-				value1: Formatter.XSDateToJSObject(oConfirmationData.Execstart)
+				value1: Formatter.XSDateToJSObject(oConfirmationData.Workdate)
 			}); 
 
 			aFilters.push(ofilterEmployeenumber);
 			aFilters.push(ofilterWorkdate);
 
-			var sExecstart = Formatter.XSTimeToEDMTime(oConfirmationData.Execstart).ms; 
-			var sExecfinish = Formatter.XSTimeToEDMTime(oConfirmationData.Execfinish).ms; 
+			var sStarttime = Formatter.XSTimeToEDMTime(oConfirmationData.Starttime).ms; 
+			var sEndtime = Formatter.XSTimeToEDMTime(oConfirmationData.Endtime).ms; 
 
 			// Start and stop
-			if (sExecstart === sExecfinish){
-				sExecfinish = 86399000; // 1 day
+			if (sStarttime === sEndtime){
+				sEndtime = 86399000; // 1 day
 			}
 
-			if (oConfirmationData.PersonNo){ // Check collision only with Employee Number
+			if (oConfirmationData.Employeenumber){ // Check collision only with Employee Number
 				oModelWork.read("/OrderConfirmationSet", {  
 					filters: aFilters,  
 					success: function(oData, response){
@@ -5323,20 +5323,20 @@ sap.ui.define([
 								continue;
 							}
 							// Start and go
-							if ( confirmation.Execstart.ms === confirmation.Execfinish.ms ){
-								confirmation.Execfinish.ms = 86399000;
+							if ( confirmation.Starttime.ms === confirmation.Endtime.ms ){
+								confirmation.Endtime.ms = 86399000;
 							}
 
-							if ( ( confirmation.Execstart.ms < sExecstart && sExecstart < confirmation.Execfinish.ms ) ||
-									( confirmation.Execstart.ms < sExecfinish && sExecfinish < confirmation.Execfinish.ms ) ||
-									( confirmation.Execstart.ms > sExecstart && sExecfinish > confirmation.Execfinish.ms )){
+							if ( ( confirmation.Starttime.ms < sStarttime && sStarttime < confirmation.Endtime.ms ) ||
+									( confirmation.Starttime.ms < sEndtime && sEndtime < confirmation.Endtime.ms ) ||
+									( confirmation.Starttime.ms > sStarttime && sEndtime > confirmation.Endtime.ms )){
 								// Collision detected
 								message = ctl.getResourceBundle().getText("timeAndMaterialEntry.collision", 
 										[oConfirmationData.UserFullname, Formatter.removeLeadingZeros(ctl.Orderid), 
-										 Formatter.DateTimeToDateString(oConfirmationData.Execstart), 
-										 Formatter.EDMTimeToTimeString(oConfirmationData.Execstart), Formatter.EDMTimeToTimeString(oConfirmationData.Execfinish),
+										 Formatter.DateTimeToDateString(oConfirmationData.Workdate), 
+										 Formatter.EDMTimeToTimeString(oConfirmationData.Starttime), Formatter.EDMTimeToTimeString(oConfirmationData.Endtime),
 										 Formatter.removeLeadingZeros(confirmation.Orderid), 
-										 Formatter.EDMTimeToTimeString(confirmation.Execstart), Formatter.EDMTimeToTimeString(confirmation.Execfinish)
+										 Formatter.EDMTimeToTimeString(confirmation.Starttime), Formatter.EDMTimeToTimeString(confirmation.Endtime)
 										 ]);
 								sap.m.MessageToast.show(message);
 								ctl.addMessage(message, sap.ui.core.MessageType.Error);
@@ -5657,7 +5657,7 @@ sap.ui.define([
 		 * @returns{number}
 		 */
 		formatArrayCountNoOfPeople: function(value){
-			var sBefore = "PersNo='";
+			var sBefore = "Employeenumber='";
 			var sAfter = "',AssignmentKey=";
 			var counts = {};
 			for (var i = 0; i < value.length; i++) {

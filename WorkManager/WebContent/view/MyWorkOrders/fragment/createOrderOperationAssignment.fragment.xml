@@ -16,7 +16,7 @@
 						required="true" text="{i18n>oData.OrderOperationAssignment.Employeenumber}" />
 					<Input id="EmployeenumberAssignmentMyWorkOrders"
 						valueHelpOnly="true" showValueHelp="true"
-						valueHelpRequest="openEmployeenumberAssignmentSelect" value="{InputModel>/PersNo}" />
+						valueHelpRequest="openEmployeenumberAssignmentSelect" value="{InputModel>/Employeenumber}" />
 					<Text text="{InputModel>/Fullname}" />
 
 					<!-- Start Date -->
@@ -25,7 +25,7 @@
 					<DatePicker id="StartDateAssignmentMyWorkOrders" change="handleTimeDateChange"
 						displayFormat="short" valueFormat="yyyy-MM-dd" value="{InputModel>/StartDate}" />
 					<TimePicker id="StartTimeAssignmentMyWorkOrders" change="handleTimeDateChange"
-						displayFormat="HH:mm" valueFormat="THH:mm:ss" value="{InputModel>/Execstart}" />
+						displayFormat="HH:mm" valueFormat="THH:mm:ss" value="{InputModel>/Starttime}" />
 
 					<!-- End Date -->
 					<Label labelFor="EndDateAssignmentMyWorkOrders" required="true"
@@ -33,7 +33,7 @@
 					<DatePicker id="EndDateAssignmentMyWorkOrders" change="handleTimeDateChange"
 						displayFormat="short" valueFormat="yyyy-MM-dd" value="{InputModel>/EndDate}" />
 					<TimePicker id="EndTimeAssignmentMyWorkOrders" change="handleTimeDateChange"
-						displayFormat="HH:mm" valueFormat="THH:mm:ss" value="{InputModel>/Execfinish}" />
+						displayFormat="HH:mm" valueFormat="THH:mm:ss" value="{InputModel>/Endtime}" />
 
 				</f:content>
 			</f:SimpleForm>

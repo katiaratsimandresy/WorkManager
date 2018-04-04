@@ -24,7 +24,7 @@
 						text="{i18n>oData.OrderOperationConfirmation.Employeenumber}" />
 					<Input id="EmployeenumberMyWorkOrders" valueHelpOnly="true"
 						showValueHelp="true" valueHelpRequest="openEmployeenumberSelect"
-						value="{InputModel>/PersonNo}" />
+						value="{InputModel>/Employeenumber}" />
 					<Text text="{InputModel>/UserFullname}" />
 
 					<!-- Quantity -->
@@ -37,19 +37,19 @@
 					<Label labelFor="WorkdateMyWorkOrders" required="true"
 						text="{i18n>oData.OrderOperationConfirmation.Workdate}" />
 					<DatePicker id="WorkdateMyWorkOrders" change="handleTimeDateChange"
-						dateValue="{ViewModel>/Execstart}" />
+						dateValue="{ViewModel>/Workdate}" />
 
 					<!-- Start Time -->
 					<Label labelFor="StarttimeMyWorkOrders" required="true"
 						text="{i18n>oData.OrderOperationConfirmation.Starttime}" />
 					<TimePicker id="StarttimeMyWorkOrders" change="handleTimeDateChange"
-						dateValue="{ViewModel>/Execstart}" displayFormat="HH:mm" />
+						dateValue="{ViewModel>/Starttime}" displayFormat="HH:mm" />
 
 					<!-- End Time -->
 					<Label labelFor="EndtimeMyWorkOrders"
 						text="{i18n>oData.OrderOperationConfirmation.Endtime}" required="{path:'ViewModel>/Externe', formatter:'.formatFlag'}" />
 					<TimePicker id="EndtimeMyWorkOrders" change="handleTimeDateChange"
-						dateValue="{ViewModel>/Execfinish}" displayFormat="HH:mm" />
+						dateValue="{ViewModel>/Endtime}" displayFormat="HH:mm" />
 
 					<!-- Final confirmation ? -->
 					<Label labelFor="FinConfMyWorkOrders"

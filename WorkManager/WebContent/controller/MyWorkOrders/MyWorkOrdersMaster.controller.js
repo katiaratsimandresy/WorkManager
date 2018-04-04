@@ -117,7 +117,7 @@ sap.ui.define([
 				ctl.getView().getModel("ViewModel").setProperty("/MyOrders", true);
 				var aFiltersAssignment = [];
 				/* Filter with user name */
-				aFiltersAssignment.push(new sap.ui.model.Filter("Employeenumber", sap.ui.model.FilterOperator.EQ, ctl.getEmployeeData().PersNo));
+				aFiltersAssignment.push(new sap.ui.model.Filter("Employeenumber", sap.ui.model.FilterOperator.EQ, ctl.getEmployeeData().Employeenumber));
 				aFiltersAssignment.push(new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant()));
 				/* Controller filters */
 				ctl.aOrderFilter = aFilters;

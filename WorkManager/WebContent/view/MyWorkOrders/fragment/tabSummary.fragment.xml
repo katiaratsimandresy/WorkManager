@@ -151,15 +151,15 @@
 						<items>
 							<ColumnListItem>
 								<Text text="{plant>Activity}" />
-								<Text text="{path: 'plant>Execstart', formatter:'.formatToDateString'}"
+								<Text text="{path: 'plant>Workdate', formatter:'.formatToDateString'}"
 									wrapping="false" />
 								<Text
-									text="{path: 'plant>Execstart', formatter:'.formatToTimeString'}"
+									text="{path: 'plant>Starttime', formatter:'.formatToTimeString'}"
 									wrapping="false" />
 								<Text
 									text="{
 											parts: [
-												{path : 'plant>Execfinish'},
+												{path : 'plant>Endtime'},
 												{path : 'plant>Status'}
 											], 
 											formatter:'.formatConfirmationEndtime'

@@ -133,6 +133,7 @@
 											<headerToolbar>
 												<OverflowToolbar>
 													<ToolbarSpacer />
+									<!-- BUTTON CONFIRMATION -->
 													<Button type="Emphasized" icon="sap-icon://create-entry-time"
 														text="{i18n>timeAndMaterialEntry.detail.orderConfirmation.create}"
 														press="handleCreateConfirmation" />

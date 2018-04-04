@@ -2141,11 +2141,11 @@ sap.ui.define([
 				oModelInput.setProperty("/Orderid", ctl.Orderid);
 				oModelInput.setProperty("/Activity", ctl.Activity);
 
-				if (sap.ui.getCore().byId("OtCompTypeMyWorkOrders").getItemByKey(oModelInput.getProperty("/OtCompType"))){
-					oModelInput.setProperty("/OtCompTypeText", sap.ui.getCore().byId("OtCompTypeMyWorkOrders").getItemByKey(oModelInput.getProperty("/OtCompType")).getText());
-				} else {
+				//if (sap.ui.getCore().byId("OtCompTypeMyWorkOrders").getItemByKey(oModelInput.getProperty("/OtCompType"))){
+					//oModelInput.setProperty("/OtCompTypeText", sap.ui.getCore().byId("OtCompTypeMyWorkOrders").getItemByKey(oModelInput.getProperty("/OtCompType")).getText());
+				//} else {
 					//oModelInput.setProperty("/OtCompTypeText", "");
-				}
+				//}
 				// Time conversion
 				oModelInput.setProperty("/Workdate", Formatter.JSDateTimeToEDMDate(oModelLocal.getProperty("/Workdate")));
 				oModelInput.setProperty("/Starttime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime")));
@@ -2237,12 +2237,13 @@ sap.ui.define([
 					ctl.getView().getModel("plant").read(sProperty,{
 						success: function(oDataConfirmation){
 							var oDataConfirmationCreate = {};
+							
 							// Replace employee with the new one and create the new confirmation
 							//oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
 							oDataConfirmationCreate.Acttype = oDataConfirmation.Acttype;
 							//oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
 							//oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
-							//oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
+							oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
 							//oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
 							oDataConfirmationCreate.Text = oDataConfirmation.Text;
 
@@ -3516,11 +3517,11 @@ sap.ui.define([
 		/*   SEARCH HELP														*/
 		/************************************************************************/
 		/**
-		 * Search for a functional location using superior node and workcenter
+		 * Search for a functional location using superior node and planplant
 		 * @param{string} workcenter: Work center
 		 * @param{string} parent: parent node in functional location hierarchy
 		 */
-		searchFunctionalLocation: function (workcenter, parent) {
+		searchFunctionalLocation: function (planplant, parent) {
 			/* Research of function functional locations for matchcode, into list */
 
 			/* Deletion of existing items */
@@ -3528,10 +3529,10 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, workcenter);
+			var oFilterPlanPlant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, planplant);
 			var oFilterSupFuncLoc = new sap.ui.model.Filter("Supfloc", sap.ui.model.FilterOperator.EQ, parent);
 			if (!window.cordova) {
-				aFilters.push(oFilterWorkCenter);
+				aFilters.push(oFilterPlanPlant);
 			}
 			aFilters.push(oFilterSupFuncLoc);
 
@@ -3725,7 +3726,7 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
+			var oFilterPlanPlant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oFuncLocFilter = new sap.ui.model.Filter("Funcloc", sap.ui.model.FilterOperator.StartsWith, oView.byId("FunctLoc").getValue());
 			if (filterValue != "") {
 				/* Only if search field is not empty */
@@ -3752,7 +3753,7 @@ sap.ui.define([
 					aFilters.push(oDescriptFilter);
 				}
 			}
-			aFilters.push(oFilterWorkCenter);
+			aFilters.push(oFilterPlanPlant);
 			aFilters.push(oFuncLocFilter);
 
 			/* Search and bind data */
@@ -4372,7 +4373,7 @@ sap.ui.define([
 
 					// Employee number
 					oInputModel.setProperty("/Employeenumber", oData.Employeenumber);
-					oInputModel.setProperty("/UserFullname", oData.UserFullname);
+					//oInputModel.setProperty("/UserFullname", oData.UserFullname);
 
 					// Acttype
 					var sPathActtype = "/ActTypeSet(CoArea='"+oData.CoArea+"',Acttype='"+oData.Acttype+"')";
@@ -4388,7 +4389,7 @@ sap.ui.define([
 					}
 
 					// Finale
-					oInputModel.setProperty("/FinConf", oData.FinConf);
+					//oInputModel.setProperty("/FinConf", oData.FinConf);
 
 					// Compensation mode
 					oInputModel.setProperty("/OtCompType", oData.OtCompType);
@@ -4477,7 +4478,7 @@ sap.ui.define([
 					oLocalModel.setProperty("/Endtime",   new Date());
 
 					// Finale
-					oInputModel.setProperty("/FinConf", oData.FinConf);
+					//oInputModel.setProperty("/FinConf", oData.FinConf);
 
 					// Compensation mode
 					oInputModel.setProperty("/OtCompType", oData.OtCompType);

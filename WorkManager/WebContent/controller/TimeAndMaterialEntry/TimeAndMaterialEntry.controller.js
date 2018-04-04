@@ -208,17 +208,17 @@ sap.ui.define([
 		 */
 		loadConfirmations: function(sPath){
 			var oView = ctl.getView();
-			ctl.sPathConfirmationCreate = sPath+"/OrderConfirmation";
+			ctl.sPathConfirmationCreate = sPath+"/OrderOperationConfirmation2";
 			/* Activities table */
 			var oBindingInfo = oView.byId("orderActivityConfirmations").getBindingInfo("items");
-			oBindingInfo.path = sPath+"/OrderConfirmation";
+			oBindingInfo.path = sPath+"/OrderOperationConfirmation2";
 			oBindingInfo.filters = [];
 			var fGrouper = function(oContext) {
 				var sType = oContext.getProperty("UserFullname") || ctl.getI18nValue("timeAndMaterialEntry.STTRA");
 				return { key: sType, value: sType }
 			};
 			oBindingInfo.sorter = [  
-			                       new sap.ui.model.Sorter("UserFullname", false, fGrouper),
+			                       new sap.ui.model.Sorter("Employeenumber", false, fGrouper),
 			                       new sap.ui.model.Sorter("Workdate", false),
 			                       new sap.ui.model.Sorter("Starttime", false)    
 			                       ]  
@@ -327,20 +327,20 @@ sap.ui.define([
 				// Reference to order/Activity
 				oModelInput.setProperty("/Orderid", ctl.Orderid);
 				oModelInput.setProperty("/Activity", ctl.Activity);
-				if (sap.ui.getCore().byId("OtCompType").getItemByKey(oModelInput.getProperty("/OtCompType"))){
-					oModelInput.setProperty("/OtCompTypeText", sap.ui.getCore().byId("OtCompType").getItemByKey(oModelInput.getProperty("/OtCompType")).getText());
-				} else {
-					oModelInput.setProperty("/OtCompTypeText", "");
-				}
+				//if (sap.ui.getCore().byId("OtCompType").getItemByKey(oModelInput.getProperty("/OtCompType"))){
+					//oModelInput.setProperty("/OtCompTypeText", sap.ui.getCore().byId("OtCompType").getItemByKey(oModelInput.getProperty("/OtCompType")).getText());
+				//} else {
+					//oModelInput.setProperty("/OtCompTypeText", "");
+				//}
 				// Time conversion
 				oModelInput.setProperty("/Workdate", Formatter.JSDateTimeToEDMDate(oModelLocal.getProperty("/Wordate")));
 				oModelInput.setProperty("/Starttime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime")));
 				if(oModelLocal.getProperty("/Endtime")){
 					oModelInput.setProperty("/Endtime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Endtime")));
-					oModelInput.setProperty("/Status", "20");
+					//oModelInput.setProperty("/Status", "20");
 				} else {
 					oModelInput.setProperty("/Endtime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime")));
-					oModelInput.setProperty("/Status", "10");
+					//oModelInput.setProperty("/Status", "10");
 				}
 				var oConfirmationData = $.extend(true, {}, oModelInput.getData());
 
@@ -424,18 +424,18 @@ sap.ui.define([
 						success: function(oDataConfirmation){
 							var oDataConfirmationCreate = {};
 							// Replace employee with the new one and create the new confirmation
-							oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
+							//oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
 							oDataConfirmationCreate.Acttype = oDataConfirmation.Acttype;
-							oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
-							oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
+							//oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
+							//oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
 							oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
-							oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
+							//oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
 							oDataConfirmationCreate.Text = oDataConfirmation.Text;
 
 							oDataConfirmationCreate.Employeenumber = oDataEmployee.Employeenumber;
 							oDataConfirmationCreate.UserFullname   = oDataEmployee.UserFullname;
 							// Replace employee with the new one and create the new confirmation
-							oDataConfirmationCreate.Status = "20";
+							//oDataConfirmationCreate.Status = "20";
 							// Modify date/time format
 							oDataConfirmationCreate.Workdate  = Formatter.JSDateTimeToEDMDate(oDataConfirmation.Workdate);
 							oDataConfirmationCreate.Starttime = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Starttime));
@@ -1075,7 +1075,7 @@ sap.ui.define([
 					}
 
 					// Finale
-					oInputModel.setProperty("/FinConf", oData.FinConf);
+					//oInputModel.setProperty("/FinConf", oData.FinConf);
 
 					// Compensation mode
 					oInputModel.setProperty("/OtCompType", oData.OtCompType);
@@ -1167,7 +1167,7 @@ sap.ui.define([
 					oLocalModel.setProperty("/Endtime",   new Date());
 
 					// Finale
-					oInputModel.setProperty("/FinConf", oData.FinConf);
+					//oInputModel.setProperty("/FinConf", oData.FinConf);
 
 					// Compensation mode
 					oInputModel.setProperty("/OtCompType", oData.OtCompType);

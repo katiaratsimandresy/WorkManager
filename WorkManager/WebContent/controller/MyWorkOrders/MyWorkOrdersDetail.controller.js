@@ -630,7 +630,7 @@ sap.ui.define([
 		 */
 		readConfirmations: function(){
 			var oView = ctl.getView();
-			ctl.sPathConfirmationCreate = ctl.sActivityPath+"/OrderOperationConfirmation";
+			ctl.sPathConfirmationCreate = ctl.sActivityPath+"/OrderConfirmation";
 			/* Activities table */
 			var oBindingInfo = oView.byId("orderActivityConfirmations").getBindingInfo("items");
 			oBindingInfo.model = "plant";
@@ -2144,17 +2144,17 @@ sap.ui.define([
 				if (sap.ui.getCore().byId("OtCompTypeMyWorkOrders").getItemByKey(oModelInput.getProperty("/OtCompType"))){
 					oModelInput.setProperty("/OtCompTypeText", sap.ui.getCore().byId("OtCompTypeMyWorkOrders").getItemByKey(oModelInput.getProperty("/OtCompType")).getText());
 				} else {
-					oModelInput.setProperty("/OtCompTypeText", "");
+					//oModelInput.setProperty("/OtCompTypeText", "");
 				}
 				// Time conversion
 				oModelInput.setProperty("/Workdate", Formatter.JSDateTimeToEDMDate(oModelLocal.getProperty("/Workdate")));
 				oModelInput.setProperty("/Starttime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime")));
 				if(oModelLocal.getProperty("/Endtime")){
 					oModelInput.setProperty("/Endtime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Endtime")));
-					oModelInput.setProperty("/Status", "20");
+					//oModelInput.setProperty("/Status", "20");
 				} else {
 					oModelInput.setProperty("/Endtime", Formatter.JSDateTimeToEDMTime(oModelLocal.getProperty("/Starttime")));
-					oModelInput.setProperty("/Status", "10");
+					//oModelInput.setProperty("/Status", "10");
 				}
 				var oConfirmationData = $.extend(true, {}, oModelInput.getData());
 
@@ -2238,7 +2238,7 @@ sap.ui.define([
 						success: function(oDataConfirmation){
 							var oDataConfirmationCreate = {};
 							// Replace employee with the new one and create the new confirmation
-							oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
+							//oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
 							oDataConfirmationCreate.Acttype = oDataConfirmation.Acttype;
 							oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
 							oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;

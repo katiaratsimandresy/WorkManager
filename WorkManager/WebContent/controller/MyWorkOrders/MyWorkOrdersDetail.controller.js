@@ -431,9 +431,9 @@ sap.ui.define([
 
 			/* Filters' definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
+			var oFilterPlanplant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oFilterFuncLoc = new sap.ui.model.Filter("FunctLoc", sap.ui.model.FilterOperator.StartsWith, sFuncLocSearchKey);
-			aFilters.push(oFilterWorkCenter); 
+			aFilters.push(oFilterPlanplant); 
 			aFilters.push(oFilterFuncLoc);
 			// Date
 			var oDate = new Date();
@@ -2240,16 +2240,17 @@ sap.ui.define([
 							// Replace employee with the new one and create the new confirmation
 							//oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
 							oDataConfirmationCreate.Acttype = oDataConfirmation.Acttype;
-							oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
-							oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
-							oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
-							oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
+							//oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
+							//oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
+							//oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
+							//oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
 							oDataConfirmationCreate.Text = oDataConfirmation.Text;
 
 							oDataConfirmationCreate.Employeenumber = oDataEmployee.PersonNo;
-							oDataConfirmationCreate.UserFullname   = oDataEmployee.UserFullname;
+							//oDataConfirmationCreate.UserFullname   = oDataEmployee.UserFullname;
+							
 							// Replace employee with the new one and create the new confirmation
-							oDataConfirmationCreate.Status = "20";
+							//oDataConfirmationCreate.Status = "20";
 							// Modify date/time format
 							oDataConfirmationCreate.Workdate  = Formatter.JSDateTimeToEDMDate(oDataConfirmation.Workdate);
 							oDataConfirmationCreate.Starttime = Formatter.JSDateTimeToEDMTime(Formatter.EDMTimeToJSObject(oDataConfirmation.Starttime));

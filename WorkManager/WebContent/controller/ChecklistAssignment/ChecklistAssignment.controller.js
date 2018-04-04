@@ -90,7 +90,7 @@ sap.ui.define([
 			ctl.oSearchOptions.filters = {};
 			ctl.oSearchOptions.filters.InProcess  = new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, ' ');
 			ctl.oSearchOptions.filters.Complete   = new sap.ui.model.Filter("Complete",  sap.ui.model.FilterOperator.EQ, ' ');
-			ctl.oSearchOptions.filters.MnWkCtr    = new sap.ui.model.Filter("MnWkCtr",   sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
+			ctl.oSearchOptions.filters.Planplant    = new sap.ui.model.Filter("Planplant",   sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			ctl.oSearchOptions.filters.OrderType  = new sap.ui.model.Filter("OrderType", sap.ui.model.FilterOperator.EQ, 'ENS1');
 			// String query
 			ctl.oSearchOptions.searchString = "";
@@ -203,7 +203,7 @@ sap.ui.define([
 			var aFiltersMain = [];
 			var oOrderTypeFilter  = ctl.oSearchOptions.filters.OrderType;
 			var oCompleteFilter   = ctl.oSearchOptions.filters.Complete;
-			var oPlanPlantFilter = ctl.oSearchOptions.filters.MnWkCtr;
+			var oPlanPlantFilter = ctl.oSearchOptions.filters.Planplant;
 			var oOrderidFilter    = new sap.ui.model.Filter("Orderid",   sap.ui.model.FilterOperator.Contains, ctl.oSearchOptions.searchString);
 			var oFunctLocFilter   = new sap.ui.model.Filter("FunctLoc",  sap.ui.model.FilterOperator.Contains, ctl.oSearchOptions.searchString);
 			

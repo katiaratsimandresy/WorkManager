@@ -97,10 +97,10 @@ sap.ui.define([
 
 			/* Filters definition */
 			var aFilters = [];
-			var oFilterWorkCenter = new sap.ui.model.Filter("MnWkCtr", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
+			var oFilterPlanplant = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, ctl.getPlanPlant());
 			var oFilterComplete = new sap.ui.model.Filter("Complete", sap.ui.model.FilterOperator.EQ, "");
 			var oFilterInProcess = new sap.ui.model.Filter("InProcess", sap.ui.model.FilterOperator.EQ, "X");
-			aFilters.push(oFilterWorkCenter);
+			aFilters.push(oFilterPlanplant);
 			aFilters.push(oFilterComplete);
 			aFilters.push(oFilterInProcess);
 

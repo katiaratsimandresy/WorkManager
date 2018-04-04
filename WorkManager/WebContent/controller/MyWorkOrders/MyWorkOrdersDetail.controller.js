@@ -630,7 +630,7 @@ sap.ui.define([
 		 */
 		readConfirmations: function(){
 			var oView = ctl.getView();
-			ctl.sPathConfirmationCreate = ctl.sActivityPath+"/OrderConfirmation";
+			ctl.sPathConfirmationCreate = ctl.sActivityPath+"/OrderOperationConfirmation2";
 			/* Activities table */
 			var oBindingInfo = oView.byId("orderActivityConfirmations").getBindingInfo("items");
 			oBindingInfo.model = "plant";

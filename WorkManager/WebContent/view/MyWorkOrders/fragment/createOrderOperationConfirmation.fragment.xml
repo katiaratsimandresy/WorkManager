@@ -15,7 +15,7 @@
 						text="{i18n>oData.OrderOperationConfirmation.Acttype}" />
 					<Input id="ActtypeMyWorkOrders" valueHelpOnly="true"
 						showValueHelp="true" valueHelpRequest="openActivityTypeSelect"
-						value="{InputModel>/Acttype}" />
+						value="{InputModel>/ActType}" />
 					<Text text="{InputModel>/ActtypeName}" />
 
 					<!-- Technician/engineer, only for internal -->

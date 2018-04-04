@@ -785,7 +785,7 @@ sap.ui.define([
 					}
 
 					// Manage screen Model
-					oInputModel.setProperty("/Acttype", oData.Acttype);
+					oInputModel.setProperty("/ActType", oData.Acttype);
 					oInputModel.setProperty("/CoArea", oData.CoArea);
 					oInputModel.setProperty("/ActtypeName", oData.Name);
 
@@ -2157,6 +2157,9 @@ sap.ui.define([
 					//oModelInput.setProperty("/Status", "10");
 				}
 				var oConfirmationData = $.extend(true, {}, oModelInput.getData());
+				delete oConfirmationData.OtCompType;
+				delete oConfirmationData.CoArea;
+				delete oConfirmationData.ActtypeName;
 
 				var fFunction = oModelLocal.getProperty("/ValidateConfirmationFunction");
 				fFunction(oConfirmationData, cpt);
@@ -2240,10 +2243,10 @@ sap.ui.define([
 							
 							// Replace employee with the new one and create the new confirmation
 							//oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
-							oDataConfirmationCreate.Acttype = oDataConfirmation.Acttype;
+							oDataConfirmationCreate.ActType = oDataConfirmation.ActType;
 							//oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
 							//oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
-							oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
+							//oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
 							//oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
 							oDataConfirmationCreate.Text = oDataConfirmation.Text;
 
@@ -4392,7 +4395,7 @@ sap.ui.define([
 					//oInputModel.setProperty("/FinConf", oData.FinConf);
 
 					// Compensation mode
-					oInputModel.setProperty("/OtCompType", oData.OtCompType);
+					//oInputModel.setProperty("/OtCompType", oData.OtCompType);
 
 					// Commentaire
 					oInputModel.setProperty("/Text", oData.Text);
@@ -4432,7 +4435,7 @@ sap.ui.define([
 					oInputModel.setProperty("/FinConf", oData.FinConf);
 
 					// Compensation mode
-					oInputModel.setProperty("/OtCompType", oData.OtCompType);
+					//oInputModel.setProperty("/OtCompType", oData.OtCompType);
 
 					// Commentaire
 					oInputModel.setProperty("/Text", oData.Text);
@@ -4481,7 +4484,7 @@ sap.ui.define([
 					//oInputModel.setProperty("/FinConf", oData.FinConf);
 
 					// Compensation mode
-					oInputModel.setProperty("/OtCompType", oData.OtCompType);
+					//oInputModel.setProperty("/OtCompType", oData.OtCompType);
 
 					// Commentaire
 					oInputModel.setProperty("/Text", oData.Text);
@@ -4519,7 +4522,7 @@ sap.ui.define([
 			var oLocalModel = oView.getModel("InputModel");
 			oLocalModel.setProperty("/Employeenumber","");
 			oLocalModel.setProperty("/UserFullname","");
-			oLocalModel.setProperty("/Acttype","");
+			oLocalModel.setProperty("/ActType","");
 			oLocalModel.setProperty("/ActtypeName","");
 
 			if (ctl.OrderOperationConfirmationFragmentForEdit === false){

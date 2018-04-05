@@ -271,7 +271,7 @@ sap.ui.define([
 					// Manage screen Model
 					oInputModel.setProperty("/ActType", oData.Acttype);
 					oInputModel.setProperty("/CoArea", oData.CoArea);
-					oInputModel.setProperty("/ActtypeName", oData.ActtypeName);
+					oInputModel.setProperty("/ActtypeName", oData.Name);
 
 				},
 				error: ctl.oDataCallbackFail

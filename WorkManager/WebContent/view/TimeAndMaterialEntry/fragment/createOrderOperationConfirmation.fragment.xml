@@ -14,7 +14,7 @@
 					<Label labelFor="Acttype" required="true"
 						text="{i18n>oData.OrderOperationConfirmation.Acttype}" />
 					<Input id="Acttype" valueHelpOnly="true" showValueHelp="true"
-						valueHelpRequest="openActivityTypeSelect" value="{CreateConfirmation>/Acttype}" />
+						valueHelpRequest="openActivityTypeSelect" value="{CreateConfirmation>/ActType}" />
 					<Text text="{CreateConfirmation>/ActtypeName}" />
 
 					<!-- Technician/engineer, only for internal -->

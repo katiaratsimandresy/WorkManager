@@ -269,9 +269,9 @@ sap.ui.define([
 					}
 
 					// Manage screen Model
-					oInputModel.setProperty("/Acttype", oData.Acttype);
+					oInputModel.setProperty("/ActType", oData.Acttype);
 					oInputModel.setProperty("/CoArea", oData.CoArea);
-					oInputModel.setProperty("/ActtypeName", oData.Name);
+					oInputModel.setProperty("/ActtypeName", oData.ActtypeName);
 
 				},
 				error: ctl.oDataCallbackFail
@@ -428,14 +428,14 @@ sap.ui.define([
 							var oDataConfirmationCreate = {};
 							// Replace employee with the new one and create the new confirmation
 							//oDataConfirmationCreate.CoArea = oDataConfirmation.CoArea;
-							oDataConfirmationCreate.Acttype = oDataConfirmation.Acttype;
+							oDataConfirmationCreate.ActType = oDataConfirmation.ActType;
 							//oDataConfirmationCreate.ActtypeName = oDataConfirmation.ActtypeName;
 							//oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
 							//oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
 							//oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
 							oDataConfirmationCreate.Text = oDataConfirmation.Text;
 
-							oDataConfirmationCreate.Employeenumber = oDataEmployee.Employeenumber;
+							oDataConfirmationCreate.Employeenumber = oDataEmployee.PersonNo;
 							oDataConfirmationCreate.UserFullname   = oDataEmployee.UserFullname;
 							// Replace employee with the new one and create the new confirmation
 							//oDataConfirmationCreate.Status = "20";
@@ -1308,7 +1308,7 @@ sap.ui.define([
 						sFilterValue
 				);
 				var oEmployeenumberFilter = new sap.ui.model.Filter(
-						"Employeenumber",
+						"PersonNo",
 						sap.ui.model.FilterOperator.Contains,
 						sFilterValue
 				);
@@ -1355,7 +1355,7 @@ sap.ui.define([
 		assignEmployee: function(sPath){
 			ctl.getView().getModel().read(sPath,{
 				success: function(oData){
-					ctl.getView().getModel("CreateConfirmation").setProperty("/Employeenumber", oData.Employeenumber);
+					ctl.getView().getModel("CreateConfirmation").setProperty("/Employeenumber", oData.PersonNo);
 					ctl.getView().getModel("CreateConfirmation").setProperty("/UserFullname", oData.UserFullname);
 					// Keep Employee Number
 					ctl.getOwnerComponent().getModel("app").setProperty('/lastSelectedEmployee', sPath);

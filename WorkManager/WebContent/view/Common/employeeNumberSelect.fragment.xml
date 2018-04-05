@@ -6,10 +6,10 @@
 
 		<content>
 			<Select width="100%"
-				items="{path: '/WorkCenterSet', sorters: [{path: 'Planplant'}]}"
+				items="{path: '/WorkCenterSet', sorters: [{path: 'Plant'}]}"
 				selectedKey="{ViewModel>/Planplant}" change="handlePlanplantSelectChange">
 				<items>
-					<core:Item text="{Planplant} - {WorkCtrTxt}" key="{Planplant}" />
+					<core:Item text="{Plant} - {WorkCtrTxt}" key="{Plant}" />
 				</items>
 			</Select>
 			<SearchField search="handleSearchEmployeenumber"

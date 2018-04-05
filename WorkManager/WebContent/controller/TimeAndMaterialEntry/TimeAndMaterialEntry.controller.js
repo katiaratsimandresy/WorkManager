@@ -1299,7 +1299,7 @@ sap.ui.define([
 		searchEmployeenumber: function(sPlanPlant, sFilterValue){
 			var aFilters = [];
 
-			var oPlanPlantFilter = new sap.ui.model.Filter("Planplant", sap.ui.model.FilterOperator.EQ, sPlanPlant);
+			var oPlanPlantFilter = new sap.ui.model.Filter("Plant", sap.ui.model.FilterOperator.EQ, sPlanPlant);
 			if (sFilterValue && sFilterValue != "") {
 				/* Only if search field is not empty */
 				var oUserFullnameFilter = new sap.ui.model.Filter(

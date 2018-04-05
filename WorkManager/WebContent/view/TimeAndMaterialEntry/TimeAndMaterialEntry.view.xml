@@ -234,7 +234,7 @@
 														}" />
 													<Button icon="sap-icon://delete" press="submitConfirmationDelete"
 														type="Transparent"
-														visible="{path : 'plant>Status', formatter:'.confirmationIsChangeable'}" />
+														visible="true" />
 													<FlexBox direction="Column">
 														<Button icon="sap-icon://duplicate" press="handleCopyConfirmations"
 															type="Transparent"

@@ -134,7 +134,7 @@
 									<!-- BUTTON DELETE -->
 												<Button icon="sap-icon://delete" press="submitConfirmationDelete"
 													type="Transparent"
-													visible="{path : 'plant>Status', formatter:'.confirmationIsChangeable'}" />
+													visible="true" />
 													
 									<!-- BUTTON COPY -->
 												<FlexBox direction="Column">

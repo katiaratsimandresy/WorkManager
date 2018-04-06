@@ -28,9 +28,9 @@
 //    var folderSharedDoc = "Shared Documents";
     
 //  For Production
-    var sharePointServerURL = "http://teamsite.eu.edfencorp.net";
-    var sharePointURL = sharePointServerURL + "/collab/eens";
-    var sharePointURLSharedDoc = sharePointURL + "/Manufacturers%20documents";
+    var sharePointServerURL = "https://edfrenew.sharepoint.com/teams/epc/SHawkins/PR0036";
+    var sharePointURL = sharePointServerURL + "/TPOC%20Specifications/Forms/AllItems.aspx";
+    var sharePointURLSharedDoc = sharePointURL + "?viewpath=%2Fteams%2Fepc%2FSHawkins%2FPR0036%2FTPOC%20Documents%2FForms%2FAllItems.aspx";
     var folderSharedDoc = "Manufacturers documents";
 	
     function getSomething(filesAlsoLocal, serverReleativeUrl, folder) {

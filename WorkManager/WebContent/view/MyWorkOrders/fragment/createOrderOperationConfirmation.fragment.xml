@@ -72,7 +72,7 @@
 					<!-- Comment -->
 					<Label labelFor="TextMyWorkOrders"
 						text="{i18n>oData.OrderOperationConfirmation.Text}" />
-					<TextArea id="TextMyWorkOrders" value="{InputModel>/Text}"
+					<TextArea id="TextMyWorkOrders" value="{InputModel>/ConfText}"
 						rows="50" />
 
 				</f:content>

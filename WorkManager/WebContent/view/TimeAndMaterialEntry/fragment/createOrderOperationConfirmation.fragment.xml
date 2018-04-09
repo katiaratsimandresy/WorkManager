@@ -71,7 +71,7 @@
 					<!-- Comment -->
 					<Label labelFor="Text"
 						text="{i18n>oData.OrderOperationConfirmation.Text}" />
-					<TextArea id="Text" value="{CreateConfirmation>/Text}"
+					<TextArea id="Text" value="{CreateConfirmation>/ConfText}"
 						rows="50" />
 
 				</f:content>

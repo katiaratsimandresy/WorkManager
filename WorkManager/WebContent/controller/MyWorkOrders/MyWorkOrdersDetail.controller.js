@@ -2248,7 +2248,7 @@ sap.ui.define([
 							//oDataConfirmationCreate.FinConf = oDataConfirmation.FinConf;
 							//oDataConfirmationCreate.OtCompType = oDataConfirmation.OtCompType;
 							//oDataConfirmationCreate.OtCompTypeText = oDataConfirmation.OtCompTypeText;
-							oDataConfirmationCreate.Text = oDataConfirmation.Text;
+							oDataConfirmationCreate.ConfText = oDataConfirmation.ConfText;
 
 							oDataConfirmationCreate.Employeenumber = oDataEmployee.PersonNo;
 							//oDataConfirmationCreate.UserFullname   = oDataEmployee.UserFullname;
@@ -3452,7 +3452,7 @@ sap.ui.define([
 		handleConfirmationPress: function(oEvent){
 			var dialog = new sap.m.Dialog({
 				title: ctl.getI18nValue("oData.OrderOperationConfirmation.Text"),
-				content: new sap.m.Text({text:oEvent.getSource().getBindingContext("plant").getProperty("Text")}),
+				content: new sap.m.Text({text:oEvent.getSource().getBindingContext("plant").getProperty("ConfText")}),
 				beginButton: new sap.m.Button({
 					text: ctl.getI18nValue("common.frag.button.close"),
 					press: function () {
@@ -4398,7 +4398,7 @@ sap.ui.define([
 					//oInputModel.setProperty("/OtCompType", oData.OtCompType);
 
 					// Commentaire
-					oInputModel.setProperty("/Text", oData.Text);
+					oInputModel.setProperty("/ConfText", oData.ConfText);
 
 				}
 			})
@@ -4438,7 +4438,7 @@ sap.ui.define([
 					//oInputModel.setProperty("/OtCompType", oData.OtCompType);
 
 					// Commentaire
-					oInputModel.setProperty("/Text", oData.Text);
+					oInputModel.setProperty("/ConfText", oData.ConfText);
 
 					// Opening of Employee number search help
 					ctl.openEmployeenumberSelect();
@@ -4487,7 +4487,7 @@ sap.ui.define([
 					//oInputModel.setProperty("/OtCompType", oData.OtCompType);
 
 					// Commentaire
-					oInputModel.setProperty("/Text", oData.Text);
+					oInputModel.setProperty("/ConfText", oData.ConfText);
 
 				}
 			})

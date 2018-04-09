@@ -165,7 +165,7 @@
 											formatter:'.formatConfirmationEndtime'
 										}"
 									wrapping="false" />
-								<Text text="{plant>Text}" />
+								<Text text="{plant>ConfText}" />
 								<CheckBox selected="{path : 'plant>FinConf', formatter:'.formatFlag'}"
 									enabled="false" />
 							</ColumnListItem>
